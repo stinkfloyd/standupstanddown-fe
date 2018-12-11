@@ -2,6 +2,10 @@
 
 > Vue.js frontend for the Stand Up Scrum App 
 
+## Vue-Bootstrap
+
+[Vue-Bootstrap Docs](https://bootstrap-vue.js.org/docs/components/)
+
 ## Build Setup
 
 ``` bash

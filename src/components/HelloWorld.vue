@@ -1,7 +1,8 @@
 <template>
   <div class="hello">
     <h1>Stand Up!</h1>
-    <p>Sponsored by Ludacris 🍾</p>
+
+     <b-alert show>Sponsored by Ludacris 🍾</b-alert>
   </div>
 </template>
 
