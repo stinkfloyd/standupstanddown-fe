@@ -22,8 +22,8 @@ new Vue({
     teams: TeamsStore.data,
   },
   methods: {
-    mounted(){
+    mounted() {
       console.log("mounted")
     },
-  }
+  },
 })

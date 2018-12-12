@@ -4,15 +4,22 @@ import Home from '../components/Home.vue'
 import SignUp from '../components/SignUp.vue'
 import Profile from '../components/Profile.vue'
 import Sprint from '../components/Sprint.vue'
+import NotFound from '../components/error-pages/NotFound.vue'
 
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
       name: 'Home',
       component: Home,
+    },
+    {
+      path: '*',
+      name: 'NotFound',
+      component: NotFound,
     },
     {
       path: '/sign-up',
