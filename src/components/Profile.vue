@@ -3,36 +3,51 @@
     <p>Github username, firstname, lastname</p>
      <!-- <b-alert show>Show teams and basic github info back</b-alert> -->
      <div class="teamFields">Create a Team:
-      <b-form inline>
-        <label for="Name"  value="name"/>
-        <b-input>Team</b-input>
-      
+      <b-form :info="'info'" @submit="addTeam" inline>
+        <label for="teamName"  value="name"/>
+        <b-input name="teamName">Team</b-input>
 
-      <b-button class="teamBtn" variant="dark">+</b-button>
+
+      <b-button type="submit" class="teamBtn" variant="dark" >+</b-button>
     </b-form>
     </div>
  <div class="teamFields">Join a Team:
      <b-form inline>
-      
+
         <label for="Team Name" value="name"/>
         <b-input>Team</b-input>
 
       <b-button class="teamBtn" variant="dark">+</b-button>
-     
+
     </b-form>
      </div>
-     
+
   </div>
 </template>
 
 /*post a new team req takes a name and creator_id*/
 
 <script>
+import TeamsStore from "../stores/TeamsStore"
+console.log("TeamStore.data: ", TeamsStore.data)
+
+
+
 export default {
   name: 'Profile',
   data () {
     return {
-     
+      TeamsStore: TeamsStore.data
+    }
+  },
+  methods: {
+    testclick: function (event){
+      console.log("click")
+    },
+    addTeam: function (event){
+      event.preventDefault()
+      console.log("event.target", event.target[0].value)
+      TeamsStore.methods.createTeam(event.target[0].value)
     }
   }
 }
