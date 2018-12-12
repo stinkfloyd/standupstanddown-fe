@@ -10,18 +10,23 @@ const TeamsStore = {
 
   methods: {
     //this data will be present when the el is mounted. gets the teams the user is a part of and puts them in the usersTeams property.
-    mounted() {
-      console.log("mounted")
 
-    },
-
-    created(){
-      console.log("created")
+    getTeams: async function(){
+      await fetch("http://localhost:3000/teams", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+      })
+      .then((response) => {
+          console.log("GET response: ", response)
+      })
     },
 
     createTeam: async function (teamToAdd){
       console.log("createTeam: ", teamToAdd)
-      const tokenDecoded = jwtDecode(document.cookie.split(";")[1].split('=')[1])
+      const tokenDecoded = jwtDecode(document.cookie.split('=')[1])
       console.log("tokenDecoded", tokenDecoded)
       const body = {
         name: teamToAdd,
