@@ -1,7 +1,8 @@
 <template>
   <div class="sprint">
+    <div class="jumbotron">
      <div class="sprintCardDiv">
-        <b-alert show>Daily Stand UP Card for Team {Team} Date {Date} Members{#}</b-alert>
+        <h1>Daily Stand UP Card for Team {Team} Date {Date} Members{#}</h1>
        <b-card title="Team: "
             sub-title="Stand Up Card for {date}">
         <p class="card-text">
@@ -36,6 +37,7 @@
         <b-button id="sprintCardUpBtn"  variant="dark">Update Card</b-button>
     </b-card>
     </div>
+    </div>
 
   </div>
 </template>
@@ -56,7 +58,6 @@ export default {
       member3TodayText: '',
       member3HelpsText: '',
       notes:''
-     
     }
   }
 }
@@ -82,20 +83,22 @@ a {
   color: #42b983;
 }
 
-.sprint {
-  border: 5px double #28284e;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 5%;  
+.jumbotron:hover {
+  background-color:#fffef0;
+  border: 1px double #eeede0;
+}
+.jumbotron {
+  background-color:#ebebeb;
 }
 
-.sprint:hover {
-  border: 5px double #35695e;
+.sprint {
+  border-radius: 5px;
+  padding: 10px;
+  margin: 2%;  
 }
 
 .sprintCardDiv {
   text-align: left;
- 
 }
 
 .member {
@@ -110,10 +113,11 @@ a {
 
 #sprintCardUpBtn {
   margin: 2% 2% 2% 33%;
-  background-color:#40af97;
+  background-color:#f1f7bc;
+  color: black;
 }
 
 #sprintCardUpBtn:active {
-  background-color:#41685f;
+  background-color:#e0e6af;
 }
 </style>
