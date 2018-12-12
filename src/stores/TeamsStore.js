@@ -19,9 +19,8 @@ const TeamsStore = {
       console.log("created")
     },
 
-    createTeam: async function (teamToAdd) {
-      console.log("createTeam: ", teamToAdd)
-      const tokenDecoded = jwtDecode(document.cookie.split(";")[1].split('=')[1])
+    async createTeam (teamToAdd) {
+      const tokenDecoded = jwtDecode(document.cookie.split('=')[1])
       console.log("tokenDecoded", tokenDecoded)
       const body = {
         name: teamToAdd,
@@ -32,7 +31,7 @@ const TeamsStore = {
         body: JSON.stringify(body),
         headers: {
           "Content-Type": "application/json",
-          Accept: "application/json"
+          Accept: "application/json",
         },
       })
         .then((response) => {
