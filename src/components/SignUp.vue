@@ -1,6 +1,11 @@
 <template>
   <div class="signUp">
-    In which we detail the App and why this person is signing up
+    <h3>Welcome to Stand Up! The <b>Daily Scrum</b> app for remote teams</h3>
+    <h4>Easily <b>create</b> and <b>join</b> sprint teams</h4>
+    <h5>Review each team members progress</h5>
+      <h5>Address helps to achieve the current <b>sprint goal</b></h5>
+      <h5>Access past records in the <b>current sprint</b> for easy and qualitative <b>review</b></h5>
+      <h5>↓Solidify your status as an <b>Agile</b> pro today↓</h5>
     <b-form>
       <b-button id="signUpBtn" href="http://localhost:3000/auth/github" variant="alert">Sign Up with Github</b-button>
     </b-form>
@@ -32,17 +37,26 @@ li {
   margin: 0 10px;
 }
 a {
-  color: #42b983;
+  color: #346951;
 }
 
 #signUpBtn {
   margin-top: 20px;
   border: 1px solid black;
+  font-size: 24px;
+}
+
+#signUpBtn:active {
+  background-color: #fffde6;
 }
 .signUp {
   border: 5px double #28284e;
   border-radius: 5px;
-  padding: 10px;
+  padding: 5%;
   margin: 5%;
+  
+}
+.signUp:hover {
+  border: 5px double #284e37;
 }
 </style>
