@@ -8,10 +8,7 @@
         <b-navbar-nav>
           <b-nav-item to="/">Home</b-nav-item>
           <b-nav-item to="/sprint">Sprint</b-nav-item>
-         
-          <b-nav-item to="/profile">Your Teams</b-nav-item>
-          
-         
+          <b-nav-item to="/profile">Your Teams</b-nav-item> 
         </b-navbar-nav>
       </b-collapse>
       <b-navbar-nav>

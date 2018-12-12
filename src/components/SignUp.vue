@@ -1,5 +1,5 @@
 <template>
-  <div class="SignUp">
+  <div class="signUp">
     In which we detail the App and why this person is signing up
     <b-form>
       <b-button id="signUpBtn" href="http://localhost:3000/auth/github" variant="alert">Sign Up with Github</b-button>
@@ -38,5 +38,11 @@ a {
 #signUpBtn {
   margin-top: 20px;
   border: 1px solid black;
+}
+.signUp {
+  border: 5px double #28284e;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 5%;
 }
 </style>
