@@ -11,7 +11,7 @@ const SprintsStore = {
       fetch("")
         .then(response => response.json())
         .then((data) => {
-          this.usersTeams = data;
+          this.sprints = data;
         })
     },
 
