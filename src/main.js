@@ -18,12 +18,6 @@ new Vue({
   router,
   components: { App },
   template: '<App/>',
-  data: {
-    teams: TeamsStore.data,
-  },
   methods: {
-    mounted() {
-      console.log("mounted")
-    },
   },
 })
