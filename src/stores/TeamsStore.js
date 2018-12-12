@@ -21,7 +21,7 @@ const TeamsStore = {
 
     createTeam: async function (teamToAdd) {
       console.log("createTeam: ", teamToAdd)
-      const tokenDecoded = jwtDecode(document.cookie.split(";")[1].split('=')[1])
+      const tokenDecoded = jwtDecode(document.cookie.split('=')[1])
       console.log("tokenDecoded", tokenDecoded)
       const body = {
         name: teamToAdd,

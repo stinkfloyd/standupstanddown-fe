@@ -5,7 +5,6 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import router from './router'
 import App from './App.vue'
-import TeamsStore from './stores/TeamsStore'
 
 Vue.use(BootstrapVue)
 Vue.config.productionTip = false

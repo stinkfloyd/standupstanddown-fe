@@ -34,7 +34,8 @@
         </div>
         <a href="#"
            class="card-link">Top of Card</a>
-        <b-button id="sprintCardUpBtn"  variant="dark">Update Card</b-button>
+        <b-button id="sprintCardUpBtn"  @click="hitThatRoute" variant="dark">Update Card</b-button>
+     
     </b-card>
     </div>
     </div>
@@ -59,7 +60,14 @@ export default {
       member3HelpsText: '',
       notes:''
     }
-  }
+    
+  },
+  methods: {
+      async hitThatRoute() {
+        let response = await fetch('http://localhost:3000/teams_users')
+        console.log("the button is go:", response, response.status, response.data)
+      }
+    }
 }
 </script>
 
@@ -83,11 +91,6 @@ a {
   color: #42b983;
 }
 
-.jumbotron:hover {
-  background-color:#fffef0;
-  border: 1px double #eeede0;
-  border-radius: 5px;
-}
 .jumbotron {
   background-color:#ebebeb;
 }
