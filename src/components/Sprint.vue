@@ -1,15 +1,14 @@
 <template>
-  <div class="SignUp">
-    In which we detail the App and why this person is signing up
-    <b-form>
-      <b-button id="signUpBtn" href="http://localhost:3000/auth/github" variant="alert">Sign Up with Github</b-button>
-    </b-form>
+  <div class="sprint">
+    <h1>Sprint Page</h1>
+     <b-alert show>Try implementing a carousel that loads the Stand Up for each day of the sprint </b-alert>
+     <p>All the stuff goes in here</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'SignUp',
+  name: 'Sprint',
   data () {
     return {
      
@@ -34,9 +33,10 @@ li {
 a {
   color: #42b983;
 }
-
-#signUpBtn {
-  margin-top: 20px;
-  border: 1px solid black;
+.sprint {
+  border: 5px double #28284e;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 5%;
 }
 </style>

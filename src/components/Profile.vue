@@ -1,14 +1,14 @@
 <template>
-  <div class="hello">
-    <h1>On Scrum and Stand Up Philosophy</h1>
-      <h4>Why build this app and what does it do?</h4>
+  <div class="profile">
+    <h1>User profile page</h1>
+     <b-alert show>Show teams and basic github info back</b-alert>
      <p>All the stuff goes in here</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Scrum',
+  name: 'Profile',
   data () {
     return {
      
@@ -33,14 +33,10 @@ li {
 a {
   color: #42b983;
 }
-.hello {
-  border: 5px double #284e46;
+.profile {
+  border: 5px double #28284e;
   border-radius: 5px;
   padding: 10px;
   margin: 5%;
-}
-
-.hello:hover {
-  border: 5px double #4c7c56;
 }
 </style>
