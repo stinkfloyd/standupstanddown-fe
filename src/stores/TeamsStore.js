@@ -1,15 +1,15 @@
-var jwtDecode = require('jwt-decode')
+let jwtDecode = require('jwt-decode')
 
 const TeamsStore = {
   data: {
-    //store the id of the team being edited here on click of the accociated button.
-    //then you can render the edit form conditionally based on the value's presence.
+    // store the id of the team being edited here on click of the accociated button.
+    // then you can render the edit form conditionally based on the value's presence.
     teamToEdit: null,
     usersTeams: [],
   },
 
   methods: {
-    //this data will be present when the el is mounted. gets the teams the user is a part of and puts them in the usersTeams property.
+    // this data will be present when the el is mounted. gets the teams the user is a part of and puts them in the usersTeams property.
     // mounted() {
     //   fetch("")
     //     .then(response => response.json())
@@ -18,7 +18,7 @@ const TeamsStore = {
     //     })
     // },
 
-    createTeam: async function (teamToAdd){
+    createTeam: async function (teamToAdd) {
       console.log("createTeam: ", teamToAdd)
       const tokenDecoded = jwtDecode(document.cookie.split(";")[1].split('=')[1])
       console.log("tokenDecoded", tokenDecoded)
@@ -31,18 +31,18 @@ const TeamsStore = {
         body: JSON.stringify(body),
         headers: {
           "Content-Type": "application/json",
-          "Accept": "application/json"
+          Accept: "application/json"
         },
       })
-      .then((response) => {
-        if (response.status === 200) {
-          // push that stuff
-          TeamsStore.data.usersTeams = teamToAdd
-          console.log(TeamsStore.data.usersTeams)
-        } else {
-          // something bad happened
-        }
-      })
+        .then((response) => {
+          if (response.status === 200) {
+            // push that stuff
+            TeamsStore.data.usersTeams = teamToAdd
+            console.log(TeamsStore.data.usersTeams)
+          } else {
+            // something bad happened
+          }
+        })
     },
 
     //
@@ -71,6 +71,6 @@ const TeamsStore = {
 
 
   }
-};
+}
 
-export default TeamsStore;
+export default TeamsStore
