@@ -10,13 +10,14 @@ const TeamsStore = {
 
   methods: {
     //this data will be present when the el is mounted. gets the teams the user is a part of and puts them in the usersTeams property.
-    // mounted() {
-    //   fetch("")
-    //     .then(response => response.json())
-    //     .then((data) => {
-    //       this.usersTeams = data;
-    //     })
-    // },
+    mounted() {
+      console.log("mounted")
+
+    },
+
+    created(){
+      console.log("created")
+    },
 
     createTeam: async function (teamToAdd){
       console.log("createTeam: ", teamToAdd)
@@ -37,7 +38,7 @@ const TeamsStore = {
       .then((response) => {
         if (response.status === 200) {
           // push that stuff
-          TeamsStore.data.usersTeams = teamToAdd
+          TeamsStore.data.usersTeams.push(teamToAdd)
           console.log(TeamsStore.data.usersTeams)
         } else {
           // something bad happened

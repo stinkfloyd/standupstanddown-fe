@@ -41,10 +41,17 @@ export default {
     }
   },
   methods: {
-    testclick: function (event){
-      console.log("click")
+    mounted(){
+      console.log("mounted")
     },
-    addTeam: function (event){
+    beforeCreate(){
+      console.log("beforeCreate")
+    },
+    created(){
+      console.log("created")
+      TeamStore.methods.created()
+    },
+    addTeam(event){
       event.preventDefault()
       console.log("event.target", event.target[0].value)
       TeamsStore.methods.createTeam(event.target[0].value)
