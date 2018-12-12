@@ -1,27 +1,31 @@
 <template>
   <div class="profile">
-    <p>Github username, firstname, lastname</p>
-     <!-- <b-alert show>Show teams and basic github info back</b-alert> -->
-     <div class="teamFields">Create a Team:
-      <b-form :info="'info'" @submit="addTeam" inline>
-        <label for="teamName"  value="name"/>
-        <b-input name="teamName">Team</b-input>
-
-
-      <b-button type="submit" class="teamBtn" variant="dark" >+</b-button>
-    </b-form>
+    <div>
+      <p>Github username, firstname, lastname</p>
     </div>
- <div class="teamFields">Join a Team:
-     <b-form inline>
-
-        <label for="Team Name" value="name"/>
-        <b-input>Team</b-input>
-
-      <b-button class="teamBtn" variant="dark">+</b-button>
-
-    </b-form>
-     </div>
-
+    <div>
+      <p>Your Teams: </p>
+    </div>
+    <div>
+      <p>(put user's teams here)</p>
+    </div>
+     <!-- <b-alert show>Show teams and basic github info back</b-alert> -->
+    <div class="teamActions">
+      <div class="teamFields">Create a Team:
+          <b-form :info="'info'" @submit="addTeam" inline>
+            <label for="teamName"  value="name"/>
+            <b-input name="teamName" placeholder="Team Name">Team</b-input>
+            <b-button type="submit" class="teamBtn" variant="dark" >+</b-button>
+          </b-form>
+      </div>
+      <div class="teamFields">Join a Team:
+        <b-form inline>
+          <label for="Team Name" value="name"/>
+          <b-input placeholder="Team Name">Team</b-input>
+          <b-button class="teamBtn" variant="dark">+</b-button>
+        </b-form>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -40,24 +44,24 @@ export default {
       TeamsStore: TeamsStore.data
     }
   },
+
+  mounted(){
+    console.log("mounted")
+    console.log(TeamsStore.methods)
+    TeamsStore.methods.getTeams()
+  },
+
   methods: {
-    mounted(){
-      console.log("mounted")
-    },
-    beforeCreate(){
-      console.log("beforeCreate")
-    },
-    created(){
-      console.log("created")
-      TeamStore.methods.created()
-    },
     addTeam(event){
       event.preventDefault()
       console.log("event.target", event.target[0].value)
       TeamsStore.methods.createTeam(event.target[0].value)
+      event.target.reset()
     }
   }
 }
+
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -81,8 +85,8 @@ a {
   border-radius: 5px;
   padding: 10px;
   margin: 5%;
-  display: flex;
-  flex-direction: row;
+  /* display: flex; */
+  /* flex-direction: row; */
 }
 
 .profile:hover {
@@ -91,6 +95,13 @@ a {
 
 .teamFields {
   font-weight: bold;
-  margin-left: 10%;
+  padding: 10px;
+  /* margin-left: 10%; */
+}
+.teamActions{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
 }
 </style>
