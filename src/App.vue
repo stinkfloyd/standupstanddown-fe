@@ -36,7 +36,5 @@ export default {
   text-align: center;
   color: #202d3a;
 }
-header {
 
-}
 </style>

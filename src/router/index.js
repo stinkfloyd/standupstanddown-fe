@@ -13,7 +13,7 @@ export default new Router({
       name: 'Home',
       component: Home,
     },
-     {
+    {
       path: '/scrum',
       name: 'scrum',
       component: Scrum,
