@@ -1,10 +1,31 @@
 <template>
   <div class="profile">
-    <h1>User profile page</h1>
-     <b-alert show>Show teams and basic github info back</b-alert>
-     <p>All the stuff goes in here</p>
+    <p>Github username, firstname, lastname</p>
+     <!-- <b-alert show>Show teams and basic github info back</b-alert> -->
+     <div class="teamFields">Create a Team:
+      <b-form inline>
+        <label for="Name"  value="name"/>
+        <b-input>Team</b-input>
+      
+
+      <b-button class="teamBtn" variant="dark">+</b-button>
+    </b-form>
+    </div>
+ <div class="teamFields">Join a Team:
+     <b-form inline>
+      
+        <label for="Team Name" value="name"/>
+        <b-input>Team</b-input>
+
+      <b-button class="teamBtn" variant="dark">+</b-button>
+     
+    </b-form>
+     </div>
+     
   </div>
 </template>
+
+/*post a new team req takes a name and creator_id*/
 
 <script>
 export default {
@@ -38,5 +59,16 @@ a {
   border-radius: 5px;
   padding: 10px;
   margin: 5%;
+  display: flex;
+  flex-direction: row;
+}
+
+.profile:hover {
+  border: 5px double #284e45;
+}
+
+.teamFields {
+  font-weight: bold;
+  margin-left: 10%;
 }
 </style>
