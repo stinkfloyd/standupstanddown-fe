@@ -8,6 +8,7 @@
         <b-navbar-nav>
           <b-nav-item to="/">Home</b-nav-item>
           <b-nav-item to="/sprint">Sprint</b-nav-item>
+          <b-nav-item to="/scrum">Scrum Info</b-nav-item>
           <b-nav-item to="/sign-up">Sign Up</b-nav-item>
           <b-nav-item class="right" href="#" @click.prevent="login">Login</b-nav-item>
         </b-navbar-nav>

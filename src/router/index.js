@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
+import Scrum from '@/components/Scrum'
 
 
 Vue.use(Router)
@@ -11,6 +12,11 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home,
+    },
+     {
+      path: '/scrum',
+      name: 'scrum',
+      component: Scrum,
     },
   //  ALl nav paths on the app follow the same format in this object
 
