@@ -6,16 +6,16 @@
        <b-navbar-brand to="/">StandUP!</b-navbar-brand>
        <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav>
-          <b-nav-item to="/">Home</b-nav-item>
+          <b-nav-item to="/sprint">Home</b-nav-item>
           <b-nav-item to="/sprint">Sprint</b-nav-item>
           <b-nav-item to="/profile">Your Teams</b-nav-item> 
         </b-navbar-nav>
-      </b-collapse>
-      <b-navbar-nav>
+       </b-collapse>
+       <b-navbar-nav>
          <b-nav-item to="/sign-up">Sign Up</b-nav-item>
-       <b-nav-item class="loginBtn" href="http://localhost:3000/auth/github" >Login</b-nav-item>
-       </b-navbar-nav>
-      <img src="https://placekitten.com/g/30/30" alt="BV">
+         <b-nav-item class="loginBtn" href="http://localhost:3000/auth/github" >Login</b-nav-item>
+         </b-navbar-nav>
+         <img src="https://placekitten.com/g/30/30" alt="BV">
       </b-navbar>
     </header>
     <main>
