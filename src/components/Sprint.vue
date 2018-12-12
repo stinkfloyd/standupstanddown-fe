@@ -6,7 +6,7 @@
        <b-card title="Team: "
             sub-title="Stand Up Card for {date}">
         <p class="card-text">
-            Current sprint goal: <b-form-textarea v-model="sprintGoalText" type="text" ></b-form-textarea>
+            Current sprint goal: <b-form-textarea v-model="sprintGoalText" type="text"></b-form-textarea>
         </p>
          <div class="card-text member">
             Team Member 1: 
@@ -86,6 +86,7 @@ a {
 .jumbotron:hover {
   background-color:#fffef0;
   border: 1px double #eeede0;
+  border-radius: 5px;
 }
 .jumbotron {
   background-color:#ebebeb;
@@ -114,6 +115,7 @@ a {
 #sprintCardUpBtn {
   margin: 2% 2% 2% 33%;
   background-color:#f1f7bc;
+  border-radius: 5px;
   color: black;
 }
 
