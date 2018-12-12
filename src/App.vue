@@ -15,7 +15,7 @@
          <b-nav-item to="/sign-up">Sign Up</b-nav-item>
          <b-nav-item class="loginBtn" href="http://localhost:3000/auth/github" >Login</b-nav-item>
          </b-navbar-nav>
-         <img src="https://placekitten.com/g/30/30" alt="BV">
+         <img src="https://fanart.tv/fanart/music/0638ba22-040f-438d-83a5-9b670c4adaf5/artistbackground/ludacris-55d2613855be0.jpg" alt="BV">
       </b-navbar>
     </header>
     <main>
@@ -38,6 +38,11 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #202d3a;
+}
+
+img {
+  height: 30px;
+  width: 50px;
 }
 
 </style>
