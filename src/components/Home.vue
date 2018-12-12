@@ -1,14 +1,14 @@
 <template>
   <div class="hello">
     <h1>Stand Up!</h1>
-
      <b-alert show>Sponsored by Ludacris 🍾</b-alert>
+     <p>All the stuff goes in here</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'Home',
   data () {
     return {
      
@@ -32,5 +32,10 @@ li {
 }
 a {
   color: #42b983;
+}
+.hello {
+  border: 5px solid #28284e;
+  padding: 10px;
+  margin: 5%;
 }
 </style>
