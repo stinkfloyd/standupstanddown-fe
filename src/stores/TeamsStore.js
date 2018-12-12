@@ -1,9 +1,9 @@
-var jwtDecode = require('jwt-decode')
+let jwtDecode = require('jwt-decode')
 
 const TeamsStore = {
   data: {
-    //store the id of the team being edited here on click of the accociated button.
-    //then you can render the edit form conditionally based on the value's presence.
+    // store the id of the team being edited here on click of the accociated button.
+    // then you can render the edit form conditionally based on the value's presence.
     teamToEdit: null,
     usersTeams: [],
   },
@@ -11,6 +11,7 @@ const TeamsStore = {
   methods: {
     //this data will be present when the el is mounted. gets the teams the user is a part of and puts them in the usersTeams property.
 
+<<<<<<< HEAD
     getTeams: async function(){
       await fetch("http://localhost:3000/teams", {
         method: "GET",
@@ -22,9 +23,15 @@ const TeamsStore = {
       .then((response) => {
           console.log("GET response: ", response)
       })
+=======
     },
 
-    createTeam: async function (teamToAdd){
+    created() {
+      console.log("created")
+>>>>>>> 525b0f51f30a2537ebdd785fc3944c6f843a0ce2
+    },
+
+    createTeam: async function (teamToAdd) {
       console.log("createTeam: ", teamToAdd)
       const tokenDecoded = jwtDecode(document.cookie.split('=')[1])
       console.log("tokenDecoded", tokenDecoded)
@@ -37,18 +44,18 @@ const TeamsStore = {
         body: JSON.stringify(body),
         headers: {
           "Content-Type": "application/json",
-          "Accept": "application/json"
+          Accept: "application/json"
         },
       })
-      .then((response) => {
-        if (response.status === 200) {
-          // push that stuff
-          TeamsStore.data.usersTeams.push(teamToAdd)
-          console.log(TeamsStore.data.usersTeams)
-        } else {
-          // something bad happened
-        }
-      })
+        .then((response) => {
+          if (response.status === 200) {
+            // push that stuff
+            TeamsStore.data.usersTeams.push(teamToAdd)
+            console.log(TeamsStore.data.usersTeams)
+          } else {
+            // something bad happened
+          }
+        })
     },
 
     //
@@ -77,6 +84,6 @@ const TeamsStore = {
 
 
   }
-};
+}
 
-export default TeamsStore;
+export default TeamsStore
