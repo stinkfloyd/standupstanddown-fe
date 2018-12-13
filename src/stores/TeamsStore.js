@@ -11,15 +11,17 @@ const TeamsStore = {
   methods: {
     //this data will be present when the el is mounted. gets the teams the user is a part of and puts them in the usersTeams property.
 
-    getTeams: async function () {
+    async getTeams() {
       await fetch("http://localhost:3000/teams", {
+        credentials: "include",
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "Accept": "application/json"
+          Accept: "application/json",
         },
       })
         .then((response) => {
+          let resJson = await response.json()
           console.log("GET response: ", response)
         })
     },

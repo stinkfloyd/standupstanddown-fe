@@ -2,7 +2,7 @@
   <div class="calendar">
     <h1>Sprint Calendar View</h1>
     <div>
-     <b-form-group label="Button style radios with <code>outline-primary</code> variant and size <code>lg</code>">
+     <b-form-group label="Current Sprint for {Team}">
       <b-form-radio-group id="btnradios2"
                           buttons
                           button-variant="outline-dark"
@@ -17,18 +17,21 @@
 </template>
 
 <script>
+let startDate = "Sprint Day 1"
+let endDate = "Sprint End"
 export default {
   name: 'Home',
   data: () => {
     return {
-      string: "Hi there",
+   
       selected: 'radio1',
        
       options: [
-        { text: 'data', value: "radio1", disable: false },
-        { text: 'Radio 3', value: 'radio2', disable: false },
-        { text: 'Radio 3', value: 'radio3', disabled: false },
-        { text: 'Radio 4', value: 'radio4', disable: false }
+        { text: startDate, value: "radio1", disable: false },
+        { text: 'Day 2', value: 'radio2', disable: false },
+        { text: 'Day 3', value: 'radio3', disabled: false },
+        { text: 'Day 4', value: 'radio4', disable: false },
+        { text: endDate, value: 'radio5', disable: false }
       ]
      
     }
