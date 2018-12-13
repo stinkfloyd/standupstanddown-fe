@@ -6,18 +6,19 @@ const TeamsStore = {
     // then you can render the edit form conditionally based on the value's presence.
     teamToEdit: null,
     usersTeams: [],
+    test: "test",
   },
 
   methods: {
     // this data will be present when the el is mounted. gets the teams the user is a part of and puts them in the usersTeams property.
 
-    getTeams: async function () {
+    async getTeams() {
       return fetch("http://localhost:3000/teams", {
         credentials: 'include',
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Accept: "application/json"
+          Accept: "application/json",
         },
       }).then(async (response) => {
         let resJson = await response.json()
@@ -33,6 +34,7 @@ const TeamsStore = {
         creator_id: tokenDecoded.id,
       }
       await fetch("http://localhost:3000/teams", {
+        credentials: 'include',
         method: "POST",
         body: JSON.stringify(body),
         headers: {

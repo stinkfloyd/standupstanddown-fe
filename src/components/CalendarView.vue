@@ -1,7 +1,8 @@
 <template>
   <div class="calendar">
-    <h1>Sprint Calendar View</h1>
+    <h2>Sprint Calendar</h2>
     <div>
+      
      <b-form-group label="Current Sprint for {Team}">
       <b-form-radio-group id="btnradios2"
                           buttons
@@ -13,6 +14,7 @@
     </b-form-group>
 
     </div>
+   
   </div>
 </template>
 

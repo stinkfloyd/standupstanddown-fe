@@ -10,14 +10,27 @@
       <p>(put user's teams here)</p>
     </div>
      <!-- <b-alert show>Show teams and basic github info back</b-alert> -->
+      <b-alert hide=true variant="warning">Please enter a longer team name</b-alert>
     <div class="teamActions">
+      
       <div class="teamFields">Create a Team:
-          <b-form :info="'info'" @submit="addTeam" inline>
+          <b-form :info="'info'" @submit="addTeam" inline >
             <label for="teamName"  value="name"/>
-            <b-input name="teamName" placeholder="Team Name">Team</b-input>
+            <b-input  :state="nameState" id="inputLive" name="teamName" v-model="teamName" placeholder="Team Name">Team</b-input>
+             
             <b-button type="submit" class="teamBtn" variant="dark" >+</b-button>
+           
+            <!-- <b-form-invalid-feedback id="inputLiveFeedback">
+                 Enter at least 4 letters
+                 </b-form-invalid-feedback> -->
+              
+                
+                
+        
           </b-form>
       </div>
+          
+      <br />
       <div class="teamFields">Join a Team:
         <b-form inline>
           <label for="Team Name" value="name"/>
@@ -33,34 +46,43 @@
 
 <script>
 import TeamsStore from "../stores/TeamsStore"
-console.log("TeamStore.data: ", TeamsStore.data)
-
-
-
 export default {
   name: 'Profile',
-  data () {
-    return {
-      TeamsStore: TeamsStore.data
+  computed: {
+    nameState () {
+      return this.teamName.length >= 4 ? true : false
     }
   },
-
-  mounted(){
-    console.log("mounted")
-    console.log(TeamsStore.methods)
-    TeamsStore.methods.getTeams().then(response => console.log("mounted response: ", response))
+  data () {
+    return {
+      TeamsStore: TeamsStore.data,
+      teamName: '',
+      hide: false
+    }
   },
-
+  // mounted(){
+  //   console.log("mounted")
+  //   console.log(TeamsStore.methods)
+  //   TeamsStore.methods.getTeams().then(response => console.log("mounted response: ", response))
+  // },
+   
   methods: {
     addTeam(event){
       event.preventDefault()
       console.log("event.target", event.target[0].value)
+      let newTeam = event.target[0].value
+      if (newTeam.length < 4) {
+        alert('Please enter a team name >= 4')
+        return hide = true 
+        setTimeout(function(hide=false){ ; }, 3000);
+        
+        // create a better alert system with bootstrap alerts
+      }
       TeamsStore.methods.createTeam(event.target[0].value)
       event.target.reset()
     }
   }
 }
-
 
 </script>
 
@@ -96,7 +118,8 @@ a {
 .teamFields {
   font-weight: bold;
   padding: 10px;
-  /* margin-left: 10%; */
+  /* width: 50%; */
+  height: auto;
 }
 .teamActions{
   display: flex;

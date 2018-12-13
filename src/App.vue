@@ -6,7 +6,7 @@
        <b-navbar-brand to="/">StandUP!</b-navbar-brand>
        <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav>
-          <b-nav-item to="/sprint">Home</b-nav-item>
+          <!-- <b-nav-item to="/sprint">Home</b-nav-item> -->
           <b-nav-item to="/sprint">Sprint</b-nav-item>
           <b-nav-item to="/profile">Your Teams</b-nav-item> 
         </b-navbar-nav>
@@ -21,13 +21,17 @@
     <main>
       <!-- Navbar on top and will render router components through the router-view below - no need to import them -->
       <router-view></router-view>
+      <!-- <Profile :teamsData="teamsData"/> -->
     </main>
   </div>
 </template>
 
 <script>
+import Profile from './components/Profile'
+import TeamsStore from './stores/TeamsStore'
+
 export default {
-  name: 'App'
+  name: 'App',
 }
 </script>
 

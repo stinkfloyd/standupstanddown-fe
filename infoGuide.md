@@ -1,3 +1,4 @@
+# ☃️ Stand Up Routes / Style Guide / Bootstrap Cheats ⛄️
 
 ## routes
 
@@ -13,6 +14,12 @@
 
    * 
 
+## To-do list
+
+"logout" view toggling for signup/sign in and replace img to default 
+
+"team name" input in profile still needs an error catch "on submit" for a team name that is < 4
+
 ---
 ## Stretch goals
 
@@ -24,11 +31,21 @@
 
 * "evening": info, text-dark, text-secondary,
 
-* "dark mode": 
+* "dark mode": text-white bg-dark secondary: danger
+
+* "A.G.E.": success
 
 ### Info Popovers
 
 on SignUp/Welcome page use [Popover Messages](https://bootstrap-vue.js.org/docs/components/popover) to display more info on Scrum/Agile philosophy
+
+---
+
+## Bootstrap Types
+
+### `visible / invisible` can be used as display classes in b-vue
+
+### `float-left` / `float-right` / `float-none` 
 
 
 

@@ -13,6 +13,10 @@
 </template>
 
 <script>
+import App from '../App'
+
+let data = App.teamsData
+console.log("data:", data)
 export default {
   name: 'SignUp',
   data () {
