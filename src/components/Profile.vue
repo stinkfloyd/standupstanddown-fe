@@ -8,6 +8,13 @@
     </div>
     <div>
       <p>(put user's teams here)</p>
+      <b-list-group>
+        <b-list-group-item>Cras justo odio</b-list-group-item>
+        <b-list-group-item>Dapibus ac facilisis in</b-list-group-item>
+        <b-list-group-item>Morbi leo risus</b-list-group-item>
+        <b-list-group-item>Porta ac consectetur ac</b-list-group-item>
+        <b-list-group-item>Vestibulum at eros</b-list-group-item>
+      </b-list-group>
     </div>
      <!-- <b-alert show>Show teams and basic github info back</b-alert> -->
     <div class="teamActions">
@@ -35,20 +42,20 @@
 import TeamsStore from "../stores/TeamsStore"
 console.log("TeamStore.data: ", TeamsStore.data)
 
-
+let mountedData
+console.log("mountedData: ", mountedData)
 
 export default {
   name: 'Profile',
   data () {
     return {
-      TeamsStore: TeamsStore.data
     }
   },
 
   mounted(){
     console.log("mounted")
     console.log(TeamsStore.methods)
-    TeamsStore.methods.getTeams().then(response => console.log("mounted response: ", response))
+    TeamsStore.methods.getTeams().then(response => console.log("response: ", response))
   },
 
   methods: {
@@ -59,6 +66,8 @@ export default {
       event.target.reset()
     }
   }
+
+
 }
 
 
