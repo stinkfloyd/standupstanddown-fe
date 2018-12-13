@@ -48,7 +48,7 @@ export default {
   mounted(){
     console.log("mounted")
     console.log(TeamsStore.methods)
-    TeamsStore.methods.getTeams()
+    TeamsStore.methods.getTeams().then(response => console.log("mounted response: ", response))
   },
 
   methods: {
