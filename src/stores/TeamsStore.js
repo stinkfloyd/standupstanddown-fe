@@ -6,6 +6,7 @@ const TeamsStore = {
     //then you can render the edit form conditionally based on the value's presence.
     teamToEdit: null,
     usersTeams: [],
+    test: "test",
   },
 
   methods: {
@@ -17,13 +18,13 @@ const TeamsStore = {
       this.loading = false
     },
 
-    getTeams: async function () {
+    async getTeams() {
       return fetch("http://localhost:3000/teams", {
         credentials: 'include',
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Accept: "application/json"
+          Accept: "application/json",
         },
       }).then(async (response) => {
         let resJson = await response.json()
@@ -41,8 +42,13 @@ const TeamsStore = {
         name: teamToAdd,
         creator_id: tokenDecoded.id,
       }
+<<<<<<< HEAD
       return await fetch("http://localhost:3000/teams", {
         credentials: "include",
+=======
+      await fetch("http://localhost:3000/teams", {
+        credentials: 'include',
+>>>>>>> 729bd310d94607aca978538b7811c5934e2b528c
         method: "POST",
         body: JSON.stringify(body),
         headers: {

@@ -12,14 +12,27 @@
       </b-list-group>
     </div>
      <!-- <b-alert show>Show teams and basic github info back</b-alert> -->
+      <b-alert hide=true variant="warning">Please enter a longer team name</b-alert>
     <div class="teamActions">
+
       <div class="teamFields">Create a Team:
-          <b-form :info="'info'" @submit="addTeam" inline>
+          <b-form :info="'info'" @submit="addTeam" inline >
             <label for="teamName"  value="name"/>
-            <b-input name="teamName" placeholder="Team Name">Team</b-input>
+            <b-input  :state="nameState" id="inputLive" name="teamName" v-model="teamName" placeholder="Team Name">Team</b-input>
+
             <b-button type="submit" class="teamBtn" variant="dark" >+</b-button>
+
+            <!-- <b-form-invalid-feedback id="inputLiveFeedback">
+                 Enter at least 4 letters
+                 </b-form-invalid-feedback> -->
+
+
+
+
           </b-form>
       </div>
+
+      <br />
       <div class="teamFields">Join a Team:
         <b-form inline>
           <label for="Team Name" value="name"/>
@@ -36,7 +49,6 @@
 <script>
 import Vue from 'vue'
 import TeamsStore from "../stores/TeamsStore"
-// console.log("TeamStore.data.usersTeams: ", TeamsStore.data.usersTeams)
 
 export default {
 
@@ -58,8 +70,6 @@ export default {
   //   this.refreshUsersTeams()
   // },
 
-
-
   methods: {
     async refreshUsersTeams(){
       this.loading = true
@@ -71,10 +81,15 @@ export default {
     async addTeam(event){
       event.preventDefault()
       console.log("event.target", event.target[0].value)
-      const newTeam = await TeamsStore.methods.createTeam(event.target[0].value)
-      console.log("newTeam: ", newTeam)
-      this.$data.usersTeams.push(newTeam)
-      console.log("this ", this)
+      let newTeam = event.target[0].value
+      if (newTeam.length < 4) {
+        alert('Please enter a team name >= 4')
+        return hide = true
+        setTimeout(function(hide=false){ ; }, 3000);
+
+        // create a better alert system with bootstrap alerts
+      }
+      TeamsStore.methods.createTeam(event.target[0].value)
       event.target.reset()
       // await this.refreshUsersTeams()
     }
@@ -100,7 +115,6 @@ export default {
 
 
 }
-
 
 </script>
 
@@ -136,7 +150,8 @@ a {
 .teamFields {
   font-weight: bold;
   padding: 10px;
-  /* margin-left: 10%; */
+  /* width: 50%; */
+  height: auto;
 }
 .teamActions{
   display: flex;

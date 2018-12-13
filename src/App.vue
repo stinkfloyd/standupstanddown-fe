@@ -6,7 +6,7 @@
        <b-navbar-brand to="/">StandUP!</b-navbar-brand>
        <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav>
-          <b-nav-item to="/sprint">Home</b-nav-item>
+          <!-- <b-nav-item to="/sprint">Home</b-nav-item> -->
           <b-nav-item to="/sprint">Sprint</b-nav-item>
           <b-nav-item to="/profile">Your Teams</b-nav-item>
         </b-navbar-nav>
@@ -52,7 +52,7 @@ export default {
   components: {
     Profile
   }
-}
+
 
 </script>
 

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '../components/Home.vue'
+import TeamsStore from '../stores/TeamsStore'
 import SignUp from '../components/SignUp.vue'
 import Profile from '../components/Profile.vue'
 import Sprint from '../components/Sprint.vue'
@@ -14,8 +14,9 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
-      component: Home,
+      name: 'Profile',
+      component: Profile,
+      props: TeamsStore.data,
     },
     {
       path: '*',
@@ -37,17 +38,5 @@ export default new Router({
       name: 'Sprint',
       component: Sprint,
     },
-  //  ALl nav paths on the app follow the same format in this object
-
-    // {
-    //   path: '/resume',
-    //   name: 'Resume',
-    //   component: Resume
-    // },
-    // {
-    //   path: '/playground',
-    //   name: 'Playground',
-    //   component: Playground
-    // }
   ],
 })
