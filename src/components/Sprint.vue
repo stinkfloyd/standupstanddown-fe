@@ -1,5 +1,6 @@
 <template>
   <div class="sprint">
+    <CalendarView />
     <div class="jumbotron">
      <div class="sprintCardDiv">
         <h1>Daily Stand UP Card for Team {Team} Date {Date} Members{#}</h1>
@@ -37,13 +38,16 @@
         <b-button id="sprintCardUpBtn"  @click="hitThatRoute" variant="dark">Update Card</b-button>
      
     </b-card>
+    
     </div>
+    
     </div>
 
   </div>
 </template>
 
 <script>
+import CalendarView from './CalendarView'
 export default {
   name: 'Sprint',
   data () {
@@ -59,6 +63,7 @@ export default {
       member3TodayText: '',
       member3HelpsText: '',
       notes:''
+      
     }
     
   },
@@ -67,9 +72,13 @@ export default {
         let response = await fetch('http://localhost:3000/teams_users')
         console.log("the button is go:", response, response.status, response.data)
       }
+    },
+    components: {
+      CalendarView
     }
 }
 </script>
+
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
