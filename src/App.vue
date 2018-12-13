@@ -8,7 +8,7 @@
         <b-navbar-nav>
           <b-nav-item to="/sprint">Home</b-nav-item>
           <b-nav-item to="/sprint">Sprint</b-nav-item>
-          <b-nav-item to="/profile">Your Teams</b-nav-item> 
+          <b-nav-item to="/profile">Your Teams</b-nav-item>
         </b-navbar-nav>
        </b-collapse>
        <b-navbar-nav>
@@ -20,15 +20,40 @@
     </header>
     <main>
       <!-- Navbar on top and will render router components through the router-view below - no need to import them -->
-      <router-view></router-view>
+      <!-- <router-view></router-view> -->
+      <Profile/>
     </main>
   </div>
 </template>
 
 <script>
+import TeamsStore from "./stores/TeamsStore"
+import Profile from './components/Profile'
+let usersTeams
+
 export default {
-  name: 'App'
+  // data (){
+  //   return{
+  //   }
+  // },
+  //
+  // props: {
+  //   'usersTeams': usersTeams
+  // },
+  // mounted(){
+  //   console.log("mounted")
+  //   TeamsStore.methods.getTeams().then(response => console.log("mounted response: ", response))
+  // },
+  // befomounted(){
+  //   console.log("created")
+  //   TeamsStore.methods.getTeams().then(response => usersTeams = response)
+  // },
+  name: 'App',
+  components: {
+    Profile
+  }
 }
+
 </script>
 
 <style>

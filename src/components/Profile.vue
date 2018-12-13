@@ -6,14 +6,9 @@
     <div>
       <p>Your Teams: </p>
     </div>
-    <div>
-      <p>(put user's teams here)</p>
+    <div class='teamsList'>
       <b-list-group>
-        <b-list-group-item>Cras justo odio</b-list-group-item>
-        <b-list-group-item>Dapibus ac facilisis in</b-list-group-item>
-        <b-list-group-item>Morbi leo risus</b-list-group-item>
-        <b-list-group-item>Porta ac consectetur ac</b-list-group-item>
-        <b-list-group-item>Vestibulum at eros</b-list-group-item>
+        <b-list-group-item button track-by="$index" v-for="team in this.usersTeams" :key="team.id">{{team.name}}</b-list-group-item>
       </b-list-group>
     </div>
      <!-- <b-alert show>Show teams and basic github info back</b-alert> -->
@@ -39,33 +34,69 @@
 /*post a new team req takes a name and creator_id*/
 
 <script>
+import Vue from 'vue'
 import TeamsStore from "../stores/TeamsStore"
-console.log("TeamStore.data: ", TeamsStore.data)
-
-let mountedData
-console.log("mountedData: ", mountedData)
+// console.log("TeamStore.data.usersTeams: ", TeamsStore.data.usersTeams)
 
 export default {
+
   name: 'Profile',
+
   data () {
     return {
+      reactive: true,
+      loading: false,
+      usersTeams: [],
+      model:{}
     }
   },
 
-  mounted(){
-    console.log("mounted")
-    console.log(TeamsStore.methods)
-    TeamsStore.methods.getTeams().then(response => console.log("response: ", response))
+  async created(){
+    this.refreshUsersTeams()
   },
+  // async updated(){
+  //   this.refreshUsersTeams()
+  // },
+
+
 
   methods: {
-    addTeam(event){
+    async refreshUsersTeams(){
+      this.loading = true
+      this.usersTeams = await TeamsStore.methods.getTeams()
+      console.log("profile.vue: getTeams: ", this.usersTeams)
+      this.loading = false
+    },
+
+    async addTeam(event){
       event.preventDefault()
       console.log("event.target", event.target[0].value)
-      TeamsStore.methods.createTeam(event.target[0].value)
+      const newTeam = await TeamsStore.methods.createTeam(event.target[0].value)
+      console.log("newTeam: ", newTeam)
+      this.$data.usersTeams.push(newTeam)
+      console.log("this ", this)
       event.target.reset()
+      // await this.refreshUsersTeams()
     }
   }
+  // beforeCreated(){
+  //   console.log("created")
+  //   TeamsStore.methods.getTeams().then(response => console.log("created response: ", response))
+  // },
+
+  // mounted(){
+  //   console.log("mounted")
+  //   TeamsStore.methods.getTeams().then(response => console.log("mounted response: ", response))
+  // },
+
+  // methods: {
+  //   addTeam(event){
+  //     event.preventDefault()
+  //     console.log("event.target", event.target[0].value)
+  //     TeamsStore.methods.createTeam(event.target[0].value)
+  //     event.target.reset()
+  //   }
+  // }
 
 
 }
@@ -112,5 +143,8 @@ a {
   justify-content: center;
   align-items: center;
   flex-direction: row;
+}
+.teamsList{
+
 }
 </style>

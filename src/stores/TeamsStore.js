@@ -10,19 +10,26 @@ const TeamsStore = {
 
   methods: {
     //this data will be present when the el is mounted. gets the teams the user is a part of and puts them in the usersTeams property.
+    refreshUsersTeams: async function(){
+      this.loading = true
+      this.usersTeams = await TeamsStore.methods.getTeams()
+      console.log("profile.vue: getTeams: ", this.usersTeams)
+      this.loading = false
+    },
 
-    getTeams: async function(){
-      await fetch("http://localhost:3000/teams", {
-        credentials: "include",
+    getTeams: async function () {
+      return fetch("http://localhost:3000/teams", {
+        credentials: 'include',
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "Accept": "application/json"
+          Accept: "application/json"
         },
-      })
-      .then((response) => {
-        console.log("getTeams response: ", response)
-          // TeamsStore.data.usersTeams = response
+      }).then(async (response) => {
+        let resJson = await response.json()
+        TeamsStore.data.usersTeams = resJson
+        console.log("resJson: ", resJson)
+        return resJson
       })
     },
 
@@ -34,7 +41,8 @@ const TeamsStore = {
         name: teamToAdd,
         creator_id: tokenDecoded.id,
       }
-      await fetch("http://localhost:3000/teams", {
+      return await fetch("http://localhost:3000/teams", {
+        credentials: "include",
         method: "POST",
         body: JSON.stringify(body),
         headers: {
@@ -42,13 +50,17 @@ const TeamsStore = {
           "Accept": "application/json"
         },
       })
-      .then((response) => {
+      .then(async (response) => {
+        let resJson = await response.json()
         if (response.status === 200) {
           // push that stuff
-          TeamsStore.data.usersTeams.push(teamToAdd)
-          console.log(TeamsStore.data.usersTeams)
+          // TeamsStore.data.usersTeams.push(response.body
+          console.log("resJson: ", resJson)
+          console.log("resJson.name: ", resJson.name)
+          return resJson.name
         } else {
           // something bad happened
+          console.log("response; ", response)
         }
       })
     },
