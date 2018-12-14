@@ -12,27 +12,27 @@
           <!-- <b-nav-item to="/sign-up">Logout</b-nav-item> -->
         </b-navbar-nav>
        </b-collapse>
-       <div class="userInfoDisplay">
-         {{currentUser.username.toUpperCase()}}
+       <div class="userInfoDisplay" >
+         {{currentUserName.toUpperCase()}}
         </div>
        <b-navbar-nav>
          <b-nav-item  to="/sign-up" v-show="!isSeen">Sign Up</b-nav-item>
-         
-         <b-nav-item  v-on:click='isSeen = !isSeen' v-show="!isSeen" class="loginBtn" href="http://localhost:3000/auth/github" >Login</b-nav-item>
+
+         <b-nav-item  v-on:click='getUserInfo' v-show="!isSeen" class="loginBtn" href="http://localhost:3000/auth/github">Login</b-nav-item>
          </b-navbar-nav>
-         <img :src="currentUser.photo" alt="BV">
+         <img :src="currentUserPhoto"  alt="BV">
       </b-navbar>
     </header>
     <main>
       <!-- Navbar on top and will render router components through the router-view below - no need to import them -->
       <router-view></router-view>
-    
+
     </main>
-     <footer class="footer"> 
+     <footer class="footer">
    <b-navbar toggleable="md" type="dark" variant="dark">Footer
    </b-navbar>
 </footer>
-    
+
   </div>
 </template>
 
@@ -40,21 +40,26 @@
 import UsersStore from "./stores/UsersStore"
 const jwtDecode = require('jwt-decode')
 
+if (!this.currentUser) {
+  this.ifOk = true
+}
+
 export default {
   name: 'App',
   data () {
     return {
+      ifOk: false,
       reactive: true,
       isSeen: false,
-      currentUser: 'RILEY BURNS',
-      currentUserPhoto: 'https://picsum.photos/200/200',
+      currentUser: '',
+      currentUserName: '',
+      currentUserPhoto: '',
       currentUserOther: ''
     }
   },
 
   async created() {
-     this.getUserInfo()
-
+     await this.getUserInfo()
   },
 
   methods: {
@@ -63,7 +68,7 @@ export default {
       //     this.isSeen = !this.isSeen
       // } else {
       //   !this.isSeen
-      // }    
+      // }
         },
     async getUserInfo() {
       const tokenDecoded = jwtDecode(document.cookie.split('=')[1])
@@ -78,16 +83,18 @@ export default {
       }).then(async (response) => {
        this.currentUser = await response.json()
         console.log("get one user store info:", this.currentUser)
+        this.currentUserName = this.currentUser.username
+        this.currentUserPhoto = this.currentUser.photo
         return this.currentUser
       })
     },
 
-      
-    
-   
+
+
+
   }
 
-  
+
 }
  </script>
 
