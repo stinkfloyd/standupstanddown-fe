@@ -87,6 +87,6 @@ a {
   margin: 5%;
 }
 .team-header{
-  font-size: 30px;
+  font-size: 40px;
 }
 </style>
