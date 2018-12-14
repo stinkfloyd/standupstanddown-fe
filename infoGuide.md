@@ -14,7 +14,6 @@
 
    `/new_member/${name}` - join a team route call for profile
 
-
 ## To-do list
 
 ### Friday:
@@ -26,6 +25,8 @@
 [] delete a team button
 
 [x] capitalize team names back from db
+
+[] tab through sprint days to load standUp components [link to Vue docs - tabs](https://vuejs.org/v2/guide/components-dynamic-async.html)
 
 
 "logout" view toggling for signup/sign in and replace img to default 

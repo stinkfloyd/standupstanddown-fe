@@ -69,6 +69,7 @@ const TeamsStore = {
     
     async deleteTeam(id) {
       console.log("in the delete teamStore w/ id:", id)
+      id = parseInt(id)
       await fetch(`http://localhost:3000/teams/${id}`, {
         credentials: 'include',
         method: "DELETE",

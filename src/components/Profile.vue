@@ -51,6 +51,7 @@
 
 <script>
 import Vue from 'vue'
+const jwtDecode = require('jwt-decode')
 import TeamsStore from "../stores/TeamsStore"
 
 export default {
@@ -75,9 +76,11 @@ export default {
     async refreshUsersTeams() {
       this.usersTeams = []
       let res = await TeamsStore.methods.getTeams()
-      await res.forEach((team) => {
-          team.name[0].toUpperCase() + team.name.substring(1)
+      await res.map((team) => {
+        if (team.creator_id === jwtDecode(document.cookie.split('=')[1]).id) {
+           team.name[0].toUpperCase() + team.name.substring(1)
           return this.usersTeams.push(team)
+        }
       })
     },
 
@@ -92,7 +95,7 @@ export default {
     async deleteTeam(name) {
       let id
       this.usersTeams.map((team) => {
-        // console.log("delete team:", team)
+        console.log("delete team:", team)
         if (team.name === name.toLowerCase())
         id = team.id
       })
