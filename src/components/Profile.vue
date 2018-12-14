@@ -7,7 +7,11 @@
     </div>
     <div class='teamsList'>
       <b-list-group>
+<<<<<<< HEAD
         <b-list-group-item button track-by="$index" v-for="team in this.usersTeams" :key="team.id">{{team.name[0].toUpperCase() + team.name.substring(1)}}</b-list-group-item>
+=======
+        <b-list-group-item button track-by="$index" v-for="team in this.usersTeams" :key="team.id" @click="goToSprint(team.id, team.name)">{{team.name}}</b-list-group-item>
+>>>>>>> a6feb0f124a1b77d6fb3d2855dedf0297db273fb
       </b-list-group>
     </div>
      <!-- <b-alert show>Show teams and basic github info back</b-alert> -->
@@ -52,6 +56,7 @@
 import Vue from 'vue'
 const jwtDecode = require('jwt-decode')
 import TeamsStore from "../stores/TeamsStore"
+import SprintStore from "../stores/SprintStore"
 
 
 export default {
@@ -91,19 +96,15 @@ export default {
       return this.refreshUsersTeams()
     },
 
-    async deleteTeam(name) {
-      let id
-      this.usersTeams.map((team) => {
-        console.log("delete team:", team)
-        if (team.name === name.toLowerCase())
-        id = team.id
-      })
-      await TeamsStore.methods.deleteTeam(id)
-          return this.refreshUsersTeams()
-    },
-
-
+    async goToSprint(teamId, teamName){
+      console.log("Go to sprint id: ", teamId)
+      await SprintStore.methods.getSprint(teamId, teamName)
+      this.$router.push("/sprint")
+      //get sprint from SprintStore populates the sprint store data(this doesn't really work yet)
+      //redirect to sprints page which is retrieving data from the Sprint Store
+    }
   }
+
 }
 
 

@@ -1,9 +1,10 @@
 <template>
   <div class="calendar">
-    <h2>Sprint Calendar</h2>
+    <p class="team-header">Current Sprint: {{teamName}}</p>
     <div>
-      
-     <b-form-group label="Current Sprint for {Team}">
+
+
+     <b-form-group label="">
       <b-form-radio-group id="btnradios2"
                           buttons
                           button-variant="outline-dark"
@@ -14,31 +15,53 @@
     </b-form-group>
 
     </div>
-   
+
   </div>
 </template>
 
 <script>
-let startDate = "Sprint Day 1"
-let endDate = "Sprint End"
-export default {
-  name: 'Home',
-  data: () => {
-    return {
-      selected: 'radio1',
-      options: [
-        { text: startDate, value: "radio1", disable: false },
-        { text: 'Day 2', value: 'radio2', disable: false },
-        { text: 'Day 3', value: 'radio3', disabled: false },
-        { text: 'Day 4', value: 'radio4', disable: false },
-        { text: 'Day 5', value: 'radio4', disable: false },
-        { text: 'Day 6', value: 'radio4', disable: false },
-        { text: endDate, value: 'radio5', disable: false }
-      ]
-     
+
+  import SprintStore from "../stores/SprintStore"
+
+  let startDate = "Day 1"
+  let endDate = "Sprint End"
+
+  export default {
+
+    name: 'Home',
+
+    data: () => {
+      return {
+        teamName: 'test',
+        sprintInfo: '',
+        selected: 'radio1',
+        options: [
+          { text: startDate, value: "radio1", disable: false },
+          { text: 'Day 2', value: 'radio2', disable: false },
+          { text: 'Day 3', value: 'radio3', disabled: false },
+          { text: 'Day 4', value: 'radio4', disable: false },
+          { text: endDate, value: 'radio5', disable: false }
+        ]
+      }
+    },
+
+  created(){
+      console.log("SprintStore.data.sprintInfo: ", SprintStore.data.sprintInfo)
+      this.sprintInfo = SprintStore.data.sprintInfo
+      this.teamName = SprintStore.data.teamName
+      console.log("CalendarView created")
+      console.log("this.sprintInfo: ", this.sprintInfo)
+      console.log("this.teamName: ", this.teamName)
+      console.log()
+    },
+
+    methods: {
+
     }
+
+
+
   }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -62,5 +85,8 @@ a {
   border-radius: 5px;
   padding: 10px;
   margin: 5%;
+}
+.team-header{
+  font-size: 40px;
 }
 </style>
