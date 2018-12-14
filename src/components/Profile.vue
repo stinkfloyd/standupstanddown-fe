@@ -78,10 +78,9 @@ export default {
       this.usersTeams = this.usersTeams.concat(this.teamName)
       await TeamsStore.methods.createTeam(this.teamName)
       this.teamName = ''
-      return await this.refreshUsersTeams()
+      return this.refreshUsersTeams()
     }
   },
-  
 }
 
 </script>
