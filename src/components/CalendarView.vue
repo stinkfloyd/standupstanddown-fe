@@ -54,13 +54,9 @@
       console.log("this.teamName: ", this.teamName)
       console.log()
     },
-
     methods: {
 
     }
-
-
-
   }
 </script>
 
