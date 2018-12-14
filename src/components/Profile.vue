@@ -18,7 +18,7 @@
       <div class="teamFields">Create a Team:
           <b-form :info="'info'" @submit="addTeam" inline >
             <label for="teamName"  value="name"/>
-            <b-input  :state="nameState" id="inputLive" name="teamName" v-model="teamName" placeholder="Team Name">Team</b-input>
+            <b-input  :state="nameState" id="inputLive"  name="teamName" v-model="teamName" placeholder="Team Name">Team</b-input>
 
             <b-button type="submit" class="teamBtn" variant="dark" >+</b-button>
 
@@ -51,69 +51,37 @@ import Vue from 'vue'
 import TeamsStore from "../stores/TeamsStore"
 
 export default {
-
   name: 'Profile',
-
   data () {
     return {
       reactive: true,
       loading: false,
       usersTeams: [],
-      model:{}
+      model:{},
+      teamName: ''
     }
   },
-
   async created(){
     this.refreshUsersTeams()
   },
-  // async updated(){
-  //   this.refreshUsersTeams()
-  // },
-
   methods: {
+
     async refreshUsersTeams(){
-      this.loading = true
-      this.usersTeams = await TeamsStore.methods.getTeams()
-      console.log("profile.vue: getTeams: ", this.usersTeams)
-      this.loading = false
+      console.log("called refreshed users")
+      let res = await TeamsStore.methods.getTeams()
+      this.usersTeams = await res
+      console.log("this.teamName:", this.teamName)
     },
 
     async addTeam(event){
       event.preventDefault()
-      console.log("event.target", event.target[0].value)
-      let newTeam = event.target[0].value
-      if (newTeam.length < 4) {
-        alert('Please enter a team name >= 4')
-        return hide = true
-        setTimeout(function(hide=false){ ; }, 3000);
-
-        // create a better alert system with bootstrap alerts
-      }
-      TeamsStore.methods.createTeam(event.target[0].value)
-      event.target.reset()
-      // await this.refreshUsersTeams()
+      this.usersTeams = this.usersTeams.concat(this.teamName)
+      await TeamsStore.methods.createTeam(this.teamName)
+      this.teamName = ''
+      return await this.refreshUsersTeams()
     }
-  }
-  // beforeCreated(){
-  //   console.log("created")
-  //   TeamsStore.methods.getTeams().then(response => console.log("created response: ", response))
-  // },
-
-  // mounted(){
-  //   console.log("mounted")
-  //   TeamsStore.methods.getTeams().then(response => console.log("mounted response: ", response))
-  // },
-
-  // methods: {
-  //   addTeam(event){
-  //     event.preventDefault()
-  //     console.log("event.target", event.target[0].value)
-  //     TeamsStore.methods.createTeam(event.target[0].value)
-  //     event.target.reset()
-  //   }
-  // }
-
-
+  },
+  
 }
 
 </script>

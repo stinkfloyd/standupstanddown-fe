@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import TeamsStore from '../stores/TeamsStore'
 import SignUp from '../components/SignUp.vue'
 import Profile from '../components/Profile.vue'
 import Sprint from '../components/Sprint.vue'
@@ -16,7 +15,6 @@ export default new Router({
       path: '/',
       name: 'Profile',
       component: Profile,
-      props: TeamsStore.data,
     },
     {
       path: '*',
