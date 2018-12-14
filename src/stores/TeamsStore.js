@@ -66,15 +66,21 @@ const TeamsStore = {
       })
     },
 
-    //
-    // deleteTeam(id, index) {
-    //   fetch("" + id, {
-    //     method: "DELETE"
-    //   })
-    //   .then(() => {
-    //     this.usersTeams.splice(index, 1);
-    //   })
-    // },
+    
+    async deleteTeam(id, index) {
+      console.log("in the delete teamStore w/ id:", id)
+      await fetch(`http://localhost:3000/teams/${id}`, {
+        credentials: 'include',
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      })
+        .then(() => {
+          this.usersTeams.splice(index, 1);
+        })
+    },
     //
     // editTeam(team) {
     //   fetch("" + team.id, {

@@ -8,7 +8,7 @@
     </div>
     <div class='teamsList'>
       <b-list-group>
-        <b-list-group-item button track-by="$index" v-for="team in this.usersTeams" :key="team.id">{{team.name}}</b-list-group-item>
+        <b-list-group-item button track-by="$index" v-for="team in this.usersTeams" :key="team.id">{{team.name[0].toUpperCase() + team.name.substring(1)}}</b-list-group-item>
       </b-list-group>
     </div>
      <!-- <b-alert show>Show teams and basic github info back</b-alert> -->
@@ -18,20 +18,15 @@
       <div class="teamFields">Create a Team:
           <b-form :info="'info'" @submit="addTeam" inline >
             <label for="teamName"  value="name"/>
-            <b-input  :state="nameState" id="inputLive"  name="teamName" v-model="teamName" placeholder="Team Name">Team</b-input>
+            <b-input   id="inputLive"  name="teamName" v-model="teamName" placeholder="Team Name">Team</b-input>
 
             <b-button type="submit" class="teamBtn" variant="dark" >+</b-button>
 
             <!-- <b-form-invalid-feedback id="inputLiveFeedback">
                  Enter at least 4 letters
                  </b-form-invalid-feedback> -->
-
-
-
-
           </b-form>
       </div>
-
       <br />
       <div class="teamFields">Join a Team:
         <b-form inline>
@@ -40,6 +35,14 @@
           <b-button class="teamBtn" variant="dark">+</b-button>
         </b-form>
       </div>
+    </div>
+    <div class="deleteSelectForm"><b>Delete a Team:</b>
+    <b-form-select @change="deleteTeam" id="dropDown" title="Delete A Team">
+      <option v-for="team in this.usersTeams" 
+            :key="team.id">{{team.id}}: {{team.name}}
+      </option>
+    </b-form-select>
+    <!-- <b-btn class="deleteBTN" variant="dark">Delete</b-btn> -->
     </div>
   </div>
 </template>
@@ -58,27 +61,36 @@ export default {
       loading: false,
       usersTeams: [],
       model:{},
-      teamName: ''
+      teamName: '',
+      selected: null,  
     }
   },
-  async created(){
+
+  async created() {
     this.refreshUsersTeams()
   },
+
   methods: {
 
-    async refreshUsersTeams(){
-      console.log("called refreshed users")
+    async refreshUsersTeams() {
       let res = await TeamsStore.methods.getTeams()
-      this.usersTeams = await res
-      console.log("this.teamName:", this.teamName)
+      await res.forEach((team) => {
+        console.log("team:", team.name[0].toUpperCase() + team.name.substring(1))
+          team.name[0].toUpperCase() + team.name.substring(1)
+          return this.usersTeams.push(team)
+      })
     },
 
-    async addTeam(event){
+    async addTeam(event) {
       event.preventDefault()
-      this.usersTeams = this.usersTeams.concat(this.teamName)
       await TeamsStore.methods.createTeam(this.teamName)
       this.teamName = ''
       return this.refreshUsersTeams()
+    },
+
+    async deleteTeam(event) {
+      console.log("deleteTEam in profile:", event)
+      await TeamsStore.methods.deleteTeam(this.teamId)
     }
   },
 }
@@ -126,7 +138,8 @@ a {
   align-items: center;
   flex-direction: row;
 }
-.teamsList{
-
+.deleteSelectForm {
+  width: 25%;
+  margin-left: 15%;
 }
 </style>

@@ -12,9 +12,21 @@
 
    `/users_teams`
 
-   * 
+   `/new_member/${name}` - join a team route call for profile
+
 
 ## To-do list
+
+### Friday:
+
+[] get id on teams list and link to /sprint page with information
+
+[] join a team 
+
+[] delete a team button
+
+[x] capitalize team names back from db
+
 
 "logout" view toggling for signup/sign in and replace img to default 
 
@@ -27,13 +39,15 @@
 
 > a select field on the Sprint View page that can toggle bootstrap themes for any view
 
-* default: dark, outline dark, accent: light, outline-light
+[] default: dark, outline dark, accent: light, outline-light
 
-* "evening": info, text-dark, text-secondary,
+[] "evening": info, text-dark, text-secondary,
 
-* "dark mode": text-white bg-dark secondary: danger
+[] "dark mode": text-white bg-dark secondary: danger
 
-* "A.G.E.": success
+[] "A.G.E.": success
+
+[] team names capitalize each word in string
 
 ### Info Popovers
 
