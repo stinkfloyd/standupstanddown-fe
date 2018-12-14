@@ -3,7 +3,7 @@
     <h2>Sprint Calendar</h2>
     <div>
 
-    <p>Current Sprint for {{SprintStore.data.teamName}}</p>
+    <p>Current Sprint for {{sprintInfo.teamName}}</p>
      <b-form-group label="">
       <b-form-radio-group id="btnradios2"
                           buttons
@@ -32,7 +32,7 @@
 
     data: () => {
       return {
-        sprintInfo: SprintStore.data.sprintInfo,
+        sprintInfo: '',
         selected: 'radio1',
         options: [
           { text: startDate, value: "radio1", disable: false },
@@ -45,17 +45,15 @@
     },
 
     async created(){
+      console.log("SprintStore.data.sprintInfo: ", SprintStore.data.sprintInfo)
+      this.sprintInfo = SprintStore.data.sprintInfo
       console.log("CalendarView created")
-      console.log(SprintStore.data.teamName)
+      console.log("this.sprintInfo: ", this.sprintInfo)
       console.log()
     },
 
     methods: {
-      async refreshSprint(){
-        console.log("called refreshed sprint")
-        await SprintStore.methods.getSprint(id)
-        this.sprintInfo = await res
-      },
+
     }
 
 
