@@ -39,7 +39,7 @@
     <div class="deleteSelectForm"><b>Delete a Team:</b>
     <b-form-select @change="deleteTeam" id="dropDown" title="Delete A Team">
       <option v-for="team in this.usersTeams" 
-            :key="team.id">{{team.id}}: {{team.name}}
+            :key="team.id">{{team.name[0].toUpperCase() + team.name.substring(1)}}
       </option>
     </b-form-select>
     <!-- <b-btn class="deleteBTN" variant="dark">Delete</b-btn> -->
@@ -73,9 +73,9 @@ export default {
   methods: {
 
     async refreshUsersTeams() {
+      this.usersTeams = []
       let res = await TeamsStore.methods.getTeams()
       await res.forEach((team) => {
-        console.log("team:", team.name[0].toUpperCase() + team.name.substring(1))
           team.name[0].toUpperCase() + team.name.substring(1)
           return this.usersTeams.push(team)
       })
@@ -84,16 +84,24 @@ export default {
     async addTeam(event) {
       event.preventDefault()
       await TeamsStore.methods.createTeam(this.teamName)
+      event.target.reset()
       this.teamName = ''
       return this.refreshUsersTeams()
     },
 
-    async deleteTeam(event) {
-      console.log("deleteTEam in profile:", event)
-      await TeamsStore.methods.deleteTeam(this.teamId)
-    }
-  },
+    async deleteTeam(name) {
+      let id
+      console.log("deleteTEam in profile:", name.toLowerCase())
+      this.usersTeams.map((team) => {
+        if (team.name === name.toLowerCase())
+        id = team.id
+      })
+      await TeamsStore.methods.deleteTeam(id)
+          return this.refreshUsersTeams()
+    },
+  }
 }
+
 
 </script>
 

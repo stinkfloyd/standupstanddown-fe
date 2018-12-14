@@ -67,18 +67,16 @@ const TeamsStore = {
     },
 
     
-    async deleteTeam(id, index) {
+    async deleteTeam(id) {
       console.log("in the delete teamStore w/ id:", id)
       await fetch(`http://localhost:3000/teams/${id}`, {
         credentials: 'include',
         method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
       })
-        .then(() => {
-          this.usersTeams.splice(index, 1);
+        .then((response) => {
+          if (response.status === 401) {
+            alert(`Error: ${response.status}: ${response.statusText}`)
+          }
         })
     },
     //
