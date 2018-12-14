@@ -91,8 +91,8 @@ export default {
 
     async deleteTeam(name) {
       let id
-      console.log("deleteTEam in profile:", name.toLowerCase())
       this.usersTeams.map((team) => {
+        // console.log("delete team:", team)
         if (team.name === name.toLowerCase())
         id = team.id
       })

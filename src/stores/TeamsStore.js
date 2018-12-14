@@ -42,13 +42,13 @@ const TeamsStore = {
         name: teamToAdd,
         creator_id: tokenDecoded.id,
       }
-      await fetch("http://localhost:3000/teams", {
+      await fetch(`http://localhost:3000/teams/${teamToAdd}`, {
         credentials: 'include',
         method: "POST",
         body: JSON.stringify(body),
         headers: {
           "Content-Type": "application/json",
-          "Accept": "application/json"
+          Accept: "application/json",
         },
       })
       .then(async (response) => {
