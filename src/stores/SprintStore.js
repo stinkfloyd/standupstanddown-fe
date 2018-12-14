@@ -1,4 +1,4 @@
-console.lo
+
 
 const SprintStore = {
 
