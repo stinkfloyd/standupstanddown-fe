@@ -7,7 +7,7 @@
     </div>
     <div class='teamsList'>
       <b-list-group>
-        <b-list-group-item button track-by="$index" v-for="team in this.usersTeams" :key="team.id">{{team.name[0].toUpperCase() + team.name.substring(1)}}</b-list-group-item>
+        <b-list-group-item @click="goToSprint(team.id, team.name)" button track-by="$index" v-for="team in this.usersTeams" :key="team.id">{{team.name[0].toUpperCase() + team.name.substring(1)}}</b-list-group-item>
       </b-list-group>
     </div>
      <!-- <b-alert show>Show teams and basic github info back</b-alert> -->
