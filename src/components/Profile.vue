@@ -82,11 +82,10 @@ export default {
       return this.refreshUsersTeams()
     },
 
-
     async goToSprint(teamId, teamName){
       console.log("Go to sprint id: ", teamId)
       await SprintStore.methods.getSprint(teamId, teamName)
-      // window.location = 'http://localhost:8080/sprint'
+      this.$router.push("/sprint")
       //get sprint from SprintStore populates the sprint store data(this doesn't really work yet)
       //redirect to sprints page which is retrieving data from the Sprint Store
     }

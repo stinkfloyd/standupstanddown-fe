@@ -1,3 +1,5 @@
+console.lo
+
 const SprintStore = {
 
   data: {
@@ -20,7 +22,7 @@ const SprintStore = {
           let resJson = await response.json()
           console.log("resJson: ", resJson)
           console.log("resJson[0]: ", resJson[0])
-          SprintStore.data.sprintInfo = resJson[0]
+          SprintStore.data.sprintInfo.push(resJson[0])
           SprintStore.data.teamName = name
           console.log("SprintStore.data.sprintInfo: ", SprintStore.data.sprintInfo)
           console.log("resJson: ", resJson)
