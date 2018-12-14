@@ -14,24 +14,30 @@
 
    `/new_member/${name}` - join a team route call for profile
 
+   `/sprints/${team_id}` post a sprint route
+
 ## To-do list
 
-### Friday:
+### Friday
 
-[] get id on teams list and link to /sprint page with information
+[x] get id on teams list and link to /sprint page with information
 
-[] join a team 
+[] when a team is selected and no sprints exist a check is made for an empty array and a modal appears to "Create a sprint"
 
-[] delete a team button
+[] add a Create a sprint button on the sprint page
+
+[] populate standup cards
+
+[x] delete a team button
 
 [x] capitalize team names back from db
 
 [] tab through sprint days to load standUp components [link to Vue docs - tabs](https://vuejs.org/v2/guide/components-dynamic-async.html)
 
+[] "logout" view toggling for signup/sign in and replace img to default 
 
-"logout" view toggling for signup/sign in and replace img to default 
+[] join a team 
 
-"team name" input in profile still needs an error catch "on submit" for a team name that is < 4
 
 ---
 ## Stretch goals
@@ -46,9 +52,11 @@
 
 [] "dark mode": text-white bg-dark secondary: danger
 
-[] "A.G.E.": success
-
 [] team names capitalize each word in string
+
+[] make Footer a component rendered in App instead of just a class
+
+[] "team name" input in profile still needs an error catch "on submit" for a team name that is < 4
 
 ### Info Popovers
 

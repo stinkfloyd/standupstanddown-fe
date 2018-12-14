@@ -1,7 +1,6 @@
 <template>
   <div class="profile">
     <div>
-      <p>Github username, firstname, lastname</p>
     </div>
     <div>
       <p>Your Teams: </p>
@@ -54,6 +53,7 @@ import Vue from 'vue'
 const jwtDecode = require('jwt-decode')
 import TeamsStore from "../stores/TeamsStore"
 
+
 export default {
   name: 'Profile',
   data () {
@@ -72,7 +72,6 @@ export default {
   },
 
   methods: {
-
     async refreshUsersTeams() {
       this.usersTeams = []
       let res = await TeamsStore.methods.getTeams()
@@ -102,6 +101,8 @@ export default {
       await TeamsStore.methods.deleteTeam(id)
           return this.refreshUsersTeams()
     },
+
+
   }
 }
 

@@ -29,7 +29,7 @@ const TeamsStore = {
       }).then(async (response) => {
         let resJson = await response.json()
         TeamsStore.data.usersTeams = resJson
-        console.log("resJson: ", resJson)
+        // console.log("resJson: ", resJson)
         return resJson
       })
     },

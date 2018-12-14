@@ -25,14 +25,14 @@ export default {
   name: 'Home',
   data: () => {
     return {
-   
       selected: 'radio1',
-       
       options: [
         { text: startDate, value: "radio1", disable: false },
         { text: 'Day 2', value: 'radio2', disable: false },
         { text: 'Day 3', value: 'radio3', disabled: false },
         { text: 'Day 4', value: 'radio4', disable: false },
+        { text: 'Day 5', value: 'radio4', disable: false },
+        { text: 'Day 6', value: 'radio4', disable: false },
         { text: endDate, value: 'radio5', disable: false }
       ]
      
