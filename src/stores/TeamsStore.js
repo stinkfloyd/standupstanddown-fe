@@ -27,6 +27,7 @@ const TeamsStore = {
           Accept: "application/json",
         },
       }).then(async (response) => {
+        console.log("response getTeams: ", response)
         let resJson = await response.json()
         TeamsStore.data.usersTeams = resJson
         console.log("resJson: ", resJson)

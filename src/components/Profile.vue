@@ -8,7 +8,7 @@
     </div>
     <div class='teamsList'>
       <b-list-group>
-        <b-list-group-item button track-by="$index" v-for="team in this.usersTeams" :key="team.id">{{team.name}}</b-list-group-item>
+        <b-list-group-item button track-by="$index" v-for="team in this.usersTeams" :key="team.id" @click="goToSprint(team.id, team.name)">{{team.name}}</b-list-group-item>
       </b-list-group>
     </div>
      <!-- <b-alert show>Show teams and basic github info back</b-alert> -->
@@ -49,6 +49,7 @@
 <script>
 import Vue from 'vue'
 import TeamsStore from "../stores/TeamsStore"
+import SprintStore from "../stores/SprintStore"
 
 export default {
   name: 'Profile',
@@ -79,8 +80,18 @@ export default {
       await TeamsStore.methods.createTeam(this.teamName)
       this.teamName = ''
       return this.refreshUsersTeams()
+    },
+
+
+    async goToSprint(teamId, teamName){
+      console.log("Go to sprint id: ", teamId)
+      await SprintStore.methods.getSprint(teamId, teamName)
+      window.location = 'http://localhost:8080/sprint'
+      //get sprint from SprintStore populates the sprint store data(this doesn't really work yet)
+      //redirect to sprints page which is retrieving data from the Sprint Store
     }
-  },
+  }
+
 }
 
 </script>
