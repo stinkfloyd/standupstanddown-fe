@@ -1,7 +1,7 @@
 <template>
   <div class="sprint">
      <b-btn class="postASprintBtn" v-b-modal.postSprintModal>Create A Sprint</b-btn> 
-       <b-modal id="postSprintModal" variant="dark" title="Create Sprint for Team">  
+       <b-modal id="postSprintModal" hide-footer variant="dark" title="Create Sprint for Team" effect="fade/zoom">  
            <div>Sprint Length: {{rangeValue}} Stand Ups
              <b-form-input type="range"
              variant="info"
@@ -12,8 +12,11 @@
            </div>
            <hr />
            <div>Sprint Goal</div>
-           <b-form-input type="text"></b-form-input>
+           <b-form-input type="text" v-model="rangeGoal" ></b-form-input>
+           <br />
+           <b-button @click="postSprint(1, +(rangeValue), rangeGoal)" variant="outline-info text-dark" value="submit">Get Agile!</b-button>
          </b-modal >
+         
     <CalendarView />
     <br />
   <h2>Daily Stand Up: Day {X} of Sprint</h2>
@@ -48,11 +51,13 @@
 
 <script>
 import CalendarView from './CalendarView'
+import SprintStore from '../stores/SprintStore'
 export default {
   name: 'Sprint',
   data () {
     return {
       rangeValue: 5,
+      rangeGoal: '',
       sprintGoalText: '',
       member1YesterdayText: '',
       member1TodayText: '',
@@ -77,6 +82,15 @@ export default {
       async hitThatRoute() {
         let response = await fetch('http://localhost:3000/teams_users')
         console.log("the button is go:", response, response.status, response.data)
+      },
+      postSprint(team_id, sprint_length, sprint_goal) {
+        if (!sprint_goal) {
+          alert("Please enter a Sprint Goal for your team's betterment")
+        }
+        console.log("in the postSprint in the sprint component:",team_id, sprint_length, sprint_goal)
+        SprintStore.methods.postSprint(team_id, sprint_length, sprint_goal)
+        this.rangeValue = 5
+        this.rangeGoal= ''
       }
       
     },

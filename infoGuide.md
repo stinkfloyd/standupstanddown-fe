@@ -72,5 +72,6 @@ on SignUp/Welcome page use [Popover Messages](https://bootstrap-vue.js.org/docs/
 
 ### `float-left` / `float-right` / `float-none` 
 
+---
 
-
+![screenshot]('./src/assets/standup-dev-screenshot.png')

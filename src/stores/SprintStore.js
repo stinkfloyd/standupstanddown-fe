@@ -32,6 +32,24 @@ const SprintStore = {
 
     },
 
+    async postSprint(team_id, sprint_length, sprint_goal) {
+      console.log("in the sprintstore postSprint rte:", team_id, sprint_length, sprint_goal)
+      let postBody = { sprint_length, sprint_goal}
+      await fetch(`http://localhost:3000/sprints/${team_id}`, {
+        credentials: 'include',
+        method: "POST",
+        body: postBody,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      })
+      // getting an error back for 400 CORS header...
+      .then(async (response) => {
+        console.log(response)
+        }) 
+    },
+
   }
 }
 
