@@ -1,5 +1,23 @@
 <template>
   <div class="sprint">
+     <b-btn class="postASprintBtn" v-b-modal.postSprintModal>Create A Sprint</b-btn> 
+       <b-modal id="postSprintModal" variant="dark"
+        title="Modal Variants"
+             :header-bg-variant="headerBgVariant"
+             :header-text-variant="headerTextVariant"
+             :body-bg-variant="bodyBgVariant"
+             :body-text-variant="bodyTextVariant"
+             :footer-bg-variant="footerBgVariant"
+             :footer-text-variant="footerTextVariant"
+             :buttonVariant="buttonVariant">
+             
+          Create a sprint for team
+           <b-row class="mb-1">
+           <b-col cols="3">Header</b-col>
+           <b-col><b-form-select :options="variants" v-model="headerBgVariant" /></b-col>
+           <b-col><b-form-select :options="variants" v-model="headerTextVariant" /></b-col>
+         </b-row>
+         </b-modal >
     <CalendarView />
     <br />
   <h2>Daily Stand Up: Day {X} of Sprint</h2>
@@ -43,7 +61,17 @@ export default {
       member1TodayText: '',
       member1HelpsText: '',
     
-      notes:''
+      notes:'',
+       variants: [
+        'primary', 'secondary', 'success', 'warning', 'danger', 'info', 'light', 'dark'
+      ],
+      buttonVariant: 'outline-dark',
+      headerBgVariant: 'outline-dark',
+      headerTextVariant: 'outline-dark',
+      bodyBgVariant: 'outline-dark',
+      bodyTextVariant: 'dark',
+      footerBgVariant: 'outline-dark',
+      footerTextVariant: 'dark'
       
     }
     
@@ -53,6 +81,7 @@ export default {
         let response = await fetch('http://localhost:3000/teams_users')
         console.log("the button is go:", response, response.status, response.data)
       }
+      
     },
     components: {
       CalendarView
@@ -113,6 +142,10 @@ a {
 
 #sprintCardUpBtn:hover {
   background-color: #dddddd;
+}
+
+.postASprintBtn {
+  margin-left: 75%;
 }
 
 </style>
