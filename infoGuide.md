@@ -22,21 +22,23 @@
 
 [x] get id on teams list and link to /sprint page with information
 
-[] when a team is selected and no sprints exist a check is made for an empty array and a modal appears to "Create a sprint"
+[ ] when a team is selected and no sprints exist a check is made for an empty array and a modal appears to "Create a sprint"
 
-[] add a Create a sprint button on the sprint page
+[x] add a Create a sprint button on the sprint page
 
-[] populate standup cards
+[ ] Post a sprint to `/sprints/${team_id}`
+
+[ ] populate standup cards
 
 [x] delete a team button
 
 [x] capitalize team names back from db
 
-[] tab through sprint days to load standUp components [link to Vue docs - tabs](https://vuejs.org/v2/guide/components-dynamic-async.html)
+[ ] tab through sprint days to load standUp components [link to Vue docs - tabs](https://vuejs.org/v2/guide/components-dynamic-async.html)
 
-[] "logout" view toggling for signup/sign in and replace img to default 
+[ ] "logout" view toggling for signup/sign in and replace img to default 
 
-[] join a team 
+[ ] join a team 
 
 
 ---
@@ -46,17 +48,17 @@
 
 > a select field on the Sprint View page that can toggle bootstrap themes for any view
 
-[] default: dark, outline dark, accent: light, outline-light
+[ ] default: dark, outline dark, accent: light, outline-light
 
-[] "evening": info, text-dark, text-secondary,
+[ ] "evening": info, text-dark, text-secondary,
 
-[] "dark mode": text-white bg-dark secondary: danger
+[ ] "dark mode": text-white bg-dark secondary: danger
 
-[] team names capitalize each word in string
+[ ] team names capitalize each word in string
 
-[] make Footer a component rendered in App instead of just a class
+[ ] make Footer a component rendered in App instead of just a class
 
-[] "team name" input in profile still needs an error catch "on submit" for a team name that is < 4
+[ ] "team name" input in profile still needs an error catch "on submit" for a team name that is < 4
 
 ### Info Popovers
 

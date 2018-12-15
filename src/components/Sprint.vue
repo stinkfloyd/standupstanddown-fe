@@ -1,22 +1,18 @@
 <template>
   <div class="sprint">
      <b-btn class="postASprintBtn" v-b-modal.postSprintModal>Create A Sprint</b-btn> 
-       <b-modal id="postSprintModal" variant="dark"
-        title="Modal Variants"
-             :header-bg-variant="headerBgVariant"
-             :header-text-variant="headerTextVariant"
-             :body-bg-variant="bodyBgVariant"
-             :body-text-variant="bodyTextVariant"
-             :footer-bg-variant="footerBgVariant"
-             :footer-text-variant="footerTextVariant"
-             :buttonVariant="buttonVariant">
-             
-          Create a sprint for team
-           <b-row class="mb-1">
-           <b-col cols="3">Header</b-col>
-           <b-col><b-form-select :options="variants" v-model="headerBgVariant" /></b-col>
-           <b-col><b-form-select :options="variants" v-model="headerTextVariant" /></b-col>
-         </b-row>
+       <b-modal id="postSprintModal" variant="dark" title="Create Sprint for Team">  
+           <div>Sprint Length: {{rangeValue}} Stand Ups
+             <b-form-input type="range"
+             variant="info"
+              min="5"
+              max="10"
+              step="1"
+               v-model="rangeValue"></b-form-input>
+           </div>
+           <hr />
+           <div>Sprint Goal</div>
+           <b-form-input type="text"></b-form-input>
          </b-modal >
     <CalendarView />
     <br />
@@ -46,7 +42,7 @@
      
     </b-card>
     </div>
-    </div> 
+    </div>
   </div>
 </template>
 
@@ -56,6 +52,7 @@ export default {
   name: 'Sprint',
   data () {
     return {
+      rangeValue: 5,
       sprintGoalText: '',
       member1YesterdayText: '',
       member1TodayText: '',
