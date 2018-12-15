@@ -7,7 +7,7 @@
     </div>
     <div class='teamsList'>
       <b-list-group>
-        <b-list-group-item @click="goToSprint(team.id, team.name)" button track-by="$index" v-for="team in this.usersTeams" :key="team.id">{{team.name[0].toUpperCase() + team.name.substring(1)}}</b-list-group-item>
+        <b-list-group-item button track-by="$index" v-for="team in this.usersTeams" :key="team.id" @click="goToSprint(team.id, team.name)">{{team.name[0].toUpperCase() + team.name.substring(1)}}</b-list-group-item>
       </b-list-group>
     </div>
      <!-- <b-alert show>Show teams and basic github info back</b-alert> -->
@@ -37,7 +37,7 @@
     </div>
     <div class="deleteSelectForm"><b>Delete a Team:</b>
     <b-form-select @change="deleteTeam" id="dropDown" title="Delete A Team">
-      <option v-for="team in this.usersTeams" 
+      <option v-for="team in this.usersTeams"
             :key="team.id">{{team.name[0].toUpperCase() + team.name.substring(1)}}
       </option>
     </b-form-select>
@@ -64,7 +64,7 @@ export default {
       usersTeams: [],
       model:{},
       teamName: '',
-      selected: null,  
+      selected: null,
     }
   },
 

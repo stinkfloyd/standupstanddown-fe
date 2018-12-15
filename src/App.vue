@@ -17,7 +17,7 @@
         </div>
        <b-navbar-nav>
          <b-nav-item  to="/sign-up" v-show="!isSeen">Sign Up</b-nav-item>
-         
+
          <b-nav-item  v-on:click='getUserInfo' v-show="!isSeen" class="loginBtn" href="http://localhost:3000/auth/github">Login</b-nav-item>
          </b-navbar-nav>
          <img :src="currentUserPhoto"  alt="BV">
@@ -26,13 +26,13 @@
     <main>
       <!-- Navbar on top and will render router components through the router-view below - no need to import them -->
       <router-view></router-view>
-    
+
     </main>
-     <footer class="footer"> 
+     <footer class="footer">
    <b-navbar toggleable="md" type="dark" variant="dark">Footer
    </b-navbar>
 </footer>
-    
+
   </div>
 </template>
 
@@ -68,7 +68,7 @@ export default {
       //     this.isSeen = !this.isSeen
       // } else {
       //   !this.isSeen
-      // }    
+      // }
         },
     async getUserInfo() {
       const tokenDecoded = jwtDecode(document.cookie.split('=')[1])
@@ -89,12 +89,12 @@ export default {
       })
     },
 
-      
-    
-   
+
+
+
   }
 
-  
+
 }
  </script>
 

@@ -1,5 +1,4 @@
 
-
 const SprintStore = {
 
   data: {
