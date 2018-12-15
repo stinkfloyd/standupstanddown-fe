@@ -1,109 +1,132 @@
 <template>
   <div class="sprint">
-     <b-btn class="postASprintBtn" v-b-modal.postSprintModal>Create A Sprint</b-btn> 
-       <b-modal id="postSprintModal" hide-footer variant="dark" title="Create Sprint for Team" effect="fade/zoom">  
-           <div>Sprint Length: {{rangeValue}} Stand Ups
-             <b-form-input type="range"
-             variant="info"
-              min="5"
-              max="10"
-              step="1"
-               v-model="rangeValue"></b-form-input>
-           </div>
-           <hr />
-           <div>Sprint Goal</div>
-           <b-form-input type="text" v-model="rangeGoal" ></b-form-input>
-           <br />
-           <b-button @click="postSprint(1, +(rangeValue), rangeGoal)" variant="outline-info text-dark" value="submit">Get Agile!</b-button>
-         </b-modal >
-         
-    <CalendarView />
-    <br />
-  <h2>Daily Stand Up: Day {X} of Sprint</h2>
+    <b-btn class="postASprintBtn" v-b-modal.postSprintModal>Create A Sprint</b-btn>
+    <b-modal
+      id="postSprintModal"
+      hide-footer
+      variant="dark"
+      title="Create Sprint for Team"
+      effect="fade/zoom"
+    >
+      <div>
+        Sprint Length: {{rangeValue}} Stand Ups
+        <b-form-input type="range" variant="info" min="5" max="10" step="1" v-model="rangeValue"></b-form-input>
+      </div>
+      <hr>
+      <div>Sprint Goal</div>
+      <b-form-input type="text" v-model="rangeGoal"></b-form-input>
+      <br>
+      <b-button
+        @click="postSprint(3, +(rangeValue), rangeGoal)"
+        variant="outline-info text-dark"
+        value="submit"
+      >Get Agile!</b-button>
+    </b-modal>
+
+    <CalendarView/>
+    <br>
+    <h2>Daily Stand Up: Day {X} of Sprint</h2>
     <div class="jumbotron">
-     <div class="sprintCardDiv">
+      <div class="sprintCardDiv">
         <h3>Daily Stand UP Card for Team {Team} Date {Date} Members{#}</h3>
-       <b-card title="Team: "
-            sub-title="Stand Up Card for {date}">
-        <p class="card-text">
-            Current sprint goal: <b-form-textarea v-model="sprintGoalText" type="text"></b-form-textarea>
-        </p>
-           <div class="card-text member">
-            Team Member 1: 
-            <br />
-            Yesterday: <b-form-textarea v-model="member1YesterdayText" class="memberInputField" type="textarea"></b-form-textarea>
-            Today: <b-form-textarea v-model="member1TodayText" class="memberInputField" type="textarea"></b-form-textarea>
-            Helps: <b-form-textarea v-model="member1HelpsText" class="memberInputField" type="textarea"></b-form-textarea>
-        </div>
-    
-        <div>Notes:
-        <b-form-textarea v-model="notes" type="textarea" class="sprintCardNotes"></b-form-textarea>
-        </div>
-        <a href="#"
-           class="card-link">Top of Card</a>
-        <b-button id="sprintCardUpBtn"  @click="hitThatRoute" variant="outlin-dark">Update Card</b-button>
-     
-    </b-card>
-    </div>
+        <b-card title="Team: " sub-title="Stand Up Card for {date}">
+          <p class="card-text">Current sprint goal:
+            <b-form-textarea v-model="sprintGoalText" type="text"></b-form-textarea>
+          </p>
+          <div class="card-text member">Team Member 1:
+            <br>Yesterday:
+            <b-form-textarea
+              v-model="member1YesterdayText"
+              class="memberInputField"
+              type="textarea"
+            ></b-form-textarea>Today:
+            <b-form-textarea v-model="member1TodayText" class="memberInputField" type="textarea"></b-form-textarea>Helps:
+            <b-form-textarea v-model="member1HelpsText" class="memberInputField" type="textarea"></b-form-textarea>
+          </div>
+
+          <div>Notes:
+            <b-form-textarea v-model="notes" type="textarea" class="sprintCardNotes"></b-form-textarea>
+          </div>
+          <a href="#" class="card-link">Top of Card</a>
+          <b-button id="sprintCardUpBtn" @click="hitThatRoute" variant="outlin-dark">Update Card</b-button>
+        </b-card>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import CalendarView from './CalendarView'
-import SprintStore from '../stores/SprintStore'
+import CalendarView from "./CalendarView";
+import SprintStore from "../stores/SprintStore";
 export default {
-  name: 'Sprint',
-  data () {
+  name: "Sprint",
+  data() {
     return {
       rangeValue: 5,
-      rangeGoal: '',
-      sprintGoalText: '',
-      member1YesterdayText: '',
-      member1TodayText: '',
-      member1HelpsText: '',
-    
-      notes:'',
-       variants: [
-        'primary', 'secondary', 'success', 'warning', 'danger', 'info', 'light', 'dark'
+      rangeGoal: "",
+      sprintGoalText: "",
+      member1YesterdayText: "",
+      member1TodayText: "",
+      member1HelpsText: "",
+
+      notes: "",
+      variants: [
+        "primary",
+        "secondary",
+        "success",
+        "warning",
+        "danger",
+        "info",
+        "light",
+        "dark"
       ],
-      buttonVariant: 'outline-dark',
-      headerBgVariant: 'outline-dark',
-      headerTextVariant: 'outline-dark',
-      bodyBgVariant: 'outline-dark',
-      bodyTextVariant: 'dark',
-      footerBgVariant: 'outline-dark',
-      footerTextVariant: 'dark'
-      
-    }
-    
+      buttonVariant: "outline-dark",
+      headerBgVariant: "outline-dark",
+      headerTextVariant: "outline-dark",
+      bodyBgVariant: "outline-dark",
+      bodyTextVariant: "dark",
+      footerBgVariant: "outline-dark",
+      footerTextVariant: "dark"
+    };
   },
   methods: {
-      async hitThatRoute() {
-        let response = await fetch('http://localhost:3000/teams_users')
-        console.log("the button is go:", response, response.status, response.data)
-      },
-      postSprint(team_id, sprint_length, sprint_goal) {
-        if (!sprint_goal) {
-          alert("Please enter a Sprint Goal for your team's betterment")
-        }
-        console.log("in the postSprint in the sprint component:",team_id, sprint_length, sprint_goal)
-        SprintStore.methods.postSprint(team_id, sprint_length, sprint_goal)
-        this.rangeValue = 5
-        this.rangeGoal= ''
-      }
-      
+    async hitThatRoute() {
+      let response = await fetch("http://localhost:3000/teams_users", {
+        credentials: "include"
+      });
+      console.log(
+        "the button is go:",
+        response,
+        response.status,
+        response.data
+      );
     },
-    components: {
-      CalendarView
+    postSprint(team_id, sprint_length, sprint_goal) {
+      if (!sprint_goal) {
+        alert("Please enter a Sprint Goal for your team's betterment");
+      }
+      console.log(
+        "in the postSprint in the sprint component:",
+        team_id,
+        sprint_length,
+        sprint_goal
+      );
+      SprintStore.methods.postSprint(team_id, sprint_length, sprint_goal);
+      this.rangeValue = 5;
+      this.rangeGoal = "";
     }
-}
+  },
+  components: {
+    CalendarView
+  }
+};
 </script>
 
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
+h1,
+h2 {
   font-weight: normal;
 }
 
@@ -122,13 +145,13 @@ a {
 }
 
 .jumbotron {
-  background-color:#ebebeb;
+  background-color: #ebebeb;
 }
 
 .sprint {
   border-radius: 5px;
   padding: 10px;
-  margin: 2%;  
+  margin: 2%;
 }
 
 .sprintCardDiv {
@@ -158,5 +181,4 @@ a {
 .postASprintBtn {
   margin-left: 75%;
 }
-
 </style>
