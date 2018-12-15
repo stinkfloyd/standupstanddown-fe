@@ -74,4 +74,4 @@ on SignUp/Welcome page use [Popover Messages](https://bootstrap-vue.js.org/docs/
 
 ---
 
-![screenshot]('./src/assets/standup-dev-screenshot.png')
+![screenshot](./src/assets/standup-dev-screenshot.png)
