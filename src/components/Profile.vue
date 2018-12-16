@@ -8,7 +8,8 @@
     <b-container  class="bv-example-row">
     <b-row>
         <b-col>
-          <div class="teamFields">Create a Team
+          <h4>Create a Team</h4>
+          <div class="teamFields">
             <b-form :info="'info'" @submit="addTeam" inline >
               <label for="teamName"  value="name"/>
               <b-input id="inputLive"  name="teamName" 
@@ -25,24 +26,17 @@
         </b-col>
         
         <b-col>  
-          <h4><u>Your Teams</u></h4>
+          <h4>Your Teams</h4>
           <div class='teamsList'>
             <b-list-group class="yourTeamsGroup" track-by="$index"  v-for="team in this.usersTeams" :key="team.id">
               <b-list-group-item class="yourTeamsItem" button  @click="goToSprint(team.id, team.name)">{{team.name[0].toUpperCase() + team.name.substring(1)}}
                 
               </b-list-group-item>
-               <b-button variant="outline-dark" class="teamEditDel" @click="showModal(team.name)">Edit</b-button>
-                <b-button variant="outline-dark" class="teamEditDel" @click="deleteTeam(team.name)">🗑</b-button>
+               <b-button v-b-tooltip.hover title="Edit" id="edit" variant="outline-dark" class="teamEditDel" @click="showModal(team.name)">✎</b-button>
+                <b-button v-b-tooltip.hover title="Delete" variant="outline-dark" class="teamEditDel" @click="deleteTeam(team.name)">🗑</b-button>
              
                </b-list-group>
            </div>
-           <b-modal ref="editModal" hide-footer title="Edit Name">
-               <div class="d-block text-center">{{teamName.toUpperCase(1)}}
-               <b-input v-model="editModalInput" type="text"></b-input>
-       </div>
-      <b-btn class="mt-3" variant="outline-dark" block @click="hideModal &&editTeam(teamName)">Edit</b-btn>
-    </b-modal>
-   
          </b-col>
         
       </b-row>
@@ -50,20 +44,32 @@
        <b-row> 
            <b-col>
            <b-alert hide=true variant="warning">Please enter a longer team name</b-alert>
-           <div class="teamActions">
-             <div class="joinTeam">Join a Team
+           <div class="teamActions"><h4>Join a Team</h4>
+             <div class="joinTeam">
                <b-form inline>
                  <label for="Team Name" value="name"/>
                  <b-input placeholder="Team Name">Team</b-input>
                  <b-button class="teamBtn" variant="dark">+</b-button>
                </b-form>
-               
+             
             </div>
           </div>
         </b-col>
         </b-row>
     </b-container>
-  </div>
+     
+
+    <!-- modal below here -->
+     <b-modal ref="editModal" hide-footer title="Edit Team Name">
+       <div class="d-block text-center">{{teamName.toUpperCase(1)}}
+       <hr />
+         <b-input id="modalInput" v-model="editModalInput" type="text">
+         </b-input>
+       </div>
+       <b-btn class="mt-3" variant="outline-dark" block @click="hideModal &&editTeam(teamName)">Edit</b-btn>
+    </b-modal>
+
+    </div>
   </div>
 </template>
 
@@ -230,9 +236,14 @@ export default {
 }
 
 .teamEditDel {
+ font-size: 20px;
   border: none;
   border-radius: 5px;
-   margin: 2%;
+   margin-left: 1%;
+}
+
+#edit {
+  font-size: 24px;
 }
 
 .teamEditDel:hover {
@@ -241,4 +252,7 @@ export default {
   border-radius: 5px;
 }
 
+#modalInput {
+  width: 100%;
+}
 </style>

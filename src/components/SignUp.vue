@@ -2,10 +2,10 @@
   <div class="signUp">
     <h3>Welcome to Stand Up! The <b>Daily Scrum</b> app for remote teams</h3>
     <h4>Easily <b>create</b> and <b>join</b> sprint teams</h4>
-    <h5>Review each team members progress</h5>
+    <h5>Review each team member's progress</h5>
       <h5>Address helps to achieve the current <b>sprint goal</b></h5>
       <h5>Access past records in the <b>current sprint</b> for easy and qualitative <b>review</b></h5>
-      <h5>↓Solidify your status as an <b>Agile</b> pro today↓</h5>
+      <h5><b>↓</b> Solidify your status as an <b>Agile</b> pro today <b>↓</b> </h5>
     <b-form>
       <b-button id="signUpBtn" href="http://localhost:3000/auth/github" variant="alert">Sign In with Github
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/1024px-Octicons-mark-github.svg.png" />
