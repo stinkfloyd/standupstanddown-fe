@@ -47,7 +47,7 @@
           <div>Notes:
             <b-form-textarea v-model="notes" type="textarea" class="sprintCardNotes"></b-form-textarea>
           </div>
-          <a href="#" class="card-link">Top of Card</a>
+          <a href="#" class="card-link">Up to Current Sprint</a>
           <b-button id="sprintCardUpBtn" @click="hitThatRoute" variant="outlin-dark">Update Card</b-button>
         </b-card>
       </div>
