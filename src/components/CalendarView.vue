@@ -1,6 +1,6 @@
 <template>
   <div class="calendar">
-    <p class="team-header">Current Sprint: {{teamName}}</p>
+    <p class="team-header"><u>Current Sprint: {{teamName}}</u></p>
     <div>
 
 

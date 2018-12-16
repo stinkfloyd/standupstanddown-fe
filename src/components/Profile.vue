@@ -105,9 +105,15 @@ export default {
       //redirect to sprints page which is retrieving data from the Sprint Store
     },
 
-    async deleteTeam(teamId) {
-      console.log("gonna delete team:", teamId)
-      await TeamsStore.methods.deleteTeam(+(teamId))
+    deleteTeam(name) {
+      console.log("gonna delete team:", name)
+       this.usersTeams.map(async (team) => {
+         if (team.name === name.toLowerCase()) {
+          await TeamsStore.methods.deleteTeam(team.id)
+          return this.refreshUsersTeams()
+         } 
+       })
+    
     }
   }
 
