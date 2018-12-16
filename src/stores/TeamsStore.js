@@ -81,25 +81,28 @@ const TeamsStore = {
           }
         })
     },
-    
-    // Edit Team? Probably no need.
-    
-    // editTeam(team) {
-    //   fetch("" + team.id, {
-    //     method: "PATCH",
-    //     body: JSON.stringify(team),
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   })
-    //   .then(() => {
-    //     this.editFriend = null;
-    //   })
-    // },
-
-
-
-  }
+    async editTeam(id, name) {
+      const tokenDecoded = jwtDecode(document.cookie.split('=')[1])
+      const body = {
+        name,
+        creator_id: tokenDecoded.id,
+      }
+      await fetch(`http://localhost:3000/teams/${id}`, {
+        credentials: 'include',
+        method: "PUT",
+        body: JSON.stringify(body),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      })
+        .then((response) => {
+          if (response.status === 401) {
+            alert(`Error: ${response.status}: ${response.statusText}`)
+          }
+        })
+    },
+  },
 };
 
 export default TeamsStore;

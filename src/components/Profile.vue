@@ -21,37 +21,47 @@
               </b-form-invalid-feedback>
              </b-form>
            </div>
-           <div class="deleteSelectForm"><b>Delete a Team</b>
-             <b-form-select @change="deleteTeam" id="dropDown" title="Delete A Team">
-             <option v-for="team in this.usersTeams"
-               :key="team.id">{{team.name[0].toUpperCase() + team.name.substring(1)}}
-             </option>
-            </b-form-select>
-    <!-- <b-btn class="deleteBTN" variant="dark">Delete</b-btn> -->
-          </div>
+    
         </b-col>
+        
         <b-col>  
           <h4><u>Your Teams</u></h4>
           <div class='teamsList'>
-            <b-list-group class="yourTeamsGroup">
-              <b-list-group-item class="yourTeamsItem" button track-by="$index" v-for="team in this.usersTeams" :key="team.id" @click="goToSprint(team.id, team.name)">{{team.name[0].toUpperCase() + team.name.substring(1)}}
+            <b-list-group class="yourTeamsGroup" track-by="$index"  v-for="team in this.usersTeams" :key="team.id">
+              <b-list-group-item class="yourTeamsItem" button  @click="goToSprint(team.id, team.name)">{{team.name[0].toUpperCase() + team.name.substring(1)}}
+                
               </b-list-group-item>
+               <b-button variant="outline-dark" class="teamEditDel" @click="showModal(team.name)">Edit</b-button>
+                <b-button variant="outline-dark" class="teamEditDel" @click="deleteTeam(team.name)">🗑</b-button>
+             
                </b-list-group>
            </div>
+           <b-modal ref="editModal" hide-footer title="Edit Name">
+               <div class="d-block text-center">{{teamName.toUpperCase(1)}}
+               <b-input v-model="editModalInput" type="text"></b-input>
+       </div>
+      <b-btn class="mt-3" variant="outline-dark" block @click="hideModal &&editTeam(teamName)">Edit</b-btn>
+    </b-modal>
+   
          </b-col>
-         <b-col>  <!-- <b-alert show>Show teams and basic github info back</b-alert> -->
+        
+      </b-row>
+       <hr />
+       <b-row> 
+           <b-col>
            <b-alert hide=true variant="warning">Please enter a longer team name</b-alert>
            <div class="teamActions">
-             <div class="teamFields">Join a Team
+             <div class="joinTeam">Join a Team
                <b-form inline>
                  <label for="Team Name" value="name"/>
                  <b-input placeholder="Team Name">Team</b-input>
                  <b-button class="teamBtn" variant="dark">+</b-button>
                </b-form>
+               
             </div>
           </div>
         </b-col>
-      </b-row>
+        </b-row>
     </b-container>
   </div>
   </div>
@@ -78,6 +88,7 @@ export default {
       model:{},
       teamName: '',
       selected: null,
+      editModalInput: ''
     }
   },
 
@@ -88,16 +99,20 @@ export default {
 
   methods: {
     async refreshUsersTeams() {
+      // first clear the existing array of teams
+      this.usersTeams = []
       if (this.currentlyLoading = false) {
         setTimeout(() => this.currentlyLoading = true, 3000)
       }
       this.currentlyLoading = false
+      //second get all teams for user 
       let res = await TeamsStore.methods.getTeams()
       await res.map((team) => {
         if (team.creator_id === jwtDecode(document.cookie.split('=')[1]).id) {
            team.name[0].toUpperCase() + team.name.substring(1)
            this.isSeen = false
            this.currentlyLoading = false
+           // last set usersTeams array
           return this.usersTeams.push(team)
         }
       })
@@ -120,7 +135,6 @@ export default {
     },
 
     deleteTeam(name) {
-      console.log("gonna delete team:", name)
        this.usersTeams.map(async (team) => {
          if (team.name === name.toLowerCase()) {
           await TeamsStore.methods.deleteTeam(team.id)
@@ -128,6 +142,25 @@ export default {
          } 
        })
     
+    },
+    editTeam() {
+      this.usersTeams.map(async (team) => {
+        if (team.name === this.teamName.toLowerCase()) {
+          await TeamsStore.methods.editTeam(team.id, this.editModalInput.toLowerCase())
+          this.editModalInput = ''
+          this.hideModal()
+          return this.refreshUsersTeams()
+        }
+      })
+    },
+    showModal(name) {
+      this.teamName = name
+      console.log("modal name:", name)
+      this.$refs.editModal.show()
+    },
+     hideModal () {
+      this.teamName = ''
+      this.$refs.editModal.hide()
     }
   },
   components: {
@@ -160,16 +193,28 @@ export default {
   padding: 5%;
 }
 
+.joinTeam {
+  width: 50%;
+  margin-left: 25%;
+}
+
 .teamBtn {
   margin: 1%;
 }
 
-.yourTeamsItem {
+.yourTeamsGroup {
 
+  padding: 2%;
+  display: flex;
+  flex-direction: row;
+}
+
+.yourTeamsItem {
+  width: 100%;
   margin: 1% 0px;
-  border: 1px solid rgb(59, 59, 59);
-  border-radius: 15px;
   font-weight: bold;
+  border-radius: 15px;
+  border: 1px solid rgb(59, 59, 59) 
 }
 
 .yourTeamsItem:focus {
@@ -182,6 +227,18 @@ export default {
 
 #pacman {
   margin: 2% 0 0 50%;
+}
+
+.teamEditDel {
+  border: none;
+  border-radius: 5px;
+   margin: 2%;
+}
+
+.teamEditDel:hover {
+  background-color: #b5c6d6;
+  border: none;
+  border-radius: 5px;
 }
 
 </style>
