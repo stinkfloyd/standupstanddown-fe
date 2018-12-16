@@ -30,7 +30,7 @@
 
 [ ] populate standup cards
 
-[ ] [Spin Kit Spinners](https://github.com/TonPC64/vue-spinkit)
+[x] [Spin Kit Spinners](https://github.com/TonPC64/vue-spinkit)
 
 [x] delete a team button
 
@@ -38,7 +38,7 @@
 
 [ ] tab through sprint days to load standUp components [link to Vue docs - tabs](https://vuejs.org/v2/guide/components-dynamic-async.html)
 
-[ ] "logout" view toggling for signup/sign in and replace img to default 
+[x] "logout" view toggling for signup/sign in and replace img to default 
 
 [ ] join a team 
 

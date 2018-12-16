@@ -1,5 +1,7 @@
 <template>
-  <div class="sprint">
+<div>
+  <Spinner v-show="notLoading" id="pacman" name="ball-scale-multiple" color="#292b2c"/>
+  <div v-show="!notLoading" class="sprint">
     <b-btn class="postASprintBtn" v-b-modal.postSprintModal>Create A Sprint</b-btn>
     <b-modal
       id="postSprintModal"
@@ -17,7 +19,7 @@
       <b-form-input type="text" v-model="rangeGoal"></b-form-input>
       <br>
       <b-button
-        @click="postSprint(3, +(rangeValue), rangeGoal)"
+        @click="postSprint(3, +(rangeValue), rangeGoal) && hideModal"
         variant="outline-info text-dark"
         value="submit"
       >{{teamName[0].toUpperCase() + teamName.substring(1)}}...Get Agile!</b-button>
@@ -54,16 +56,20 @@
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <script>
 import CalendarView from "./CalendarView";
 import SprintStore from "../stores/SprintStore";
+import Spinner from './error-pages/Spinner'
+
 export default {
   name: "Sprint",
   data() {
     return {
       rangeValue: 5,
+      notLoading: false,
       rangeGoal: "",
       sprintGoalText: "",
       member1YesterdayText: "",
@@ -95,16 +101,23 @@ export default {
 
   
     async created(){
-    
       console.log("SprintStore.data.sprintInfo: ", SprintStore.data.sprintInfo)
+      this.notLoading = true
+      setTimeout(() => {
+        this.notLoading = false
+      }, 2500)
        this.sprintInfo = await SprintStore.data.sprintInfo
        this.teamName = await SprintStore.data.teamName
+      
       console.log("CalendarView created")
       console.log("this.sprintInfo: ", this.sprintInfo)
       console.log("this.teamName: ", this.teamName)
       console.log()
     },
   methods: {
+    hideModal () {
+      this.$refs.postSprintModal.hide()
+    },
     async hitThatRoute() {
       let response = await fetch("http://localhost:3000/teams_users", {
         credentials: "include"

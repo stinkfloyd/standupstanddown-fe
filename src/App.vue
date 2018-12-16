@@ -27,7 +27,7 @@
       </b-navbar>
     </header>
       
-<Spinner v-show="loggingOut" id="pacman" name="pacman" color="#28284e"/>
+<Spinner v-show="loggingOut" id="pacman" name="ball-scale-multiple" color="#292b2c"/>
     <main  v-show="!loggingOut">
         
       <!-- Navbar on top and will render router components through the router-view below - no need to import them -->
@@ -100,7 +100,8 @@ export default {
     logOut() {
       console.log("I hit the logout button", document.cookie)
       this.loggingOut = true
-        setTimeout(() => {this.currentUserName = ''
+        setTimeout(() => {
+         this.currentUserName = ''
          this.currentUserPhoto = 'http://getwallpapers.com/wallpaper/full/0/3/c/12613.jpg'
          this.loggedIn = false
          this.loggingOut = false
@@ -144,7 +145,7 @@ img {
 }
 
 #pacman {
-  margin: 2% 0 0 50%;
+  margin: 8% 0 0 50%;
 }
 
 </style>
