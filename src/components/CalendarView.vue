@@ -1,10 +1,11 @@
 <template>
   <div class="calendar">
-    <p class="team-header">Current Sprint: <em>{{teamName[0].toUpperCase() + teamName.substring(1)}}</em></p>
+    <p class="team-header">Current Sprint: <em>{{teamName[0].toUpperCase() + teamName.substring(1)}} Sprint Length: {{sprintLength}}</em></p>
     <div>
 
 
      <b-form-group label="">
+
       <b-form-radio-group id="btnradios2"
                           buttons
                           button-variant="outline-dark"
@@ -14,27 +15,43 @@
                           name="radioBtnOutline" />
     </b-form-group>
 
-    </div>
 
+
+        <!-- The following will generate five sets of radio buttons so the for loop is working but the style and grouping of the buttons is all wrong -->
+
+             <!-- <b-form-group class="sprintDailiesGroup" track-by="$index"  v-for="day in this.sprintLength" :key="curentDaily">
+               <b-form-radio-group id="btnradios2"
+                          buttons
+                          button-variant="outline-dark"
+                          size="lg"
+                          v-model="selected"
+                          :options="options"
+                          class="radioBtns" />
+                 </b-form-group> -->
+
+    </div>
   </div>
 </template>
 
 <script>
-
   import SprintStore from "../stores/SprintStore"
+  import Sprint from './Sprint'
 
   let startDate = "Day 1"
   let endDate = "Sprint End"
 
   export default {
-
-    name: 'Home',
-
+    name: 'CalendarView',
+    
+    // this is receiving the prop of sprintLEngth from the sprint vue
+    props: ['sprintLength'],
     data: () => {
       return {
+        reactove: true,
         teamName: 'test',
         sprintInfo: '',
         selected: 'radio1',
+        curentDaily: 0,
         options: [
           { text: startDate, value: "radio1", disable: false },
           { text: 'Day 2', value: 'radio2', disable: false },
@@ -42,6 +59,8 @@
           { text: 'Day 4', value: 'radio4', disable: false },
           { text: endDate, value: 'radio5', disable: false }
         ]
+        
+        
       }
     },
 
@@ -56,7 +75,8 @@
     },
     methods: {
 
-    }
+    },
+
   }
 </script>
 
@@ -84,5 +104,12 @@ a {
 }
 .team-header{
   font-size: 40px;
+}
+.sprintDailiesGroup {
+  display:flex;
+  
+}
+.radioBtns {
+flex-direction: row;
 }
 </style>

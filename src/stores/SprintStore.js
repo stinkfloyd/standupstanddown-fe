@@ -3,7 +3,8 @@ const SprintStore = {
 
   data: {
     teamName: "",
-    sprintInfo: [],
+    sprintInfo: [1],
+    sprintLength: 0,
   },
 
   methods: {
@@ -23,6 +24,7 @@ const SprintStore = {
         console.log("resJson[0]: ", resJson[0])
         SprintStore.data.sprintInfo.push(resJson[0])
         SprintStore.data.teamName = name
+      
         console.log("SprintStore.data.sprintInfo: ", SprintStore.data.sprintInfo)
         console.log("resJson: ", resJson)
         return resJson

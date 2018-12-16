@@ -1,34 +1,18 @@
 <template>
 <div>
+  <!-- loading spinner for transition -->
   <Spinner v-show="notLoading" id="pacman" name="ball-scale-multiple" color="#292b2c"/>
+
+ <!-- below here is rendered after loading spinner timeout -->
   <div v-show="!notLoading" class="sprint">
     <b-btn class="postASprintBtn" v-b-modal.postSprintModal>Create A Sprint</b-btn>
-    <b-modal
-      id="postSprintModal"
-      hide-footer
-      variant="dark"
-      title="Create Sprint for Team"
-      effect="fade/zoom"
-    >
-      <div>
-        Sprint Length: {{rangeValue}} Stand Ups
-        <b-form-input type="range" variant="info" min="5" max="10" step="1" v-model="rangeValue"></b-form-input>
-      </div>
-      <hr>
-      <div>Sprint Goal</div>
-      <b-form-input type="text" v-model="rangeGoal"></b-form-input>
-      <br>
-      <b-button
-        @click="postSprint(3, +(rangeValue), rangeGoal) && hideModal"
-        variant="outline-info text-dark"
-        value="submit"
-      >{{teamName[0].toUpperCase() + teamName.substring(1)}}...Get Agile!</b-button>
-    </b-modal>
-
-    <CalendarView/>
+   
+   <!-- calendar view component rendered here -->
+    <CalendarView :sprintLength="sprintLength"/>
     <br>
+    
     <!-- insert day of sprint variable here -->
-    <h2>Daily Stand Up: Day {{sprintInfo}} of Sprint</h2>
+    <h2>Daily Stand Up: Day {{sprintInfo[0]}} of Sprint</h2>
     <div class="jumbotron">
       <div class="sprintCardDiv">
         <h3>Daily Stand Up Card for <em><b>{{teamName[0].toUpperCase() + teamName.substring(1)}}</b></em> <br />Date {Date} Members{#}</h3>
@@ -56,6 +40,28 @@
       </div>
     </div>
   </div>
+  <!-- modal below here as last rendered thing in component -->
+   <b-modal
+      id="postSprintModal"
+      hide-footer
+      variant="dark"
+      title="Create Sprint for Team"
+      effect="fade/zoom"
+    >
+      <div>
+        Sprint Length: {{rangeValue}} Stand Ups
+        <b-form-input type="range" variant="info" min="5" max="10" step="1" v-model="rangeValue"></b-form-input>
+      </div>
+      <hr>
+      <div>Sprint Goal</div>
+      <b-form-input type="text" v-model="rangeGoal"></b-form-input>
+      <br>
+      <b-button
+        @click="postSprint(3, +(rangeValue), rangeGoal) && hideModal"
+        variant="outline-info text-dark"
+        value="submit"
+      >{{teamName[0].toUpperCase() + teamName.substring(1)}}...Get Agile!</b-button>
+    </b-modal>
   </div>
 </template>
 
@@ -71,37 +77,26 @@ export default {
       rangeValue: 5,
       notLoading: false,
       rangeGoal: "",
+      sprintLength: 5,
       sprintGoalText: "",
       member1YesterdayText: "",
       member1TodayText: "",
       member1HelpsText: "",
-       teamName: '',
-        sprintInfo: '',
-
+      teamName: '',
+      sprintInfo: '',
       notes: "",
-      variants: [
-        "primary",
-        "secondary",
-        "success",
-        "warning",
-        "danger",
-        "info",
-        "light",
-        "dark"
-      ],
-      buttonVariant: "outline-dark",
-      headerBgVariant: "outline-dark",
-      headerTextVariant: "outline-dark",
-      bodyBgVariant: "outline-dark",
-      bodyTextVariant: "dark",
-      footerBgVariant: "outline-dark",
-      footerTextVariant: "dark"
+   
     };
   },
 
   
     async created(){
+      console.log("calendar info available to sprint page:", CalendarView)
       console.log("SprintStore.data.sprintInfo: ", SprintStore.data.sprintInfo)
+      if (SprintStore.data.sprintInfo.length === 0) {
+        this.$router.push('/profile')
+      }
+
       this.notLoading = true
       setTimeout(() => {
         this.notLoading = false

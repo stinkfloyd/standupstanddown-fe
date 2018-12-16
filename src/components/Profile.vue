@@ -1,9 +1,7 @@
 <template>
 <div>
   <SignUp v-show="isSeen && !currentlyLoading"/>
-  <div class="profile" v-show="!isSeen && !currentlyLoading">
-    <!-- <div > Please login to view your teams</div> -->
-    
+  <div class="profile" v-show="!isSeen && !currentlyLoading">  
     <Spinner v-show="currentlyLoading" id="pacman" name="pacman" color="#28284e"/>
     <b-container  class="bv-example-row">
     <b-row>
@@ -135,7 +133,7 @@ export default {
     async goToSprint(teamId, teamName){
       console.log("Go to sprint id: ", teamId)
       await SprintStore.methods.getSprint(teamId, teamName)
-      this.$router.push("/sprint")
+      this.$router.push('/sprint')
       //get sprint from SprintStore populates the sprint store data(this doesn't really work yet)
       //redirect to sprints page which is retrieving data from the Sprint Store
     },

@@ -4,7 +4,6 @@ import SignUp from '../components/SignUp.vue'
 import Profile from '../components/Profile.vue'
 import Sprint from '../components/Sprint.vue'
 import NotFound from '../components/error-pages/NotFound.vue'
-// import { props } from '../App'
 
 Vue.use(Router)
 
