@@ -1,7 +1,7 @@
 <template>
 <div>
-  <SignUp v-show="isSeen && !currentlyLoading"/>
-  <div class="profile" v-show="!isSeen && !currentlyLoading">  
+  <SignUp v-show="isSeen && !currentlyLoading && !loggedIn"/>
+  <div class="profile" v-show="!isSeen || !currentlyLoading && loggedIn">  
     <Spinner v-show="currentlyLoading" id="pacman" name="pacman" color="#28284e"/>
     <b-container  class="bv-example-row">
     <b-row>
@@ -92,12 +92,12 @@ export default {
       model:{},
       teamName: '',
       selected: null,
-      editModalInput: ''
+      editModalInput: '',
+      loggedIn: true
     }
   },
 
   async created() {
-    
     this.refreshUsersTeams()
   },
 
@@ -114,6 +114,7 @@ export default {
       await res.map((team) => {
         if (team.creator_id === jwtDecode(document.cookie.split('=')[1]).id) {
            team.name[0].toUpperCase() + team.name.substring(1)
+           this.loggedIn = true
            this.isSeen = false
            this.currentlyLoading = false
            // last set usersTeams array

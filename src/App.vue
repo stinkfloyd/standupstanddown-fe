@@ -3,42 +3,36 @@
     <header>
        <b-navbar  toggleable="md" type="dark" variant="dark">
        <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-       <b-navbar-brand to="/">StandUP!</b-navbar-brand>
+       <b-navbar-brand to="/sign-up">StandUP!</b-navbar-brand>
        <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav>
-          <!-- <b-nav-item to="/sprint">Home</b-nav-item> -->
           <b-nav-item v-show="loggedIn" to="/sprint">Sprint</b-nav-item>
           <b-nav-item v-show="loggedIn" to="/profile">Your Teams</b-nav-item>
-          <!-- <b-nav-item to="/sign-up">Logout</b-nav-item> -->
         </b-navbar-nav>
        </b-collapse>
-       <div class="userInfoDisplay" >
+       <div class="userInfoDisplay">
          {{currentUserName.toUpperCase()}}
         </div>
        <b-navbar-nav>
          <b-nav-item  to="/sign-up" v-show="!loggedIn">Sign Up</b-nav-item>
-         
-         
          <b-nav-item  v-on:click='getUserInfo' v-show="!loggedIn" class="loginBtn" href="http://localhost:3000/auth/github">Login</b-nav-item>
          <b-nav-item  @click="logOut" v-show="loggedIn">Logout</b-nav-item>
          </b-navbar-nav>
-         <img :src="currentUserPhoto"  alt="BV">
-         
+         <img :src="currentUserPhoto"  alt="BV"> 
       </b-navbar>
     </header>
-      
-<Spinner v-show="loggingOut" id="pacman" name="ball-scale-multiple" color="#292b2c"/>
+ 
+    <Spinner v-show="loggingOut" id="pacman" name="ball-scale-multiple" color="#292b2c" />
+
     <main  v-show="!loggingOut">
-        
       <!-- Navbar on top and will render router components through the router-view below - no need to import them -->
       <router-view></router-view>
-
     </main>
-     <footer class="footer">
-   <b-navbar toggleable="md" type="dark" variant="dark">Footer
-   </b-navbar>
-</footer>
-
+    <footer class="footer">
+     <b-navbar toggleable="md" type="dark" variant="dark">
+      <span id="cpy">Stand Up! © 2018</span>  <span id="time"></span>
+     </b-navbar>
+    </footer>
   </div>
 </template>
 
@@ -46,33 +40,24 @@
 import UsersStore from "./stores/UsersStore"
 const jwtDecode = require('jwt-decode')
 
-if (!this.currentUser) {
-  this.ifOk = true
-}
 
 export default {
   name: 'App',
   data () {
     return {
-      ifOk: false,
       reactive: true,
       loggedIn: false,
       loggingOut: false,
       currentUser: '',
       currentUserName: '',
       currentUserPhoto: 'http://getwallpapers.com/wallpaper/full/0/3/c/12613.jpg',
-      // https://images.unsplash.com/photo-1487872323115-ab52ad0d2910?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=958&q=80
-      // http://www.csuchico.edu/~rpenne/screening/black.gif
-      // https://cdn-images-1.medium.com/max/2000/1*6Ipq8lQz7lzTZQhmcQ61Tw.jpeg
-      // https://www2.shutterstock.com/blog/wp-content/uploads/sites/5/2014/06/img3.gif
-      // https://media.istockphoto.com/vectors/black-white-dotted-halftone-vector-background-centered-radial-dotted-vector-id916238928
-      // https://images.unsplash.com/photo-1534237187820-7177d9bbd685?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1400&q=80
       currentUserOther: ''
     }
   },
 
   async created() {
      await this.getUserInfo()
+     this.startTime()
   },
 
   methods: {
@@ -81,6 +66,7 @@ export default {
       let creatorId = tokenDecoded.id
       if (creatorId !== '') {
         this.loggedIn = true
+        this.$router.push('/profile')
       }
       await fetch(`http://localhost:3000/users/${creatorId}`, {
         credentials: 'include',
@@ -106,10 +92,23 @@ export default {
          this.loggedIn = false
          this.loggingOut = false
          this.$router.push('/sign-up')
-         }, 4000)
-       
-            
+         }, 4000)            
     },
+    startTime() {
+      let today = new Date();
+      let h = today.getHours();
+      let m = today.getMinutes();
+      let s = today.getSeconds();
+        m = this.checkTime(m);
+        s = this.checkTime(s);
+      document.getElementById('time').innerHTML =
+        h + ":" + m + ":" + s;
+      let t = setTimeout(this.startTime, 500);
+    },
+    checkTime(i) {
+      if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+      return i
+    }
   }
 
 
@@ -148,4 +147,17 @@ img {
   margin: 8% 0 0 50%;
 }
 
+#time {
+  border: 1px solid white;
+  padding: .5%;
+  border-radius: 15px;
+  margin-left: 70%;
+ 
+}
+
+#time:hover {
+  cursor: none;
+  color: lightgreen;
+  border: 1px solid lightgreen;
+}
 </style>
