@@ -1,48 +1,53 @@
 <template>
   <div class="profile">
-    <div>
-    </div>
-    <div>
-      <p>Your Teams: </p>
-    </div>
-    <div class='teamsList'>
-      <b-list-group>
-        <b-list-group-item button track-by="$index" v-for="team in this.usersTeams" :key="team.id" @click="goToSprint(team.id, team.name)">{{team.name[0].toUpperCase() + team.name.substring(1)}}</b-list-group-item>
-      </b-list-group>
-    </div>
-     <!-- <b-alert show>Show teams and basic github info back</b-alert> -->
-      <b-alert hide=true variant="warning">Please enter a longer team name</b-alert>
-    <div class="teamActions">
+    <b-container class="bv-example-row">
+    <b-row>
+        <b-col>
+          <div class="teamFields">Create a Team
+            <b-form :info="'info'" @submit="addTeam" inline >
+              <label for="teamName"  value="name"/>
+              <b-input id="inputLive"  name="teamName" 
+                 v-model="teamName" placeholder="Team Name">Team
+              </b-input>
 
-      <div class="teamFields">Create a Team:
-          <b-form :info="'info'" @submit="addTeam" inline >
-            <label for="teamName"  value="name"/>
-            <b-input   id="inputLive"  name="teamName" v-model="teamName" placeholder="Team Name">Team</b-input>
-
-            <b-button type="submit" class="teamBtn" variant="dark" >+</b-button>
-
-            <!-- <b-form-invalid-feedback id="inputLiveFeedback">
+              <b-button type="submit" class="teamBtn" variant="dark" >+</b-button>
+              <b-form-invalid-feedback id="inputLiveFeedback">
                  Enter at least 4 letters
-                 </b-form-invalid-feedback> -->
-          </b-form>
-      </div>
-      <br />
-      <div class="teamFields">Join a Team:
-        <b-form inline>
-          <label for="Team Name" value="name"/>
-          <b-input placeholder="Team Name">Team</b-input>
-          <b-button class="teamBtn" variant="dark">+</b-button>
-        </b-form>
-      </div>
-    </div>
-    <div class="deleteSelectForm"><b>Delete a Team:</b>
-    <b-form-select @change="deleteTeam" id="dropDown" title="Delete A Team">
-      <option v-for="team in this.usersTeams"
-            :key="team.id">{{team.name[0].toUpperCase() + team.name.substring(1)}}
-      </option>
-    </b-form-select>
+              </b-form-invalid-feedback>
+             </b-form>
+           </div>
+           <div class="deleteSelectForm"><b>Delete a Team</b>
+             <b-form-select @change="deleteTeam" id="dropDown" title="Delete A Team">
+             <option v-for="team in this.usersTeams"
+               :key="team.id">{{team.name[0].toUpperCase() + team.name.substring(1)}}
+             </option>
+            </b-form-select>
     <!-- <b-btn class="deleteBTN" variant="dark">Delete</b-btn> -->
-    </div>
+          </div>
+        </b-col>
+        <b-col>  
+          <h4><u>Your Teams</u></h4>
+          <div class='teamsList'>
+            <b-list-group class="yourTeamsGroup">
+              <b-list-group-item class="yourTeamsItem" button track-by="$index" v-for="team in this.usersTeams" :key="team.id" @click="goToSprint(team.id, team.name)">{{team.name[0].toUpperCase() + team.name.substring(1)}}
+              </b-list-group-item>
+            </b-list-group>
+           </div>
+         </b-col>
+         <b-col>  <!-- <b-alert show>Show teams and basic github info back</b-alert> -->
+           <b-alert hide=true variant="warning">Please enter a longer team name</b-alert>
+           <div class="teamActions">
+             <div class="teamFields">Join a Team
+               <b-form inline>
+                 <label for="Team Name" value="name"/>
+                 <b-input placeholder="Team Name">Team</b-input>
+                 <b-button class="teamBtn" variant="dark">+</b-button>
+               </b-form>
+            </div>
+          </div>
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
@@ -103,9 +108,7 @@ export default {
 
 }
 
-
 </script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h1, h2 {
@@ -122,13 +125,12 @@ li {
 a {
   color: #42b983;
 }
+
 .profile {
   border: 5px double #28284e;
   border-radius: 5px;
   padding: 10px;
   margin: 5%;
-  /* display: flex; */
-  /* flex-direction: row; */
 }
 
 .profile:hover {
@@ -137,18 +139,27 @@ a {
 
 .teamFields {
   font-weight: bold;
-  padding: 10px;
+  padding: 5%;
   /* width: 50%; */
   height: auto;
 }
-.teamActions{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
+
+.teamBtn {
+  margin: 1%;
 }
-.deleteSelectForm {
-  width: 25%;
-  margin-left: 15%;
+
+.yourTeamsItem {
+  margin: 1%;
+  border: 1px solid rgb(59, 59, 59);
+  border-radius: 15px;
+  font-weight: bold;
+  
+}
+.yourTeamsItem:focus {
+  outline: none;
+}
+
+.yourTeamsItem:hover {
+  border: 1px solid darkslategray;
 }
 </style>

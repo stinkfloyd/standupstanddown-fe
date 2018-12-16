@@ -1,6 +1,6 @@
 <template>
   <div class="signUp">
-    <h3>Welcome to Stand Up! The <b>Daily Scrum</b> app for remote teams</h3>
+    <h3>Welcome to the Stand Up! The <b>Daily Scrum</b> app for remote teams</h3>
     <h4>Easily <b>create</b> and <b>join</b> sprint teams</h4>
     <h5>Review each team members progress</h5>
       <h5>Address helps to achieve the current <b>sprint goal</b></h5>
