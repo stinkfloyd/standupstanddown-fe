@@ -20,15 +20,16 @@
         @click="postSprint(3, +(rangeValue), rangeGoal)"
         variant="outline-info text-dark"
         value="submit"
-      >Get Agile!</b-button>
+      >{{teamName[0].toUpperCase() + teamName.substring(1)}}...Get Agile!</b-button>
     </b-modal>
 
     <CalendarView/>
     <br>
-    <h2>Daily Stand Up: Day {X} of Sprint</h2>
+    <!-- insert day of sprint variable here -->
+    <h2>Daily Stand Up: Day {{sprintInfo}} of Sprint</h2>
     <div class="jumbotron">
       <div class="sprintCardDiv">
-        <h3>Daily Stand UP Card for Team {Team} Date {Date} Members{#}</h3>
+        <h3>Daily Stand Up Card for <em><b>{{teamName[0].toUpperCase() + teamName.substring(1)}}</b></em> <br />Date {Date} Members{#}</h3>
         <b-card title="Team: " sub-title="Stand Up Card for {date}">
           <p class="card-text">Current sprint goal:
             <b-form-textarea v-model="sprintGoalText" type="text"></b-form-textarea>
@@ -68,6 +69,8 @@ export default {
       member1YesterdayText: "",
       member1TodayText: "",
       member1HelpsText: "",
+       teamName: '',
+        sprintInfo: '',
 
       notes: "",
       variants: [
@@ -89,6 +92,18 @@ export default {
       footerTextVariant: "dark"
     };
   },
+
+  
+    async created(){
+    
+      console.log("SprintStore.data.sprintInfo: ", SprintStore.data.sprintInfo)
+       this.sprintInfo = await SprintStore.data.sprintInfo
+       this.teamName = await SprintStore.data.teamName
+      console.log("CalendarView created")
+      console.log("this.sprintInfo: ", this.sprintInfo)
+      console.log("this.teamName: ", this.teamName)
+      console.log()
+    },
   methods: {
     async hitThatRoute() {
       let response = await fetch("http://localhost:3000/teams_users", {

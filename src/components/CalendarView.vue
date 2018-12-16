@@ -1,6 +1,6 @@
 <template>
   <div class="calendar">
-    <p class="team-header"><u>Current Sprint: {{teamName}}</u></p>
+    <p class="team-header">Current Sprint: <em>{{teamName[0].toUpperCase() + teamName.substring(1)}}</em></p>
     <div>
 
 
