@@ -1,14 +1,14 @@
 <template>
     <div id="app">
     <header>
-       <b-navbar toggleable="md" type="dark" variant="dark">
+       <b-navbar  toggleable="md" type="dark" variant="dark">
        <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
        <b-navbar-brand to="/">StandUP!</b-navbar-brand>
        <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav>
           <!-- <b-nav-item to="/sprint">Home</b-nav-item> -->
-          <b-nav-item  to="/sprint">Sprint</b-nav-item>
-          <b-nav-item  to="/profile">Your Teams</b-nav-item>
+          <b-nav-item v-show="loggedIn" to="/sprint">Sprint</b-nav-item>
+          <b-nav-item v-show="loggedIn" to="/profile">Your Teams</b-nav-item>
           <!-- <b-nav-item to="/sign-up">Logout</b-nav-item> -->
         </b-navbar-nav>
        </b-collapse>
@@ -16,14 +16,20 @@
          {{currentUserName.toUpperCase()}}
         </div>
        <b-navbar-nav>
-         <b-nav-item  to="/sign-up" v-show="!isSeen">Sign Up</b-nav-item>
-
-         <b-nav-item  v-on:click='getUserInfo' v-show="!isSeen" class="loginBtn" href="http://localhost:3000/auth/github">Login</b-nav-item>
+         <b-nav-item  to="/sign-up" v-show="!loggedIn">Sign Up</b-nav-item>
+         
+         
+         <b-nav-item  v-on:click='getUserInfo' v-show="!loggedIn" class="loginBtn" href="http://localhost:3000/auth/github">Login</b-nav-item>
+         <b-nav-item  @click="logOut" v-show="loggedIn">Logout</b-nav-item>
          </b-navbar-nav>
          <img :src="currentUserPhoto"  alt="BV">
+         
       </b-navbar>
     </header>
-    <main>
+      
+<Spinner v-show="loggingOut" id="pacman" name="pacman" color="#28284e"/>
+    <main  v-show="!loggingOut">
+        
       <!-- Navbar on top and will render router components through the router-view below - no need to import them -->
       <router-view></router-view>
 
@@ -50,7 +56,8 @@ export default {
     return {
       ifOk: false,
       reactive: true,
-      isSeen: false,
+      loggedIn: false,
+      loggingOut: false,
       currentUser: '',
       currentUserName: '',
       currentUserPhoto: 'http://getwallpapers.com/wallpaper/full/0/3/c/12613.jpg',
@@ -69,16 +76,12 @@ export default {
   },
 
   methods: {
-    toggle: function(){
-      // if (this.isSeen === false) {
-      //     this.isSeen = !this.isSeen
-      // } else {
-      //   !this.isSeen
-      // }
-        },
     async getUserInfo() {
       const tokenDecoded = jwtDecode(document.cookie.split('=')[1])
       let creatorId = tokenDecoded.id
+      if (creatorId !== '') {
+        this.loggedIn = true
+      }
       await fetch(`http://localhost:3000/users/${creatorId}`, {
         credentials: 'include',
         method: "GET",
@@ -94,10 +97,18 @@ export default {
         return this.currentUser
       })
     },
-
-
-
-
+    logOut() {
+      console.log("I hit the logout button", document.cookie)
+      this.loggingOut = true
+        setTimeout(() => {this.currentUserName = ''
+         this.currentUserPhoto = 'http://getwallpapers.com/wallpaper/full/0/3/c/12613.jpg'
+         this.loggedIn = false
+         this.loggingOut = false
+         this.$router.push('/sign-up')
+         }, 4000)
+       
+            
+    },
   }
 
 
@@ -130,6 +141,10 @@ img {
   width: 100%;
   color: #e4e4e4;
   text-align: center;
+}
+
+#pacman {
+  margin: 2% 0 0 50%;
 }
 
 </style>

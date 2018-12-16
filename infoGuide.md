@@ -18,7 +18,7 @@
 
 ## To-do list
 
-### Friday
+### Sunday
 
 [x] get id on teams list and link to /sprint page with information
 
@@ -29,6 +29,8 @@
 [ ] Post a sprint to `/sprints/${team_id}`
 
 [ ] populate standup cards
+
+[ ] [Spin Kit Spinners](https://github.com/TonPC64/vue-spinkit)
 
 [x] delete a team button
 

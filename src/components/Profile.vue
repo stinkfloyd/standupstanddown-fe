@@ -1,6 +1,11 @@
 <template>
-  <div class="profile">
-    <b-container class="bv-example-row">
+<div>
+  <SignUp v-show="isSeen && !currentlyLoading"/>
+  <div class="profile" v-show="!isSeen && !currentlyLoading">
+    <!-- <div > Please login to view your teams</div> -->
+    
+    <Spinner v-show="currentlyLoading" id="pacman" name="pacman" color="#28284e"/>
+    <b-container  class="bv-example-row">
     <b-row>
         <b-col>
           <div class="teamFields">Create a Team
@@ -49,6 +54,7 @@
       </b-row>
     </b-container>
   </div>
+  </div>
 </template>
 
 /*post a new team req takes a name and creator_id*/
@@ -56,16 +62,18 @@
 <script>
 import Vue from 'vue'
 const jwtDecode = require('jwt-decode')
+import Spinner from './error-pages/Spinner'
 import TeamsStore from "../stores/TeamsStore"
 import SprintStore from "../stores/SprintStore"
-
+import SignUp from './SignUp'
 
 export default {
   name: 'Profile',
   data () {
     return {
       reactive: true,
-      loading: false,
+      isSeen: true,
+      currentlyLoading: true,
       usersTeams: [],
       model:{},
       teamName: '',
@@ -74,16 +82,22 @@ export default {
   },
 
   async created() {
+    
     this.refreshUsersTeams()
   },
 
   methods: {
     async refreshUsersTeams() {
-      this.usersTeams = []
+      if (this.currentlyLoading = false) {
+        setTimeout(() => this.currentlyLoading = true, 3000)
+      }
+      this.currentlyLoading = false
       let res = await TeamsStore.methods.getTeams()
       await res.map((team) => {
         if (team.creator_id === jwtDecode(document.cookie.split('=')[1]).id) {
            team.name[0].toUpperCase() + team.name.substring(1)
+           this.isSeen = false
+           this.currentlyLoading = false
           return this.usersTeams.push(team)
         }
       })
@@ -115,11 +129,14 @@ export default {
        })
     
     }
+  },
+  components: {
+    SignUp
   }
 
 }
-
 </script>
+
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
@@ -148,6 +165,7 @@ export default {
 }
 
 .yourTeamsItem {
+
   margin: 1% 0px;
   border: 1px solid rgb(59, 59, 59);
   border-radius: 15px;
@@ -160,6 +178,10 @@ export default {
 
 .yourTeamsItem:hover {
   border: 1px solid darkslategray;
+}
+
+#pacman {
+  margin: 2% 0 0 50%;
 }
 
 </style>
