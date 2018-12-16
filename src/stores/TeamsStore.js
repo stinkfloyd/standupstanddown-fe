@@ -81,7 +81,9 @@ const TeamsStore = {
           }
         })
     },
-    //
+    
+    // Edit Team? Probably no need.
+    
     // editTeam(team) {
     //   fetch("" + team.id, {
     //     method: "PATCH",
