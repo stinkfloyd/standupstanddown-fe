@@ -31,7 +31,7 @@
             <b-list-group class="yourTeamsGroup">
               <b-list-group-item class="yourTeamsItem" button track-by="$index" v-for="team in this.usersTeams" :key="team.id" @click="goToSprint(team.id, team.name)">{{team.name[0].toUpperCase() + team.name.substring(1)}}
               </b-list-group-item>
-            </b-list-group>
+               </b-list-group>
            </div>
          </b-col>
          <b-col>  <!-- <b-alert show>Show teams and basic github info back</b-alert> -->
@@ -103,6 +103,11 @@ export default {
       this.$router.push("/sprint")
       //get sprint from SprintStore populates the sprint store data(this doesn't really work yet)
       //redirect to sprints page which is retrieving data from the Sprint Store
+    },
+
+    async deleteTeam(teamId) {
+      console.log("gonna delete team:", teamId)
+      await TeamsStore.methods.deleteTeam(+(teamId))
     }
   }
 
@@ -111,20 +116,6 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
 
 .profile {
   border: 5px double #28284e;
@@ -137,11 +128,13 @@ a {
   border: 5px double #284e45;
 }
 
+.form-control {
+  width: 90%;
+}
+
 .teamFields {
   font-weight: bold;
   padding: 5%;
-  /* width: 50%; */
-  height: auto;
 }
 
 .teamBtn {
@@ -149,12 +142,12 @@ a {
 }
 
 .yourTeamsItem {
-  margin: 1%;
+  margin: 1% 0px;
   border: 1px solid rgb(59, 59, 59);
   border-radius: 15px;
   font-weight: bold;
-  
 }
+
 .yourTeamsItem:focus {
   outline: none;
 }
@@ -162,4 +155,5 @@ a {
 .yourTeamsItem:hover {
   border: 1px solid darkslategray;
 }
+
 </style>
