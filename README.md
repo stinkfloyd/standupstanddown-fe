@@ -18,7 +18,7 @@ npm run dev
 # build for production with minification
 npm run build
 
-`surge` from '/dist/' folder
+`surge` from '/dist/' folder (Add `CNAME` folder to `/dist/`)
 
 # build for production and view the bundle analyzer report
 npm run build --report
