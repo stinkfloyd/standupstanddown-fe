@@ -53,7 +53,13 @@ export default {
       isSeen: false,
       currentUser: '',
       currentUserName: '',
-      currentUserPhoto: '',
+      currentUserPhoto: 'http://getwallpapers.com/wallpaper/full/0/3/c/12613.jpg',
+      // https://images.unsplash.com/photo-1487872323115-ab52ad0d2910?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=958&q=80
+      // http://www.csuchico.edu/~rpenne/screening/black.gif
+      // https://cdn-images-1.medium.com/max/2000/1*6Ipq8lQz7lzTZQhmcQ61Tw.jpeg
+      // https://www2.shutterstock.com/blog/wp-content/uploads/sites/5/2014/06/img3.gif
+      // https://media.istockphoto.com/vectors/black-white-dotted-halftone-vector-background-centered-radial-dotted-vector-id916238928
+      // https://images.unsplash.com/photo-1534237187820-7177d9bbd685?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1400&q=80
       currentUserOther: ''
     }
   },
@@ -111,6 +117,7 @@ img {
   height: 75px;
   width: 75px;
   border-radius: 15px;
+  margin-right: 2%;
 }
 .userInfoDisplay {
   color: #ffffff;
