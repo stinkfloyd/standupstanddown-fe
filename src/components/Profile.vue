@@ -24,9 +24,22 @@
         </b-col>
         
         <b-col>  
-          <h4>Your Teams</h4>
+          <h4>Your Teams (Owner)</h4>
           <div class='teamsList'>
             <b-list-group class="yourTeamsGroup" track-by="$index"  v-for="team in this.usersTeams" :key="team.id">
+              <b-list-group-item class="yourTeamsItem" button  @click="goToSprint(team.id, team.name)">{{team.name[0].toUpperCase() + team.name.substring(1)}}
+                
+              </b-list-group-item>
+               <b-button v-b-tooltip.hover title="Edit" id="edit" variant="outline-dark" class="teamEditDel" @click="showModal(team.name)">✎</b-button>
+                <b-button v-b-tooltip.hover title="Delete" variant="outline-dark" class="teamEditDel" @click="deleteTeam(team.name)">🗑</b-button>
+             
+               </b-list-group>
+           </div>
+         </b-col>
+          <b-col>  
+          <h4>Your Teams (Member)</h4>
+          <div class='teamsList'>
+            <b-list-group class="yourTeamsGroup" track-by="$index"  v-for="team in this.memberTeams" :key="team.id">
               <b-list-group-item class="yourTeamsItem" button  @click="goToSprint(team.id, team.name)">{{team.name[0].toUpperCase() + team.name.substring(1)}}
                 
               </b-list-group-item>
@@ -44,10 +57,10 @@
            <b-alert hide=true variant="warning">Please enter a longer team name</b-alert>
            <div class="teamActions"><h4>Join a Team</h4>
              <div class="joinTeam">
-               <b-form inline>
+               <b-form  inline>
                  <label for="Team Name" value="name"/>
-                 <b-input placeholder="Team Name">Team</b-input>
-                 <b-button class="teamBtn" variant="dark">+</b-button>
+                 <b-input v-model="joinTeamName" placeholder="Team Name">Team</b-input>
+                 <b-button @click="joinTeam(joinTeamName)" class="teamBtn" variant="dark">+</b-button>
                </b-form>
              
             </div>
@@ -89,15 +102,19 @@ export default {
       isSeen: true,
       currentlyLoading: true,
       usersTeams: [],
+      memberTeam: [],
       model:{},
       teamName: '',
       selected: null,
       editModalInput: '',
-      loggedIn: true
+      loggedIn: true,
+      joinTeamName: '',
+      creator_id: 0,
     }
   },
 
   async created() {
+    this.creator_id = jwtDecode(document.cookie.split('=')[1]).id
     this.refreshUsersTeams()
   },
 
@@ -105,12 +122,14 @@ export default {
     async refreshUsersTeams() {
       // first clear the existing array of teams
       this.usersTeams = []
+      this.memberTeams = []
       if (this.currentlyLoading = false) {
         setTimeout(() => this.currentlyLoading = true, 3000)
       }
       this.currentlyLoading = false
       //second get all teams for user 
       let res = await TeamsStore.methods.getTeams()
+      let response = await TeamsStore.methods.getMemberTeams(this.creator_id)
       await res.map((team) => {
         if (team.creator_id === jwtDecode(document.cookie.split('=')[1]).id) {
            team.name[0].toUpperCase() + team.name.substring(1)
@@ -121,6 +140,17 @@ export default {
           return this.usersTeams.push(team)
         }
       })
+        await response.map((team) => {
+        if (team.creator_id === jwtDecode(document.cookie.split('=')[1]).id) {
+           team.name[0].toUpperCase() + team.name.substring(1)
+           this.loggedIn = true
+           this.isSeen = false
+           this.currentlyLoading = false
+           // last set usersTeams array
+          return this.memberTeams.push(team)
+        }
+      })
+      
     },
 
     async addTeam(event) {
@@ -158,6 +188,10 @@ export default {
           return this.refreshUsersTeams()
         }
       })
+    },
+    joinTeam(name) {
+ 
+      TeamsStore.methods.joinTeam(this.joinTeamName)
     },
     showModal(name) {
       this.teamName = name

@@ -7,6 +7,7 @@ const TeamsStore = {
     teamToEdit: null,
     usersTeams: [],
     test: "test",
+    memberTeams: []
   },
 
   methods: {
@@ -30,6 +31,23 @@ const TeamsStore = {
         console.log("response getTeams: ", response)
         let resJson = await response.json()
         TeamsStore.data.usersTeams = resJson
+        // console.log("resJson: ", resJson)
+        return resJson
+      })
+    },
+
+    async getMemberTeams(id) {
+      return fetch(`http://localhost:3000/user_teams/${id}`, {
+        credentials: 'include',
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }).then(async (response) => {
+        console.log("response getTeams: ", response)
+        let resJson = await response.json()
+        TeamsStore.data.memberTeams = resJson
         // console.log("resJson: ", resJson)
         return resJson
       })
@@ -118,8 +136,25 @@ const TeamsStore = {
         console.log("resJson: ", resJson)
         return resJson.body
       })
-    }
+    },
 
+    async joinTeam(teamName) {
+      let body = {
+        team_name: teamName,
+      }
+      console.log("in the joinTeam for team:", teamName)
+      return fetch(`http://localhost:3000/teams_users/`, {
+        credentials: 'include',
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }).then((res) => {
+        console.log("join a team res:", res)
+      })
+    },
   },
 };
 

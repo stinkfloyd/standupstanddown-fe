@@ -10,19 +10,15 @@
 
    * Delete user from team
 
-   `/users_teams`
+   `/user_teams/${id}` - get all teams for given user
 
    `/new_member/${name}` - join a team route call for profile
 
    `/sprints/${team_id}` post a sprint route
 
-<<<<<<< HEAD
    `teams_users/` jwt and body = {teamName}
 
    `standUp/${sprint_id}`
-=======
-   `teams_users/${user_id}` body = {teamName}
->>>>>>> b7026095abf0c5edc7ca2d15c7bb57fff5098812
 
 ## To-do list
 
