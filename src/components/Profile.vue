@@ -208,7 +208,6 @@ export default {
 }
 
 .yourTeamsGroup {
-
   padding: 2%;
   display: flex;
   flex-direction: row;
@@ -219,7 +218,7 @@ export default {
   margin: 1% 0px;
   font-weight: bold;
   border-radius: 15px;
-  border: 1px solid rgb(59, 59, 59) 
+  border: 1px solid #3b3b3b 
 }
 
 .yourTeamsItem:focus {
@@ -227,7 +226,8 @@ export default {
 }
 
 .yourTeamsItem:hover {
-  border: 1px solid darkslategray;
+  cursor: pointer;
+  border: 1px solid #2f4f4f;
 }
 
 #pacman {

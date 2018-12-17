@@ -40,13 +40,12 @@
 
 [x] "logout" view toggling for signup/sign in and replace img to default 
 
-[ ] join a team 
-
+[ ] join a team
 
 ---
 ## Stretch goals
 
-### bootstrap color themes:
+### bootstrap color themes
 
 > a select field on the Sprint View page that can toggle bootstrap themes for any view
 

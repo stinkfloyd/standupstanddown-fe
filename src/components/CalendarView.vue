@@ -1,34 +1,11 @@
 <template>
   <div class="calendar">
-    <p class="team-header">Current Sprint: <em>{{teamName[0].toUpperCase() + teamName.substring(1)}} Sprint Length: {{sprintLength}}</em></p>
+    <p class="team-header">Current Sprint: <em>{{teamName[0].toUpperCase() + teamName.substring(1)}}</em></p>
     <div>
-
-
-     <b-form-group label="">
-
-      <b-form-radio-group id="btnradios2"
-                          buttons
-                          button-variant="outline-dark"
-                          size="lg"
-                          v-model="selected"
-                          :options="options"
-                          name="radioBtnOutline" />
-    </b-form-group>
-
-
-
-        <!-- The following will generate five sets of radio buttons so the for loop is working but the style and grouping of the buttons is all wrong -->
-
-             <!-- <b-form-group class="sprintDailiesGroup" track-by="$index"  v-for="day in this.sprintLength" :key="curentDaily">
-               <b-form-radio-group id="btnradios2"
-                          buttons
-                          button-variant="outline-dark"
-                          size="lg"
-                          v-model="selected"
-                          :options="options"
-                          class="radioBtns" />
-                 </b-form-group> -->
-
+     <b-form-group label="" >
+      <b-button class="sprintDayButtons" variant="outline-dark" track-by="$index"  v-for="day in this.sprintLength" :key="day" >Stand Up {{day}}
+      </b-button>
+     </b-form-group>
     </div>
   </div>
 </template>
@@ -105,11 +82,11 @@ a {
 .team-header{
   font-size: 40px;
 }
-.sprintDailiesGroup {
-  display:flex;
+.sprintDayButtons {
+  border-radius: 2px;
+  border-bottom-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
   
-}
-.radioBtns {
-flex-direction: row;
-}
+
 </style>
