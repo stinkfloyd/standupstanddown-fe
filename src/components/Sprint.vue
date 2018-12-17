@@ -15,28 +15,44 @@
     <h2>Daily Stand Up: Day {{sprintInfo[0]}} of Sprint</h2>
     <div class="jumbotron">
       <div class="sprintCardDiv">
-        <h3>Daily Stand Up Card for <em><b>{{teamName[0].toUpperCase() + teamName.substring(1)}}</b></em> <br />Date {Date} Members{#}</h3>
-        <b-card title="Team: " sub-title="Stand Up Card for {date}">
-          <p class="card-text">Current sprint goal:
-            <b-form-textarea v-model="sprintGoalText" type="text"></b-form-textarea>
-          </p>
-          <div class="card-text member">Team Member 1:
-            <br>Yesterday:
+       <b-card class="sprintDailyCard" no-body
+             style="max-width: 66%;"
+            img-src="https://dummyimage.com/200x100/8a48c7/fff"
+            img-alt="Image"
+            img-top>
+        <h4 slot="header">{Member 1}</h4>
+        <b-card-body>
+            <p class="card-text">
+              
+            </p>
+        </b-card-body>
+        <b-list-group flush>
+            <b-list-group-item> <br>
+            Yesterday:
             <b-form-textarea
               v-model="member1YesterdayText"
               class="memberInputField"
               type="textarea"
-            ></b-form-textarea>Today:
-            <b-form-textarea v-model="member1TodayText" class="memberInputField" type="textarea"></b-form-textarea>Helps:
-            <b-form-textarea v-model="member1HelpsText" class="memberInputField" type="textarea"></b-form-textarea>
-          </div>
-
-          <div>Notes:
-            <b-form-textarea v-model="notes" type="textarea" class="sprintCardNotes"></b-form-textarea>
-          </div>
-          <a href="#" class="card-link">Up to Current Sprint</a>
-          <b-button id="sprintCardUpBtn" @click="hitThatRoute" variant="outlin-dark">Update Card</b-button>
-        </b-card>
+            ></b-form-textarea></b-list-group-item>
+            <b-list-group-item> <br>Today:
+            <b-form-textarea
+              v-model="member1TodayText"
+              class="memberInputField"
+              type="textarea">
+              </b-form-textarea>
+              </b-list-group-item>
+            <b-list-group-item> <br>Helps:
+            <b-form-textarea
+              v-model="member1HelpsText"
+              class="memberInputField"
+              type="textarea">
+            </b-form-textarea>
+            </b-list-group-item>
+            <b-list-group-item>
+              <b-button>Submit Stand Up</b-button>
+            </b-list-group-item>
+           </b-list-group>
+         </b-card>
       </div>
     </div>
     <!-- Sprint Notes: persists throughout all days of the sprint -->

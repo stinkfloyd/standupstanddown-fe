@@ -16,6 +16,10 @@
 
    `/sprints/${team_id}` post a sprint route
 
+   `teams_users/` jwt and body = {teamName}
+
+   `standUp/${sprint_id}`
+
 ## To-do list
 
 ### Sunday
