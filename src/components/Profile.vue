@@ -22,16 +22,10 @@
            </div>
 
         </b-col>
-<<<<<<< HEAD
         
         <b-col>  
-         <h4>Creator Of</h4>
+         <h4>Creator</h4>
           
-=======
-
-        <b-col>
-          <h4>Your Teams</h4>
->>>>>>> master
           <div class='teamsList'>
             <b-list-group class="yourTeamsGroup" track-by="$index"  v-for="team in this.usersTeams" :key="team.id">
               <b-list-group-item class="yourTeamsItem" button  @click="goToSprint(team.id, team.name)">{{team.name[0].toUpperCase() + team.name.substring(1)}}
@@ -44,14 +38,13 @@
            </div>
          </b-col>
           <b-col>  
-         <h4>Member Of</h4>
+         <h4>Member</h4>
           <div class='teamsList'>
-            <b-list-group class="yourTeamsGroup" track-by="$index"  v-for="team in this.memberTeam" :key="team.id">
-              <b-list-group-item class="yourTeamsItem" button  @click="goToSprint(team.id, team.name)">{{team.name[0].toUpperCase() + team.name.substring(1)}}
-                
+            <b-list-group class="yourTeamsGroup" track-by="$index"  v-for="team in this.memberTeams" :key="team.id">
+              <b-list-group-item class="yourTeamsItem" button  @click="goToSprint(team.id, team.name)">
+                {{team.name[0].toUpperCase() + team.name.substring(1)}}
               </b-list-group-item>
-               <b-button v-b-tooltip.hover title="Edit" id="edit" variant="outline-dark" class="teamEditDel" @click="showModal(team.name)">✎</b-button>
-                <b-button v-b-tooltip.hover title="Delete" variant="outline-dark" class="teamEditDel" @click="deleteTeam(team.name)">🗑</b-button>
+              
              
                </b-list-group>
            </div>
@@ -91,8 +84,6 @@
   </div>
 </template>
 
-/*post a new team req takes a name and creator_id*/
-
 <script>
 import Vue from 'vue'
 const jwtDecode = require('jwt-decode')
@@ -109,7 +100,7 @@ export default {
       isSeen: true,
       currentlyLoading: true,
       usersTeams: [],
-      memberTeam: [],
+      memberTeams: [],
       model:{},
       teamName: '',
       selected: null,
@@ -136,7 +127,7 @@ export default {
       this.currentlyLoading = false
       //second get all teams for user
       let res = await TeamsStore.methods.getTeams()
-      let response = await TeamsStore.methods.getMemberTeams(this.creator_id)
+     
       await res.map((team) => {
         if (team.creator_id === jwtDecode(document.cookie.split('=')[1]).id) {
            team.name[0].toUpperCase() + team.name.substring(1)
@@ -147,15 +138,15 @@ export default {
           return this.usersTeams.push(team)
         }
       })
-        await response.map((team) => {
-          if (team.creator_id === jwtDecode(document.cookie.split('=')[1]).id) {
-           team.name[0].toUpperCase() + team.name.substring(1)
-           // last set usersTeams array
-          return this.memberTeamspush(team)
-        }
-      })
       
-       
+      let memberTeamResponse = await TeamsStore.methods.getMemberTeams(this.creator_id)
+      memberTeamResponse.forEach((team) => {
+        if (team.creator_id !== this.creator_id) {
+          this.memberTeams.push(team)
+        }
+        
+      })
+      console.log("Response:", this.memberTeams)
       
     },
 
@@ -196,6 +187,7 @@ export default {
     },
     joinTeam(name) {
       TeamsStore.methods.joinTeam(this.joinTeamName)
+      return this.refreshUsersTeams()
     },
     showModal(name) {
       this.teamName = name

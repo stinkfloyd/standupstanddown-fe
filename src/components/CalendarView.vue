@@ -8,7 +8,7 @@
      </b-form-group>
     </div>
     <div class="sprintGoal">
-      Goal for this Sprint: {{sprintInfo[1].sprint_goal}}
+      Goal for this Sprint: {{sprint_goal}}
     </div>
   </div>
 </template>
@@ -30,6 +30,7 @@
         sprintInfo: '',
         selected: 'radio1',
         curentDaily: 0,
+        sprint_goal: 'Please define me',
 
       }
     },
@@ -37,8 +38,10 @@
   async created(){
       // console.log("SprintStore.data.sprintInfo: ", SprintStore.data.sprintInfo)
       console.log("CalendarView created")
+     
       this.sprintInfo = SprintStore.data.sprintInfo
       this.teamName = SprintStore.data.teamName
+      this.sprint_goal = this.sprintInfo[1].sprint_goal
       console.log("this.sprintInfo: ", this.sprintInfo)
       console.log("this.teamName: ", this.teamName)
       //this should get all standups for this sprint and store them in the StandUpsStore
@@ -49,9 +52,10 @@
     methods: {
       loadSprintDaily(day) {
         console.log("hit the load sprint daily route with day:", day)
-        StandUpsStore.data.selectedStandupDay = (day)
+        StandUpsStore.data.selectedStandupDay = day
         console.log("StandUpsStore.data.selectedStandupDay: ", StandUpsStore.data.selectedStandupDay)
         //then this will load data from the StandUpsStore based on the standup day selected selected
+        
 
       }
     },

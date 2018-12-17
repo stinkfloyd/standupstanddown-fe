@@ -47,8 +47,6 @@ const TeamsStore = {
       }).then(async (response) => {
         console.log("response getTeams: ", response)
         let resJson = await response.json()
-        TeamsStore.data.memberTeams = resJson
-        // console.log("resJson: ", resJson)
         return resJson
       })
     },
@@ -143,7 +141,7 @@ const TeamsStore = {
         team_name: teamName,
       }
       console.log("in the joinTeam for team:", teamName)
-      return fetch(`http://localhost:3000/teams_users/`, {
+      return fetch(`http://localhost:3000/teams_users`, {
         credentials: 'include',
         method: "POST",
         body: JSON.stringify(body),

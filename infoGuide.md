@@ -18,7 +18,7 @@
 
    `teams_users/` jwt and body = {teamName}
 
-   `standUp/${sprint_id}`
+   `standUps/${sprint_id}` POST a standup to the sprint w/ given id body = {user_id}
 
 ## To-do list
 
