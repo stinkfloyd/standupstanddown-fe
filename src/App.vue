@@ -40,7 +40,6 @@
 import UsersStore from "./stores/UsersStore"
 const jwtDecode = require('jwt-decode')
 
-
 export default {
   name: 'App',
   data () {
@@ -110,8 +109,6 @@ export default {
       return i
     }
   }
-
-
 }
  </script>
 

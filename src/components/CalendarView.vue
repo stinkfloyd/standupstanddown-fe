@@ -14,9 +14,6 @@
   import SprintStore from "../stores/SprintStore"
   import Sprint from './Sprint'
 
-  let startDate = "Day 1"
-  let endDate = "Sprint End"
-
   export default {
     name: 'CalendarView',
     
@@ -24,7 +21,7 @@
     props: ['sprintLength'],
     data: () => {
       return {
-        reactove: true,
+        reactive: true,
         teamName: 'test',
         sprintInfo: '',
         selected: 'radio1',
@@ -45,23 +42,24 @@
       loadSprintDaily(day) {
         console.log("hit the load sprint daily route with day:", day)
       }
-
     },
-
   }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
 .hello {
   border: 5px double #28284e;
   border-radius: 5px;
   padding: 10px;
   margin: 5%;
 }
+
 .team-header{
   font-size: 40px;
 }
+
 .sprintDayButtons {
   border-radius: 4px;
   border-top-right-radius: 20px;

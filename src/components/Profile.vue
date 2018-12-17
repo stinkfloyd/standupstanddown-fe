@@ -153,6 +153,7 @@ export default {
         if (team.name === this.teamName.toLowerCase()) {
           await TeamsStore.methods.editTeam(team.id, this.editModalInput.toLowerCase())
           this.editModalInput = ''
+          this.teamName = ''
           this.hideModal()
           return this.refreshUsersTeams()
         }
