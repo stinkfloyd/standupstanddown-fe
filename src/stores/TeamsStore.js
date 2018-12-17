@@ -13,7 +13,7 @@ const TeamsStore = {
 
   methods: {
     // this data will be present when the el is mounted. gets the teams the user is a part of and puts them in the usersTeams property.
-    async refreshUsersTeams(){
+    async refreshUsersTeams() {
       this.loading = true
       this.usersTeams = await TeamsStore.methods.getTeams()
       console.log("profile.vue: getTeams: ", this.usersTeams)

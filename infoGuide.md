@@ -65,6 +65,8 @@
 
 [ ] "team name" input in profile still needs an error catch "on submit" for a team name that is < 4
 
+[x] error message handling for profile page
+
 ### Info Popovers
 
 on SignUp/Welcome page use [Popover Messages](https://bootstrap-vue.js.org/docs/components/popover) to display more info on Scrum/Agile philosophy
