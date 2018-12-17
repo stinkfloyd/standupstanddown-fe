@@ -15,7 +15,7 @@
         </div>
        <b-navbar-nav>
          <b-nav-item  to="/sign-up" v-show="!loggedIn">Sign Up</b-nav-item>
-         <b-nav-item  v-on:click='getUserInfo' v-show="!loggedIn" class="loginBtn" href="http://localhost:3000/auth/github">Login</b-nav-item>
+         <b-nav-item v-show="!loggedIn" class="loginBtn" href="http://localhost:3000/auth/github">Login</b-nav-item>
          <b-nav-item  @click="logOut" v-show="loggedIn">Logout</b-nav-item>
          </b-navbar-nav>
          <img :src="currentUserPhoto"  alt="BV"> 
