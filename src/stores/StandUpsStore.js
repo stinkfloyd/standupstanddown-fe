@@ -38,7 +38,7 @@ const StandUpsStore = {
       }).then(async (response) => {
         let standups = await response.json()
         console.log("getStandups response", standups)
-        this.allStandupsForThisSprint = standups
+        StandUpsStore.data.allStandupsForThisSprint.push(standups)
         return standups
       })
     },
