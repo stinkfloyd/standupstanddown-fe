@@ -13,9 +13,51 @@
 
     <!-- insert day of sprint variable here -->
     <h2>Daily Stand Up: Day {{sprintInfo[0]}} of Sprint</h2>
+    <b-button variant="dark" @click="addTeamMember">Add Team Member</b-button>
+    <br />
     <div class="jumbotron">
-      <div class="sprintCardDiv">
-       <b-card class="sprintDailyCard" no-body
+      <div class="sprintCardDiv" >
+        <h3>Daily Stand Up Card for <em><b>{{teamName[0].toUpperCase() + teamName.substring(1)}}</b></em> <br />Date {Date} Members{#}</h3>
+        <div id="sprintCardParent">
+          <!-- <b-card class="sprintDailyCard" no-body
+            style="max-width: 66%;"
+            img-src="https://dummyimage.com/200x100/8a48c7/fff"
+            img-alt="Image"
+            img-top>
+        <h4 slot="header">{Member 1}</h4>
+        <b-card-body>
+            <p class="card-text">
+              
+            </p>
+        </b-card-body>
+        <b-list-group flush>
+            <b-list-group-item> <br>Yesterday:
+            <b-form-textarea
+              v-model="member1YesterdayText"
+              class="memberInputField"
+              type="textarea"
+            ></b-form-textarea></b-list-group-item>
+            <b-list-group-item> <br>Today:
+            <b-form-textarea
+              v-model="member1TodayText"
+              class="memberInputField"
+              type="textarea"
+            ></b-form-textarea></b-list-group-item>
+            <b-list-group-item> <br>Helps:
+            <b-form-textarea
+              v-model="member1HelpsText"
+              class="memberInputField"
+              type="textarea"
+            ></b-form-textarea></b-list-group-item>
+            <b-list-group-item><b-button>Submit Stand Up</b-button></b-list-group-item>
+        </b-list-group>
+      
+      
+    </b-card> -->
+
+  
+        </div>
+         <b-card class="sprintDailyCard" no-body
              style="max-width: 66%;"
             img-src="https://dummyimage.com/200x100/8a48c7/fff"
             img-alt="Image"
@@ -84,12 +126,14 @@
         value="submit"
       >{{teamName[0].toUpperCase() + teamName.substring(1)}}...Get Agile!</b-button>
     </b-modal>
+     
   </div>
 </template>
 
 <script>
 import CalendarView from "./CalendarView";
 import SprintStore from "../stores/SprintStore";
+import StandUpsStore from "../stores/StandUpsStore";
 import Spinner from './error-pages/Spinner'
 
 export default {
@@ -106,6 +150,7 @@ export default {
       member1HelpsText: "",
       teamName: '',
       sprintInfo: '',
+      currentSprintId: 0,
       notes: "",
 
     };
@@ -125,7 +170,12 @@ export default {
       }, 2500)
        this.sprintInfo = await SprintStore.data.sprintInfo
        this.teamName = await SprintStore.data.teamName
+       this.currentSprintId = await SprintStore.data.sprintId
 
+     //load in current standUps from stand up store
+       await this.currentSprintInfo(this.currentSprintId)
+       
+      
       console.log("CalendarView created")
       console.log("this.sprintInfo: ", this.sprintInfo)
       console.log("this.teamName: ", this.teamName)
@@ -146,6 +196,10 @@ export default {
         response.data
       );
     },
+    async currentSprintInfo() {
+      let response = await StandUpsStore.methods.getSprintInfo(this.currentSprintId)
+      console.log("response to currentSprintIno in sprint vue:", response)
+    },
     postSprint(team_id, sprint_length, sprint_goal) {
       if (!sprint_goal) {
         alert("Please enter a Sprint Goal for your team's betterment");
@@ -159,6 +213,10 @@ export default {
       SprintStore.methods.postSprint(team_id, sprint_length, sprint_goal);
       this.rangeValue = 5;
       this.rangeGoal = "";
+    },
+    addTeamMember(event) {
+      console.log("add team member function")
+      let parent = document.getElementById('sprintCardParent')
     }
   },
   components: {
@@ -192,7 +250,7 @@ a {
 }
 
 .memberInputField {
-  width: 50%;
+  width: 95%;
   margin: 2%;
 }
 
@@ -210,16 +268,15 @@ a {
   margin-left: 75%;
 }
 
-.sprintNotes{
-  flex-direction: row;
-  font-weight: bold;
-  /* display: flex; */
-
-  /* padding-top: 5px; */
-  /* padding-bottom: 50px;
-  font-weight: bold;
-  font-size: 20px;
-  text-align: left;
-  margin: 0px; */
+.sprintDailyCard {
+  display: inline-flex;
+  flex-direction: column;
+  width: 50%;
 }
+
+.sprintDailyCard > img {
+  width: 75px;
+  height: 75px;
+}
+
 </style>

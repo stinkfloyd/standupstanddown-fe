@@ -16,13 +16,17 @@
 
    `/sprints/${team_id}` post a sprint route
 
+<<<<<<< HEAD
    `teams_users/` jwt and body = {teamName}
 
    `standUp/${sprint_id}`
+=======
+   `teams_users/${user_id}` body = {teamName}
+>>>>>>> b7026095abf0c5edc7ca2d15c7bb57fff5098812
 
 ## To-do list
 
-### Sunday
+### Monday
 
 [x] get id on teams list and link to /sprint page with information
 
