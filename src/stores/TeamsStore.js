@@ -7,7 +7,7 @@ const TeamsStore = {
     teamToEdit: null,
     usersTeams: [],
     test: "test",
-    memberTeams: []
+    memberTeams: [],
   },
 
   methods: {

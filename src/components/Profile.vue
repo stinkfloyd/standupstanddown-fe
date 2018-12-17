@@ -24,7 +24,8 @@
         </b-col>
         
         <b-col>  
-          <h4>Your Teams (Owner)</h4>
+         <h4>Creator Of</h4>
+          
           <div class='teamsList'>
             <b-list-group class="yourTeamsGroup" track-by="$index"  v-for="team in this.usersTeams" :key="team.id">
               <b-list-group-item class="yourTeamsItem" button  @click="goToSprint(team.id, team.name)">{{team.name[0].toUpperCase() + team.name.substring(1)}}
@@ -32,14 +33,14 @@
               </b-list-group-item>
                <b-button v-b-tooltip.hover title="Edit" id="edit" variant="outline-dark" class="teamEditDel" @click="showModal(team.name)">✎</b-button>
                 <b-button v-b-tooltip.hover title="Delete" variant="outline-dark" class="teamEditDel" @click="deleteTeam(team.name)">🗑</b-button>
-             
+      
                </b-list-group>
            </div>
          </b-col>
           <b-col>  
-          <h4>Your Teams (Member)</h4>
+         <h4>Member Of</h4>
           <div class='teamsList'>
-            <b-list-group class="yourTeamsGroup" track-by="$index"  v-for="team in this.memberTeams" :key="team.id">
+            <b-list-group class="yourTeamsGroup" track-by="$index"  v-for="team in this.memberTeam" :key="team.id">
               <b-list-group-item class="yourTeamsItem" button  @click="goToSprint(team.id, team.name)">{{team.name[0].toUpperCase() + team.name.substring(1)}}
                 
               </b-list-group-item>
@@ -141,15 +142,14 @@ export default {
         }
       })
         await response.map((team) => {
-        if (team.creator_id === jwtDecode(document.cookie.split('=')[1]).id) {
+          if (team.creator_id === jwtDecode(document.cookie.split('=')[1]).id) {
            team.name[0].toUpperCase() + team.name.substring(1)
-           this.loggedIn = true
-           this.isSeen = false
-           this.currentlyLoading = false
            // last set usersTeams array
-          return this.memberTeams.push(team)
+          return this.memberTeamspush(team)
         }
       })
+      
+       
       
     },
 
@@ -165,7 +165,6 @@ export default {
       console.log("Go to sprint id: ", teamId)
       await SprintStore.methods.getSprint(teamId, teamName)
       this.$router.push('/sprint')
-      //get sprint from SprintStore populates the sprint store data(this doesn't really work yet)
       //redirect to sprints page which is retrieving data from the Sprint Store
     },
 
@@ -190,7 +189,6 @@ export default {
       })
     },
     joinTeam(name) {
- 
       TeamsStore.methods.joinTeam(this.joinTeamName)
     },
     showModal(name) {
