@@ -6,11 +6,11 @@
  <!-- below here is rendered after loading spinner timeout -->
   <div v-show="!notLoading" class="sprint">
     <b-btn class="postASprintBtn" v-b-modal.postSprintModal>Create A Sprint</b-btn>
-   
+
    <!-- calendar view component rendered here -->
     <CalendarView :sprintLength="sprintLength"/>
     <br>
-    
+
     <!-- insert day of sprint variable here -->
     <h2>Daily Stand Up: Day {{sprintInfo[0]}} of Sprint</h2>
     <div class="jumbotron">
@@ -38,6 +38,12 @@
           <b-button id="sprintCardUpBtn" @click="hitThatRoute" variant="outlin-dark">Update Card</b-button>
         </b-card>
       </div>
+    </div>
+    <!-- Sprint Notes: persists throughout all days of the sprint -->
+    <div class="sprintNotes">
+      <p class="card-text">Sprint Notes:</p>
+      <b-form-textarea v-model="sprintInfo[1].sprint_notes" type="text" value="sprintInfo[1].sprint_notes"></b-form-textarea>
+      <b-button id="sprintCardUpBtn" variant="outlin-dark">Update Notes</b-button>
     </div>
   </div>
   <!-- modal below here as last rendered thing in component -->
@@ -85,10 +91,11 @@ export default {
       teamName: '',
       sprintInfo: '',
       notes: "",
-   
+
     };
   },
-  
+
+
     async created(){
       console.log("calendar info available to sprint page:", CalendarView)
       console.log("SprintStore.data.sprintInfo: ", SprintStore.data.sprintInfo)
@@ -102,7 +109,7 @@ export default {
       }, 2500)
        this.sprintInfo = await SprintStore.data.sprintInfo
        this.teamName = await SprintStore.data.teamName
-      
+
       console.log("CalendarView created")
       console.log("this.sprintInfo: ", this.sprintInfo)
       console.log("this.teamName: ", this.teamName)
@@ -185,5 +192,18 @@ a {
 
 .postASprintBtn {
   margin-left: 75%;
+}
+
+.sprintNotes{
+  flex-direction: row;
+  font-weight: bold;
+  /* display: flex; */
+
+  /* padding-top: 5px; */
+  /* padding-bottom: 50px;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: left;
+  margin: 0px; */
 }
 </style>

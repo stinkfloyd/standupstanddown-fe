@@ -67,7 +67,7 @@ const TeamsStore = {
       })
     },
 
-    
+
     async deleteTeam(id) {
       console.log("in the delete teamStore w/ id:", id)
       id = parseInt(id)
@@ -81,6 +81,7 @@ const TeamsStore = {
           }
         })
     },
+
     async editTeam(id, name) {
       const tokenDecoded = jwtDecode(document.cookie.split('=')[1])
       const body = {
@@ -102,6 +103,23 @@ const TeamsStore = {
           }
         })
     },
+
+    async getTeamMembers(id){
+      return fetch(`http://localhost:3000/teams_users/${id}`, {
+        credentials: 'include',
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }).then(async (response) => {
+        console.log("response getTeamMembers: ", response.body)
+        let resJson = await response.json()
+        console.log("resJson: ", resJson)
+        return resJson.body
+      })
+    }
+
   },
 };
 

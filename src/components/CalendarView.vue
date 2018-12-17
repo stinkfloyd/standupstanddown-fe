@@ -2,10 +2,13 @@
   <div class="calendar">
     <p class="team-header">Current Sprint: <em>{{teamName[0].toUpperCase() + teamName.substring(1)}}</em></p>
     <div>
-     <b-form-group label="" >
+     <b-form-group label="">
       <b-button class="sprintDayButtons" variant="outline-dark" track-by="$index"  v-for="day in this.sprintLength" :key="day" @click="loadSprintDaily(day)">Stand Up {{day}}
       </b-button>
      </b-form-group>
+    </div>
+    <div class="sprintGoal">
+      Goal for this Sprint: {{sprintInfo[1].sprint_goal}}
     </div>
   </div>
 </template>
@@ -26,6 +29,7 @@
         sprintInfo: '',
         selected: 'radio1',
         curentDaily: 0,
+
       }
     },
 
@@ -71,6 +75,11 @@
    opacity: 0.7;
    background-color: #28284e;
   transition: opacity .55s ease-in-out;
+}
+.sprintGoal {
+  padding: 20px;
+  font-weight: bold;
+  font-size: 20px;
 }
 
 </style>

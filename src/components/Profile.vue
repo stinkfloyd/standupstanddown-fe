@@ -70,7 +70,7 @@
          <b-input id="modalInput" v-model="editModalInput" type="text">
          </b-input>
        </div>
-       <b-btn class="mt-3" variant="outline-dark" block @click="hideModal &&editTeam(teamName)">Edit</b-btn>
+       <b-btn class="mt-3" variant="outline-dark" block @click="hideModal &&editTeam(teamName)">Edit Team Name</b-btn>
     </b-modal>
 
     </div>
@@ -99,7 +99,8 @@ export default {
       teamName: '',
       selected: null,
       editModalInput: '',
-      loggedIn: true
+      loggedIn: true,
+      teamMembers: [],
     }
   },
 
@@ -165,9 +166,10 @@ export default {
         }
       })
     },
-    showModal(name) {
+    async showModal(name) {
       this.teamName = name
       console.log("modal name:", name)
+      console.log("teamMembers: ", this.teamMembers)
       this.$refs.editModal.show()
     },
      hideModal () {
