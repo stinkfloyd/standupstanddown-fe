@@ -7,127 +7,137 @@
   <div v-show="!notLoading" class="sprint">
     <b-btn class="postASprintBtn" v-b-modal.postSprintModal>Create A Sprint</b-btn>
 
-   <!-- calendar view component rendered here -->
-    <CalendarView :sprintLength="sprintLength"/>
-    <br>
+   <!-- calendar view component rendered here-->
+   <CalendarView :sprintLength="sprintLength"/>
+   <!-- <div v-if="selectedStandup.length >= 1">
+   </div>
+   <div v-else>
+   </div> -->
 
-    <!-- insert day of sprint variable here -->
-    <h2>Daily Stand Up: Day {{sprintInfo[0]}} of Sprint</h2>
-    <b-button variant="dark" @click="addTeamMember">Add Team Member</b-button>
-    <br />
-    <div class="jumbotron">
-      <div class="sprintCardDiv" >
-        <h3>Daily Stand Up Card for <em><b>{{teamName[0].toUpperCase() + teamName.substring(1)}}</b></em> <br />Date {Date} Members{#}</h3>
-        <div id="sprintCardParent">
-          <!-- <b-card class="sprintDailyCard" no-body
-            style="max-width: 66%;"
-            img-src="https://dummyimage.com/200x100/8a48c7/fff"
-            img-alt="Image"
-            img-top>
-        <h4 slot="header">{Member 1}</h4>
-        <b-card-body>
-            <p class="card-text">
-              
-            </p>
-        </b-card-body>
-        <b-list-group flush>
-            <b-list-group-item> <br>Yesterday:
-            <b-form-textarea
-              v-model="member1YesterdayText"
-              class="memberInputField"
-              type="textarea"
-            ></b-form-textarea></b-list-group-item>
-            <b-list-group-item> <br>Today:
-            <b-form-textarea
-              v-model="member1TodayText"
-              class="memberInputField"
-              type="textarea"
-            ></b-form-textarea></b-list-group-item>
-            <b-list-group-item> <br>Helps:
-            <b-form-textarea
-              v-model="member1HelpsText"
-              class="memberInputField"
-              type="textarea"
-            ></b-form-textarea></b-list-group-item>
-            <b-list-group-item><b-button>Submit Stand Up</b-button></b-list-group-item>
-        </b-list-group>
-      
-      
-    </b-card> -->
+   <div v-if="selectedStandupDay.length >= 1">
+      <div class="jumbotron">
+        <div class="sprintCardDiv" >
+          <!-- <h3>Daily Stand Up Card for <em><b>{{teamName[0].toUpperCase() + teamName.substring(1)}}</b></em> <br />Date {Date} Members{#}</h3> -->
+          <!-- <div id="sprintCardParent"> -->
+            <!-- <b-card class="sprintDailyCard" no-body
+              style="max-width: 66%;"
+              img-src="https://dummyimage.com/200x100/8a48c7/fff"
+              img-alt="Image"
+              img-top>
+          <h4 slot="header">{Member 1}</h4>
+          <b-card-body>
+              <p class="card-text">
 
-  
-        </div>
-         <b-card class="sprintDailyCard" no-body
-             style="max-width: 66%;"
-            img-src="https://dummyimage.com/200x100/8a48c7/fff"
-            img-alt="Image"
-            img-top>
-        <h4 slot="header">{Member 1}</h4>
-        <b-card-body>
-            <p class="card-text">
-              
-            </p>
-        </b-card-body>
-        <b-list-group flush>
-            <b-list-group-item> <br>
-            Yesterday:
-            <b-form-textarea
-              v-model="member1YesterdayText"
-              class="memberInputField"
-              type="textarea"
-            ></b-form-textarea></b-list-group-item>
-            <b-list-group-item> <br>Today:
-            <b-form-textarea
-              v-model="member1TodayText"
-              class="memberInputField"
-              type="textarea">
+              </p>
+          </b-card-body>
+          <b-list-group flush>
+              <b-list-group-item> <br>Yesterday:
+              <b-form-textarea
+                v-model="member1YesterdayText"
+                class="memberInputField"
+                type="textarea"
+              ></b-form-textarea></b-list-group-item>
+              <b-list-group-item> <br>Today:
+              <b-form-textarea
+                v-model="member1TodayText"
+                class="memberInputField"
+                type="textarea"
+              ></b-form-textarea></b-list-group-item>
+              <b-list-group-item> <br>Helps:
+              <b-form-textarea
+                v-model="member1HelpsText"
+                class="memberInputField"
+                type="textarea"
+              ></b-form-textarea></b-list-group-item>
+              <b-list-group-item><b-button>Submit Stand Up</b-button></b-list-group-item>
+          </b-list-group>
+
+
+      </b-card> -->
+
+
+          <!-- </div> -->
+           <b-card class="sprintDailyCard" no-body
+               style="max-width: 66%;"
+              img-src="https://dummyimage.com/200x100/8a48c7/fff"
+              img-alt="Image"
+              img-top>
+          <h4 slot="header">{Member 1}</h4>
+          <b-card-body>
+              <p class="card-text">
+
+              </p>
+          </b-card-body>
+          <b-list-group flush>
+              <b-list-group-item> <br>
+              Yesterday:
+              <b-form-textarea
+                v-model="member1YesterdayText"
+                class="memberInputField"
+                type="textarea"
+              ></b-form-textarea></b-list-group-item>
+              <b-list-group-item> <br>Today:
+              <b-form-textarea
+                v-model="member1TodayText"
+                class="memberInputField"
+                type="textarea">
+                </b-form-textarea>
+                </b-list-group-item>
+              <b-list-group-item> <br>Helps:
+              <b-form-textarea
+                v-model="member1HelpsText"
+                class="memberInputField"
+                type="textarea">
               </b-form-textarea>
               </b-list-group-item>
-            <b-list-group-item> <br>Helps:
-            <b-form-textarea
-              v-model="member1HelpsText"
-              class="memberInputField"
-              type="textarea">
-            </b-form-textarea>
-            </b-list-group-item>
-            <b-list-group-item>
-              <b-button>Submit Stand Up</b-button>
-            </b-list-group-item>
-           </b-list-group>
-         </b-card>
+              <b-list-group-item>
+                <b-button>Submit Stand Up</b-button>
+              </b-list-group-item>
+             </b-list-group>
+           </b-card>
+        </div>
+        <!-- Sprint Notes: persists throughout all days of the sprint -->
+        <div class="sprintNotes">
+          <p class="card-text">Sprint Notes:</p>
+          <b-form-textarea v-model="sprintInfo[1].sprint_notes" type="text" value="sprintInfo[1].sprint_notes" :rows="3"></b-form-textarea>
+          <b-button id="sprintCardUpBtn" variant="outlin-dark">Update Notes</b-button>
+        </div>
+      <!-- end jumbotron   -->
       </div>
+    <!-- end conditional rendering -->
     </div>
-    <!-- Sprint Notes: persists throughout all days of the sprint -->
-    <div class="sprintNotes">
-      <p class="card-text">Sprint Notes:</p>
-      <b-form-textarea v-model="sprintInfo[1].sprint_notes" type="text" value="sprintInfo[1].sprint_notes" :rows="3"></b-form-textarea>
-      <b-button id="sprintCardUpBtn" variant="outlin-dark">Update Notes</b-button>
+    <!-- render nothing if no standup day has been selected -->
+    <div v-else>
     </div>
-  </div>
-  <!-- modal below here as last rendered thing in component -->
-   <b-modal
-      id="postSprintModal"
-      hide-footer
-      variant="dark"
-      title="Create Sprint for Team"
-      effect="fade/zoom"
-    >
-      <div>
-        Sprint Length: {{rangeValue}} Stand Ups
-        <b-form-input type="range" variant="info" min="5" max="10" step="1" v-model="rangeValue"></b-form-input>
-      </div>
-      <hr>
-      <div>Sprint Goal</div>
-      <b-form-input type="text" v-model="rangeGoal"></b-form-input>
-      <br>
-      <b-button
-        @click="postSprint(3, +(rangeValue), rangeGoal) && hideModal"
-        variant="outline-info text-dark"
-        value="submit"
-      >{{teamName[0].toUpperCase() + teamName.substring(1)}}...Get Agile!</b-button>
-    </b-modal>
-     
-  </div>
+    <!-- end load section   -->
+    </div>
+
+
+
+    <!-- modal below here as last rendered thing in component -->
+     <b-modal
+        id="postSprintModal"
+        hide-footer
+        variant="dark"
+        title="Create Sprint for Team"
+        effect="fade/zoom"
+      >
+        <div>
+          Sprint Length: {{rangeValue}} Stand Ups
+          <b-form-input type="range" variant="info" min="5" max="10" step="1" v-model="rangeValue"></b-form-input>
+        </div>
+        <hr>
+        <div>Sprint Goal</div>
+        <b-form-input type="text" v-model="rangeGoal"></b-form-input>
+        <br>
+        <b-button
+          @click="postSprint(3, +(rangeValue), rangeGoal) && hideModal"
+          variant="outline-info text-dark"
+          value="submit"
+        >{{teamName[0].toUpperCase() + teamName.substring(1)}}...Get Agile!</b-button>
+      </b-modal>
+
+    </div>
 </template>
 
 <script>
@@ -140,6 +150,7 @@ export default {
   name: "Sprint",
   data() {
     return {
+      selectedStandupDay: StandUpsStore.data.selectedStandupDay,
       rangeValue: 5,
       notLoading: false,
       rangeGoal: "",
@@ -174,8 +185,8 @@ export default {
 
      //load in current standUps from stand up store
        await this.currentSprintInfo(this.currentSprintId)
-       
-      
+
+
       console.log("CalendarView created")
       console.log("this.sprintInfo: ", this.sprintInfo)
       console.log("this.teamName: ", this.teamName)
@@ -277,6 +288,9 @@ a {
 .sprintDailyCard > img {
   width: 75px;
   height: 75px;
+}
+.sprintNotes{
+  padding-top: 30px;
 }
 
 </style>

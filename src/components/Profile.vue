@@ -1,5 +1,5 @@
 <template>
- <div>
+<div>
   <SignUp v-show="isSeen && !currentlyLoading && !loggedIn"/>
   <div class="profile" v-show="!isSeen || !currentlyLoading && loggedIn">
     <Spinner v-show="currentlyLoading" id="pacman" name="pacman" color="#28284e"/>
@@ -67,38 +67,8 @@
        <b-btn class="mt-3" variant="outline-dark" block @click="hideModal &&editTeam(teamName)">Edit</b-btn>
     </b-modal>
 
-        </b-row>
-         <hr />
-         <b-row>
-             <b-col>
-             <b-alert hide=true variant="warning">Please enter a longer team name</b-alert>
-             <div class="teamActions"><h4>Join a Team</h4>
-               <div class="joinTeam">
-                 <b-form inline>
-                   <label for="Team Name" value="name"/>
-                   <b-input placeholder="Team Name">Team</b-input>
-                   <b-button class="teamBtn" variant="dark">+</b-button>
-                 </b-form>
-
-              </div>
-            </div>
-          </b-col>
-          </b-row>
-      </b-container>
-
-
-      <!-- modal below here -->
-       <b-modal ref="editModal" hide-footer title="Edit Team Name">
-         <div class="d-block text-center">{{teamName.toUpperCase(1)}}
-         <hr />
-           <b-input id="modalInput" v-model="editModalInput" type="text">
-           </b-input>
-         </div>
-         <b-btn class="mt-3" variant="outline-dark" block @click="hideModal &&editTeam(teamName)">Edit</b-btn>
-      </b-modal>
-
-      </div>
     </div>
+  </div>
 </template>
 
 /*post a new team req takes a name and creator_id*/
