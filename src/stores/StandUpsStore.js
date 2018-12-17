@@ -2,8 +2,8 @@ const jwtDecode = require('jwt-decode')
 
 const StandUpsStore = {
   data: {
-
-
+    selectedStandupDay: '',
+    allStandupsForThisSprint: [],
   },
 
   methods: {
@@ -26,6 +26,24 @@ const StandUpsStore = {
         return sprintData
       })
     },
+
+    async getStandups(sprintId) {
+      await fetch(`http://localhost:3000/standUps/${sprintId}`, {
+        credentials: 'include',
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }).then(async (response) => {
+        let standups = await response.json()
+        console.log("getStandups response", standups)
+        StandUpsStore.data.allStandupsForThisSprint.push(standups)
+        return standups
+      })
+    },
+
+
 
   },
 }
