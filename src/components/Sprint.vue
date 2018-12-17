@@ -16,10 +16,10 @@
 
    <!-- <div v-if="selectedStandupDay.length >= 1"> -->
       <div class="jumbotron">
-        <div class="cards">
+        <!-- <div class="cards"> -->
         <div class="sprintCardDiv" v-for="standup in standupsDay1[0]">
            <b-card class="sprintDailyCard" no-body
-               style="max-width: 66%;"
+               style="max-width: 40%;"
               img-src="https://dummyimage.com/200x100/8a48c7/fff"
               img-alt="Image"
               img-top>
@@ -59,7 +59,7 @@
               </b-list-group-item>
              </b-list-group>
            </b-card>
-        </div>
+        <!-- </div> -->
       </div>
         <!-- Sprint Notes: persists throughout all days of the sprint -->
         <div class="sprintNotes">
@@ -110,13 +110,12 @@ import CalendarView from "./CalendarView";
 import SprintStore from "../stores/SprintStore";
 import StandUpsStore from "../stores/StandUpsStore";
 import Spinner from './error-pages/Spinner'
-import StandUpCard from './StandUpCard'
 
 export default {
   name: "Sprint",
   data() {
     return {
-      selectedStandupDay: StandUpsStore.data.selectedStandupDay,
+      selectedStandupDay: '',
       rangeValue: 5,
       notLoading: false,
       rangeGoal: "",
@@ -129,12 +128,9 @@ export default {
       sprintInfo: '',
       currentSprintId: 0,
       notes: "",
-<<<<<<< HEAD
-      
-=======
-      standupsDay1: [],
+      standupsDay1:[],
       standupsDay2:[],
->>>>>>> added cards populating data from standups
+
 
     };
   },
@@ -244,12 +240,10 @@ a {
 
 .sprintCardDiv {
   text-align: left;
-}
-
-.cards{
   display: flex;
   flex-direction: row;
 }
+
 
 .member {
   border-bottom: 1px dashed black;
