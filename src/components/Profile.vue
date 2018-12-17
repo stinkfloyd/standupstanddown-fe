@@ -107,18 +107,18 @@ export default {
       editModalInput: '',
       loggedIn: true,
       joinTeamName: '',
-      creator_id: 0,
+      current_user_id: 0,
     }
   },
 
   async created() {
-    this.creator_id = jwtDecode(document.cookie.split('=')[1]).id
+    this.current_user_id = jwtDecode(document.cookie.split('=')[1]).id
     this.refreshUsersTeams()
   },
 
   methods: {
     async refreshUsersTeams() {
-      // first clear the existing array of teams
+      // first clear the existing arrays of teams
       this.usersTeams = []
       this.memberTeams = []
       if (this.currentlyLoading = false) {
@@ -139,15 +139,13 @@ export default {
         }
       })
       
-      let memberTeamResponse = await TeamsStore.methods.getMemberTeams(this.creator_id)
+      // get all teams for which one is a member but not creator 
+      let memberTeamResponse = await TeamsStore.methods.getMemberTeams(this.current_user_id)
       memberTeamResponse.forEach((team) => {
-        if (team.creator_id !== this.creator_id) {
+        if (team.creator_id !== this.current_user_id) {
           this.memberTeams.push(team)
         }
-        
       })
-      console.log("Response:", this.memberTeams)
-      
     },
 
     async addTeam(event) {
@@ -185,19 +183,23 @@ export default {
         }
       })
     },
+
     joinTeam(name) {
       TeamsStore.methods.joinTeam(this.joinTeamName)
       return this.refreshUsersTeams()
     },
+
     showModal(name) {
       this.teamName = name
       console.log("modal name:", name)
       this.$refs.editModal.show()
     },
+
      hideModal () {
       this.teamName = ''
       this.$refs.editModal.hide()
     }
+    
   },
   components: {
     SignUp
