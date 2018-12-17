@@ -1,18 +1,24 @@
 <template>
-<div>
-  <SignUp v-show="isSeen && !currentlyLoading && !loggedIn"/>
-  <div class="profile" v-show="!isSeen || !currentlyLoading && loggedIn">  
-    <Spinner v-show="currentlyLoading" id="pacman" name="pacman" color="#28284e"/>
-    <b-container  class="bv-example-row">
-    <b-row>
-        <b-col>
-          <h4>Create a Team</h4>
-          <div class="teamFields">
-            <b-form :info="'info'" @submit="addTeam" inline >
-              <label for="teamName"  value="name"/>
-              <b-input id="inputLive"  name="teamName" 
-                 v-model="teamName" placeholder="Team Name">Team
-              </b-input>
+  <div class="profile">
+    <div>
+      <p>Github username, firstname, lastname</p>
+    </div>
+    <div>
+      <p>Your Teams: </p>
+    </div>
+    <div class='teamsList'>
+      <b-list-group>
+        <b-list-group-item button track-by="$index" v-for="team in this.usersTeams" :key="team.id" @click="goToSprint(team.id, team.name)">{{team.name}}</b-list-group-item>
+      </b-list-group>
+    </div>
+     <!-- <b-alert show>Show teams and basic github info back</b-alert> -->
+      <b-alert hide=true variant="warning">Please enter a longer team name</b-alert>
+    <div class="teamActions">
+
+      <div class="teamFields">Create a Team:
+          <b-form :info="'info'" @submit="addTeam" inline >
+            <label for="teamName"  value="name"/>
+            <b-input id="inputLive"  name="teamName" v-model="teamName" placeholder="Team Name">Team</b-input>
 
               <b-button type="submit" class="teamBtn" variant="dark" >+</b-button>
               <b-form-invalid-feedback id="inputLiveFeedback">
@@ -20,26 +26,26 @@
               </b-form-invalid-feedback>
              </b-form>
            </div>
-    
+
         </b-col>
-        
-        <b-col>  
+
+        <b-col>
           <h4>Your Teams</h4>
           <div class='teamsList'>
             <b-list-group class="yourTeamsGroup" track-by="$index"  v-for="team in this.usersTeams" :key="team.id">
               <b-list-group-item class="yourTeamsItem" button  @click="goToSprint(team.id, team.name)">{{team.name[0].toUpperCase() + team.name.substring(1)}}
-                
+
               </b-list-group-item>
                <b-button v-b-tooltip.hover title="Edit" id="edit" variant="outline-dark" class="teamEditDel" @click="showModal(team.name)">✎</b-button>
                 <b-button v-b-tooltip.hover title="Delete" variant="outline-dark" class="teamEditDel" @click="deleteTeam(team.name)">🗑</b-button>
-             
+
                </b-list-group>
            </div>
          </b-col>
-        
+
       </b-row>
        <hr />
-       <b-row> 
+       <b-row>
            <b-col>
            <b-alert hide=true variant="warning">Please enter a longer team name</b-alert>
            <div class="teamActions"><h4>Join a Team</h4>
@@ -49,13 +55,13 @@
                  <b-input placeholder="Team Name">Team</b-input>
                  <b-button class="teamBtn" variant="dark">+</b-button>
                </b-form>
-             
+
             </div>
           </div>
         </b-col>
         </b-row>
     </b-container>
-     
+
 
     <!-- modal below here -->
      <b-modal ref="editModal" hide-footer title="Edit Team Name">
@@ -109,7 +115,7 @@ export default {
         setTimeout(() => this.currentlyLoading = true, 3000)
       }
       this.currentlyLoading = false
-      //second get all teams for user 
+      //second get all teams for user
       let res = await TeamsStore.methods.getTeams()
       await res.map((team) => {
         if (team.creator_id === jwtDecode(document.cookie.split('=')[1]).id) {
@@ -144,9 +150,9 @@ export default {
          if (team.name === name.toLowerCase()) {
           await TeamsStore.methods.deleteTeam(team.id)
           return this.refreshUsersTeams()
-         } 
+         }
        })
-    
+
     },
     editTeam() {
       this.usersTeams.map(async (team) => {
@@ -219,7 +225,7 @@ export default {
   margin: 1% 0px;
   font-weight: bold;
   border-radius: 15px;
-  border: 1px solid #3b3b3b 
+  border: 1px solid #3b3b3b
 }
 
 .yourTeamsItem:focus {

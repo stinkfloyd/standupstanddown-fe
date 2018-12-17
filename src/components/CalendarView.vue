@@ -16,7 +16,7 @@
 
   export default {
     name: 'CalendarView',
-    
+
     // this is receiving the prop of sprintLEngth from the sprint vue
     props: ['sprintLength'],
     data: () => {
@@ -64,7 +64,7 @@
   border-radius: 4px;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
-  
+
 }
 
 .sprintDayButtons:hover {
