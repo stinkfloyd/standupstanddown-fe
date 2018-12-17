@@ -1,18 +1,19 @@
-var jwtDecode = require('jwt-decode')
+let jwtDecode = require('jwt-decode')
 
 const TeamsStore = {
   data: {
-    //store the id of the team being edited here on click of the accociated button.
-    //then you can render the edit form conditionally based on the value's presence.
+    // store the id of the team being edited here on click of the accociated button.
+    // then you can render the edit form conditionally based on the value's presence.
     teamToEdit: null,
     usersTeams: [],
     test: "test",
     memberTeams: [],
+    errorMessage: '',
   },
 
   methods: {
-    //this data will be present when the el is mounted. gets the teams the user is a part of and puts them in the usersTeams property.
-    refreshUsersTeams: async function(){
+    // this data will be present when the el is mounted. gets the teams the user is a part of and puts them in the usersTeams property.
+    async refreshUsersTeams(){
       this.loading = true
       this.usersTeams = await TeamsStore.methods.getTeams()
       console.log("profile.vue: getTeams: ", this.usersTeams)
@@ -51,7 +52,7 @@ const TeamsStore = {
       })
     },
 
-    async createTeam(teamToAdd) {
+    createTeam: async (teamToAdd) => {
       console.log("createTeam: ", teamToAdd)
       const tokenDecoded = jwtDecode(document.cookie.split('=')[1])
       console.log("tokenDecoded", tokenDecoded)
@@ -68,19 +69,22 @@ const TeamsStore = {
           Accept: "application/json",
         },
       })
-      .then(async (response) => {
-        let resJson = await response.json()
-        if (response.status === 200) {
+        .then(async (response) => {
+          this.errorMessage = "hi"
+          let resJson = await response.json()
+          if (response.status === 200) {
           // push that stuff
           // TeamsStore.data.usersTeams.push(response.body
-          console.log("resJson: ", resJson)
-          console.log("resJson.name: ", resJson.name)
-          return resJson.name
-        } else {
-          // something bad happened
-          console.log("response; ", response)
-        }
-      })
+            console.log("resJson: ", resJson)
+            console.log("resJson.name: ", resJson.name)
+            return resJson.name
+          } else {
+            if (response.status === 401) {
+              TeamsStore.data.errorMessage = `Cannot Create Team: ${teamToAdd}. Please enter a different Team Name`
+            }
+            return TeamsStore.data.errorMessage
+          }
+        })
     },
 
 
@@ -115,12 +119,12 @@ const TeamsStore = {
       })
         .then((response) => {
           if (response.status === 401) {
-            alert(`Error: ${response.status}: ${response.statusText}`)
+            console.log(`Error: ${response.status}: ${response.statusText}`)
           }
         })
     },
 
-    async getTeamMembers(id){
+    async getTeamMembers(id) {
       return fetch(`http://localhost:3000/teams_users/${id}`, {
         credentials: 'include',
         method: "GET",
@@ -150,6 +154,9 @@ const TeamsStore = {
           Accept: "application/json",
         },
       }).then((res) => {
+        if (res.status === 401) {
+          TeamsStore.data.errorMessage = `Invalid login attempt with name: ${teamName} Please try again.`
+        }
         console.log("join a team res:", res)
       })
     },

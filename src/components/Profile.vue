@@ -3,8 +3,9 @@
   <SignUp v-show="isSeen && !currentlyLoading && !loggedIn"/>
   <div class="profile" v-show="!isSeen || !currentlyLoading && loggedIn">
     <Spinner v-show="currentlyLoading" id="pacman" name="pacman" color="#28284e"/>
+    <b-alert id="alert" show dismissible fade v-show="isWarning" variant="warning">{{this.errorMessage}}</b-alert>
     <b-container  class="bv-example-row">
-    <b-row>
+    <b-row >
         <b-col>
           <h4>Create a Team</h4>
           <div class="teamFields">
@@ -108,12 +109,15 @@ export default {
       loggedIn: true,
       joinTeamName: '',
       current_user_id: 0,
+      errorMessage: '',
+      isWarning: false
     }
   },
 
   async created() {
     this.current_user_id = jwtDecode(document.cookie.split('=')[1]).id
     this.refreshUsersTeams()
+    
   },
 
   methods: {
@@ -137,7 +141,7 @@ export default {
            // last set usersTeams array
           return this.usersTeams.push(team)
         }
-      })
+      }) 
       
       // get all teams for which one is a member but not creator 
       let memberTeamResponse = await TeamsStore.methods.getMemberTeams(this.current_user_id)
@@ -146,6 +150,14 @@ export default {
           this.memberTeams.push(team)
         }
       })
+      //set new errorMessage
+      this.errorMessage = TeamsStore.data.errorMessage
+      console.log("this.errorMessage", this.errorMessage)
+      if (this.errorMessage !== '') {
+        this.isWarning = true
+        setTimeout(() => this.isWarning = false, 5000)
+      }
+     
     },
 
     async addTeam(event) {
@@ -199,7 +211,7 @@ export default {
       this.teamName = ''
       this.$refs.editModal.hide()
     }
-    
+
   },
   components: {
     SignUp
@@ -286,5 +298,9 @@ export default {
 
 #modalInput {
   width: 100%;
+}
+
+#alert{
+  transition: .55s ease-in-out;
 }
 </style>

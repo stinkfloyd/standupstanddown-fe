@@ -163,7 +163,7 @@ export default {
       sprintInfo: '',
       currentSprintId: 0,
       notes: "",
-      
+
 
     };
   },

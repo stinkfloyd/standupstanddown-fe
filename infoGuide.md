@@ -44,7 +44,7 @@
 
 [x] "logout" view toggling for signup/sign in and replace img to default 
 
-[ ] join a team
+[x] join a team
 
 ---
 ## Stretch goals
@@ -61,7 +61,7 @@
 
 [ ] team names capitalize each word in string
 
-[ ] make Footer a component rendered in App instead of just a class
+[x] make Footer a component rendered in App instead of just a class
 
 [ ] "team name" input in profile still needs an error catch "on submit" for a team name that is < 4
 

@@ -38,6 +38,7 @@ const StandUpsStore = {
       }).then(async (response) => {
         let standups = await response.json()
         console.log("getStandups response", standups)
+        // filter it here
         StandUpsStore.data.allStandupsForThisSprint.push(standups)
         return standups
       })
