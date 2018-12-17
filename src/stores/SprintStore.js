@@ -5,6 +5,7 @@ const SprintStore = {
     teamName: "",
     sprintInfo: [1],
     sprintLength: 0,
+    sprintId: 0,
   },
 
   methods: {
@@ -24,6 +25,7 @@ const SprintStore = {
         console.log("resJson[0]: ", resJson[0])
         SprintStore.data.sprintInfo.push(resJson[0])
         SprintStore.data.teamName = name
+        SprintStore.data.sprintId = id
       
         console.log("SprintStore.data.sprintInfo: ", SprintStore.data.sprintInfo)
         console.log("resJson: ", resJson)

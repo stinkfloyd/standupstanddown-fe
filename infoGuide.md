@@ -16,9 +16,11 @@
 
    `/sprints/${team_id}` post a sprint route
 
+   `teams_users/${user_id}` body = {teamName}
+
 ## To-do list
 
-### Sunday
+### Monday
 
 [x] get id on teams list and link to /sprint page with information
 

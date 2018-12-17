@@ -1,5 +1,5 @@
 <template>
-<div>
+ <div>
   <SignUp v-show="isSeen && !currentlyLoading && !loggedIn"/>
   <div class="profile" v-show="!isSeen || !currentlyLoading && loggedIn">  
     <Spinner v-show="currentlyLoading" id="pacman" name="pacman" color="#28284e"/>
