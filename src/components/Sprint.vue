@@ -14,55 +14,16 @@
    <div v-else>
    </div> -->
 
-   <div v-if="selectedStandupDay.length >= 1">
+   <!-- <div v-if="selectedStandupDay.length >= 1"> -->
       <div class="jumbotron">
-        <div class="sprintCardDiv" >
-          <!-- <h3>Daily Stand Up Card for <em><b>{{teamName[0].toUpperCase() + teamName.substring(1)}}</b></em> <br />Date {Date} Members{#}</h3> -->
-          <!-- <div id="sprintCardParent"> -->
-            <!-- <b-card class="sprintDailyCard" no-body
-              style="max-width: 66%;"
-              img-src="https://dummyimage.com/200x100/8a48c7/fff"
-              img-alt="Image"
-              img-top>
-          <h4 slot="header">{Member 1}</h4>
-          <b-card-body>
-              <p class="card-text">
-
-              </p>
-          </b-card-body>
-          <b-list-group flush>
-              <b-list-group-item> <br>Yesterday:
-              <b-form-textarea
-                v-model="member1YesterdayText"
-                class="memberInputField"
-                type="textarea"
-              ></b-form-textarea></b-list-group-item>
-              <b-list-group-item> <br>Today:
-              <b-form-textarea
-                v-model="member1TodayText"
-                class="memberInputField"
-                type="textarea"
-              ></b-form-textarea></b-list-group-item>
-              <b-list-group-item> <br>Helps:
-              <b-form-textarea
-                v-model="member1HelpsText"
-                class="memberInputField"
-                type="textarea"
-              ></b-form-textarea></b-list-group-item>
-              <b-list-group-item><b-button>Submit Stand Up</b-button></b-list-group-item>
-          </b-list-group>
-
-
-      </b-card> -->
-
-
-          <!-- </div> -->
+        <!-- <div class="cards"> -->
+        <div class="sprintCardDiv" v-for="standup in standupsDay1[0]">
            <b-card class="sprintDailyCard" no-body
-               style="max-width: 66%;"
+               style="max-width: 40%;"
               img-src="https://dummyimage.com/200x100/8a48c7/fff"
               img-alt="Image"
               img-top>
-          <h4 slot="header">{Member 1}</h4>
+          <h4 slot="header">{{standup.username}}</h4>
           <b-card-body>
               <p class="card-text">
 
@@ -71,20 +32,23 @@
           <b-list-group flush>
               <b-list-group-item> <br>
               Yesterday:
-              <b-form-textarea
+              <p v-if="standup.yesterday">{{standup.yesterday}}</p>
+              <b-form-textarea v-else
                 v-model="member1YesterdayText"
                 class="memberInputField"
                 type="textarea"
               ></b-form-textarea></b-list-group-item>
               <b-list-group-item> <br>Today:
-              <b-form-textarea
+              <p v-if="standup.today">{{standup.today}}</p>
+              <b-form-textarea v-else
                 v-model="member1TodayText"
                 class="memberInputField"
                 type="textarea">
                 </b-form-textarea>
                 </b-list-group-item>
               <b-list-group-item> <br>Helps:
-              <b-form-textarea
+              <p v-if="standup.helps">{{standup.helps}}</p>
+              <b-form-textarea v-else
                 v-model="member1HelpsText"
                 class="memberInputField"
                 type="textarea">
@@ -95,7 +59,8 @@
               </b-list-group-item>
              </b-list-group>
            </b-card>
-        </div>
+        <!-- </div> -->
+      </div>
         <!-- Sprint Notes: persists throughout all days of the sprint -->
         <div class="sprintNotes">
           <p class="card-text">Sprint Notes:</p>
@@ -105,10 +70,10 @@
       <!-- end jumbotron   -->
       </div>
     <!-- end conditional rendering -->
-    </div>
+    <!-- </div> -->
     <!-- render nothing if no standup day has been selected -->
-    <div v-else>
-    </div>
+    <!-- <div v-else>
+    </div> -->
     <!-- end load section   -->
     </div>
 
@@ -150,7 +115,7 @@ export default {
   name: "Sprint",
   data() {
     return {
-      selectedStandupDay: StandUpsStore.data.selectedStandupDay,
+      selectedStandupDay: '',
       rangeValue: 5,
       notLoading: false,
       rangeGoal: "",
@@ -163,7 +128,9 @@ export default {
       sprintInfo: '',
       currentSprintId: 0,
       notes: "",
-      
+      standupsDay1:[],
+      standupsDay2:[],
+
 
     };
   },
@@ -183,20 +150,34 @@ export default {
        this.sprintInfo = await SprintStore.data.sprintInfo
        this.teamName = await SprintStore.data.teamName
        this.currentSprintId = await SprintStore.data.sprintId
-
      //load in current standUps from stand up store
        await this.currentSprintInfo(this.currentSprintId)
-
-
       console.log("CalendarView created")
       console.log("this.sprintInfo: ", this.sprintInfo)
       console.log("this.teamName: ", this.teamName)
-      console.log()
+      //this should get all standups for this sprint and store them in the StandUpsStore
+      await StandUpsStore.methods.getStandups(this.sprintInfo[1].id)
+      console.log("StandUpsStore.data.allStandupsForThisSprint[0]: ",
+      StandUpsStore.data.allStandupsForThisSprint[0])
+      console.log(StandUpsStore.data.allStandupsForThisSprint[0])
+      //populate standups for each day
+      let day1 = []
+      StandUpsStore.data.allStandupsForThisSprint[0].forEach((standup) =>{
+        if(standup.dayInSprint === 1){
+          day1.push(standup)
+        }
+      })
+      console.log("day1: ", day1)
+      this.standupsDay1.push(day1)
+      console.log("this.standupsDay1: ", this.standupsDay1)
     },
+
   methods: {
+
     hideModal () {
       this.$refs.postSprintModal.hide()
     },
+
     async hitThatRoute() {
       let response = await fetch("http://localhost:3000/teams_users", {
         credentials: "include"
@@ -208,10 +189,12 @@ export default {
         response.data
       );
     },
+
     async currentSprintInfo() {
       let response = await StandUpsStore.methods.getSprintInfo(this.currentSprintId)
       console.log("response to currentSprintIno in sprint vue:", response)
     },
+
     postSprint(team_id, sprint_length, sprint_goal) {
       if (!sprint_goal) {
         alert("Please enter a Sprint Goal for your team's betterment");
@@ -226,11 +209,14 @@ export default {
       this.rangeValue = 5;
       this.rangeGoal = "";
     },
+
     addTeamMember(event) {
       console.log("add team member function")
       let parent = document.getElementById('sprintCardParent')
-    }
+    },
+
   },
+
   components: {
     CalendarView
   }
@@ -254,7 +240,10 @@ a {
 
 .sprintCardDiv {
   text-align: left;
+  display: flex;
+  flex-direction: row;
 }
+
 
 .member {
   border-bottom: 1px dashed black;
@@ -290,6 +279,7 @@ a {
   width: 75px;
   height: 75px;
 }
+
 .sprintNotes{
   padding-top: 30px;
 }
