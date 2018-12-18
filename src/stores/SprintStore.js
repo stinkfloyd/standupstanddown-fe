@@ -19,7 +19,6 @@ const SprintStore = {
           Accept: "application/json",
         },
       }).then(async (response) => {
-        console.log("response: ", response)
         let resJson = await response.json()
         console.log("resJson: ", resJson)
         console.log("resJson[0]: ", resJson[0])

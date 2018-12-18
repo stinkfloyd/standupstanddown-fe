@@ -9,7 +9,6 @@ const UsersStore = {
   },
 
   methods: {
-   
     /**
      * Get one user's info based on token id for component
      */

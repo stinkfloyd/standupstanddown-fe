@@ -120,6 +120,10 @@ export default {
     
   },
 
+   async mounted() {
+    this.current_user_id = jwtDecode(document.cookie.split('=')[1]).id
+  },
+  
   methods: {
     async refreshUsersTeams() {
       // first clear the existing arrays of teams
