@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="body">
   <!-- loading spinner for transition -->
   <Spinner v-show="notLoading" id="pacman" name="ball-scale-multiple" color="#292b2c"/>
 
@@ -8,19 +8,23 @@
     <b-btn class="postASprintBtn" v-b-modal.postSprintModal>Create A Sprint</b-btn>
 
    <!-- calendar view component rendered here-->
-   <CalendarView :sprintLength="sprintLength"/>
+   <CalendarView class="cal" :sprintLength="sprintLength"/>
    <!-- <div v-if="selectedStandup.length >= 1">
    </div>
    <div v-else>
    </div> -->
 
    <!-- <div v-if="selectedStandupDay.length >= 1"> -->
-      <div class="jumbotron">
+ 
+          <div class="sprintNotes">Sprint Notes:
+          <b-form-textarea v-model="sprintInfo[1].sprint_notes" type="text" value="sprintInfo[1].sprint_notes" :rows="3"></b-form-textarea>
+          <b-button id="sprintCardUpBtn" variant="outlin-dark">✎ Notes</b-button>
+        </div >
         <!-- <div class="cards"> -->
         <div class="sprintCardDiv" v-for="standup in standupsDay1[0]">
            <b-card class="sprintDailyCard" no-body
                style="max-width: 40%;"
-              img-src="https://dummyimage.com/200x100/8a48c7/fff"
+              img-src="http://www.clker.com/cliparts/l/w/w/n/7/c/purple-square-button-md.png"
               img-alt="Image"
               img-top>
           <h4 slot="header">{{standup.username}}</h4>
@@ -56,19 +60,18 @@
               </b-list-group-item>
               <b-list-group-item>
                 <b-button>Submit Stand Up</b-button>
+                <b-button v-b-tooltip.hover title="Edit" id="edit" variant="outline-dark" class="teamEditDel" @click="showModal(team.name)">✎</b-button>
               </b-list-group-item>
              </b-list-group>
            </b-card>
         <!-- </div> -->
       </div>
+      <b-container>
         <!-- Sprint Notes: persists throughout all days of the sprint -->
-        <div class="sprintNotes">
-          <p class="card-text">Sprint Notes:</p>
-          <b-form-textarea v-model="sprintInfo[1].sprint_notes" type="text" value="sprintInfo[1].sprint_notes" :rows="3"></b-form-textarea>
-          <b-button id="sprintCardUpBtn" variant="outlin-dark">Update Notes</b-button>
-        </div>
+      
+      </b-container>
       <!-- end jumbotron   -->
-      </div>
+      
     <!-- end conditional rendering -->
     <!-- </div> -->
     <!-- render nothing if no standup day has been selected -->
@@ -224,6 +227,7 @@ export default {
 </script>
 
 <style scoped>
+
 a {
   color: #1b3b2d;
 }
@@ -238,21 +242,14 @@ a {
   margin: 2%;
 }
 
+.sprintNotes {
+  width: 66%;
+  margin-left: 16.5%;
+}
+
 .sprintCardDiv {
   text-align: left;
-  display: flex;
-  flex-direction: row;
-}
-
-
-.member {
-  border-bottom: 1px dashed black;
-  margin-bottom: 2%;
-}
-
-.memberInputField {
-  width: 95%;
-  margin: 2%;
+  margin-left: 15%;
 }
 
 #sprintCardUpBtn {
@@ -266,22 +263,19 @@ a {
 }
 
 .postASprintBtn {
-  margin-left: 75%;
+  margin-left: 66%;
 }
 
 .sprintDailyCard {
-  display: inline-flex;
-  flex-direction: column;
-  width: 50%;
+  float: left;
+  margin: 1%;
+  margin-bottom: 10%;
+
 }
 
 .sprintDailyCard > img {
   width: 75px;
   height: 75px;
+  opacity: .6;
 }
-
-.sprintNotes{
-  padding-top: 30px;
-}
-
 </style>

@@ -68,6 +68,7 @@
 
 .team-header{
   font-size: 40px;
+ 
 }
 
 .sprintDayButtons {
