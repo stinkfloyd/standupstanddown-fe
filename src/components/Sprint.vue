@@ -254,7 +254,7 @@ a {
 
 #sprintCardUpBtn {
   margin: 2% 30%;
-  border: 1px solid #333333;
+  border: px solid #333333;
   border-radius: 5px;
 }
 

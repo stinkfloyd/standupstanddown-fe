@@ -27,7 +27,6 @@ const SprintStore = {
         SprintStore.data.sprintId = id
       
         console.log("SprintStore.data.sprintInfo: ", SprintStore.data.sprintInfo)
-        console.log("resJson: ", resJson)
         return resJson
       })
     },

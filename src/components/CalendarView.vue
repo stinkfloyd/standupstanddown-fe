@@ -31,8 +31,6 @@
         selected: 'radio1',
         curentDaily: 0,
         sprint_goal: 'Please define me',
-
-
       }
     },
 
