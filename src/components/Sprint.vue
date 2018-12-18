@@ -17,16 +17,11 @@
 
       <div class="sprintCardDiv" v-for="standup in standupsDay1[0]">
          <b-card class="sprintDailyCard" no-body
-             style="max-width: 40%;"
+             style="max-width: 33%;"
             img-src="http://www.clker.com/cliparts/l/w/w/n/7/c/purple-square-button-md.png"
             img-alt="Image"
             img-top>
         <h4 slot="header">{{standup.username}}</h4>
-        <b-card-body>
-            <p class="card-text">
-
-            </p>
-        </b-card-body>
         <b-list-group flush>
             <b-list-group-item> <br>
             Yesterday:
@@ -65,7 +60,7 @@
     <!-- IM not proud of this. Last minuite Fluff for video -->
       <div class="yourCard">
         <b-card class="sprintDailyCard" no-body
-            style="max-width: 40%;"
+            style="max-width: 33%;"
            img-src="http://www.clker.com/cliparts/l/w/w/n/7/c/purple-square-button-md.png"
            img-alt="Image"
            img-top>
@@ -281,7 +276,6 @@ a {
 
 .sprintCardDiv {
   text-align: left;
-  margin-left: 15%;
 }
 
 #sprintCardUpBtn {
