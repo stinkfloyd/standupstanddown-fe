@@ -15,7 +15,7 @@
    </div> -->
 
    <!-- <div v-if="selectedStandupDay.length >= 1"> -->
- 
+
           <div class="sprintNotes">Sprint Notes:
           <b-form-textarea v-model="sprintInfo[1].sprint_notes" type="text" value="sprintInfo[1].sprint_notes" :rows="3"></b-form-textarea>
           <b-button id="sprintCardUpBtn" variant="outlin-dark">✎ Notes</b-button>
@@ -68,10 +68,10 @@
       </div>
       <b-container>
         <!-- Sprint Notes: persists throughout all days of the sprint -->
-      
+
       </b-container>
       <!-- end jumbotron   -->
-      
+
     <!-- end conditional rendering -->
     <!-- </div> -->
     <!-- render nothing if no standup day has been selected -->
