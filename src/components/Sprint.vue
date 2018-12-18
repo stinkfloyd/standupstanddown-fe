@@ -277,5 +277,6 @@ a {
   width: 75px;
   height: 75px;
   opacity: .6;
+  padding: 1%;
 }
 </style>
