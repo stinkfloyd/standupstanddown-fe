@@ -9,14 +9,14 @@ const UsersStore = {
   },
 
   methods: {
-   
+
     /**
      * Get one user's info based on token id for component
      */
     async getUserInfo() {
       const tokenDecoded = jwtDecode(document.cookie.split('=')[1])
       let creatorId = tokenDecoded.id
-      await fetch(`http://localhost:3000/users/${creatorId}`, {
+      await fetch(`http://standup-be.herokuapp.com/users/${creatorId}`, {
         credentials: 'include',
         method: "GET",
         headers: {

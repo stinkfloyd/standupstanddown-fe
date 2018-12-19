@@ -193,7 +193,7 @@ export default {
     // },
 
     async hitThatRoute() {
-      let response = await fetch("http://localhost:3000/teams_users", {
+      let response = await fetch("http://standup-be.herokuapp.com/teams_users", {
         credentials: "include"
       });
       console.log(

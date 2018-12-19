@@ -13,7 +13,7 @@ const StandUpsStore = {
     async getSprintInfo(sprintId) {
       const tokenDecoded = jwtDecode(document.cookie.split('=')[1])
       let creatorId = tokenDecoded.id
-      await fetch(`http://localhost:3000/standUps/${sprintId}`, {
+      await fetch(`http://standup-be.herokuapp.com/standUps/${sprintId}`, {
         credentials: 'include',
         method: "GET",
         headers: {
@@ -28,7 +28,7 @@ const StandUpsStore = {
     },
 
     async getStandups(sprintId) {
-      await fetch(`http://localhost:3000/standUps/${sprintId}`, {
+      await fetch(`http://standup-be.herokuapp.com/standUps/${sprintId}`, {
         credentials: 'include',
         method: "GET",
         headers: {
