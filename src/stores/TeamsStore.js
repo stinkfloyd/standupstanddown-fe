@@ -21,7 +21,7 @@ const TeamsStore = {
     },
 
     async getTeams() {
-      return fetch("http://localhost:3000/teams", {
+      return fetch("http://standup-be.herokuapp.com/teams", {
         credentials: 'include',
         method: "GET",
         headers: {
@@ -38,7 +38,7 @@ const TeamsStore = {
     },
 
     async getMemberTeams(id) {
-      return fetch(`http://localhost:3000/user_teams/${id}`, {
+      return fetch(`http://standup-be.herokuapp.com/user_teams/${id}`, {
         credentials: 'include',
         method: "GET",
         headers: {
@@ -60,7 +60,7 @@ const TeamsStore = {
         name: teamToAdd,
         creator_id: tokenDecoded.id,
       }
-      await fetch(`http://localhost:3000/teams/${teamToAdd}`, {
+      await fetch(`http://standup-be.herokuapp.com/teams/${teamToAdd}`, {
         credentials: 'include',
         method: "POST",
         body: JSON.stringify(body),
@@ -91,7 +91,7 @@ const TeamsStore = {
     async deleteTeam(id) {
       console.log("in the delete teamStore w/ id:", id)
       id = parseInt(id)
-      await fetch(`http://localhost:3000/teams/${id}`, {
+      await fetch(`http://standup-be.herokuapp.com/teams/${id}`, {
         credentials: 'include',
         method: "DELETE",
       })
@@ -108,7 +108,7 @@ const TeamsStore = {
         name,
         creator_id: tokenDecoded.id,
       }
-      await fetch(`http://localhost:3000/teams/${id}`, {
+      await fetch(`http://standup-be.herokuapp.com/teams/${id}`, {
         credentials: 'include',
         method: "PUT",
         body: JSON.stringify(body),
@@ -125,7 +125,7 @@ const TeamsStore = {
     },
 
     async getTeamMembers(id) {
-      return fetch(`http://localhost:3000/teams_users/${id}`, {
+      return fetch(`http://standup-be.herokuapp.com/teams_users/${id}`, {
         credentials: 'include',
         method: "GET",
         headers: {
@@ -145,7 +145,7 @@ const TeamsStore = {
         team_name: teamName,
       }
       console.log("in the joinTeam for team:", teamName)
-      return fetch(`http://localhost:3000/teams_users`, {
+      return fetch(`http://standup-be.herokuapp.com/teams_users`, {
         credentials: 'include',
         method: "POST",
         body: JSON.stringify(body),

@@ -11,7 +11,7 @@ const SprintStore = {
   methods: {
 
     async getSprint(id, name) {
-      return fetch(`http://localhost:3000/sprints/${id}`, {
+      return fetch(`http://standup-be.herokuapp.com/sprints/${id}`, {
         credentials: 'include',
         method: "GET",
         headers: {
@@ -26,7 +26,7 @@ const SprintStore = {
         SprintStore.data.sprintInfo.push(resJson[0])
         SprintStore.data.teamName = name
         SprintStore.data.sprintId = id
-      
+
         console.log("SprintStore.data.sprintInfo: ", SprintStore.data.sprintInfo)
         console.log("resJson: ", resJson)
         return resJson
@@ -36,7 +36,7 @@ const SprintStore = {
     async postSprint(team_id, sprint_length, sprint_goal) {
       console.log("in the sprintstore postSprint rte:", team_id, sprint_length, sprint_goal)
       let postBody = { sprint_length, sprint_goal }
-      await fetch(`http://localhost:3000/sprints/${team_id}`, {
+      await fetch(`http://standup-be.herokuapp.com/sprints/${team_id}`, {
         credentials: 'include',
         method: "POST",
         body: JSON.stringify(postBody),

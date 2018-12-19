@@ -7,7 +7,7 @@
       <h5>Access past records in the <b>current sprint</b> for easy and qualitative <b>review</b></h5>
       <h5><b>↓</b> Solidify your status as an <b>Agile</b> pro today <b>↓</b> </h5>
     <b-form>
-      <b-button id="signUpBtn" @click="sendToProfile" href="http://localhost:3000/auth/github" variant="alert">Sign In with Github
+      <b-button id="signUpBtn" @click="sendToProfile" href="http://standup-be.herokuapp.com/auth/github" variant="alert">Sign In with Github
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/1024px-Octicons-mark-github.svg.png" />
       </b-button>
     </b-form>
