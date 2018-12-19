@@ -17,7 +17,7 @@
 
       <div class="sprintCardDiv" v-for="standup in standupsDay1[0]">
          <b-card class="sprintDailyCard" no-body
-             style="max-width: 33%;"
+             style="max-width: 30%;"
             img-src="http://www.clker.com/cliparts/l/w/w/n/7/c/purple-square-button-md.png"
             img-alt="Image"
             img-top>
@@ -60,7 +60,7 @@
     <!-- IM not proud of this. Last minuite Fluff for video -->
       <div class="yourCard">
         <b-card class="sprintDailyCard" no-body
-            style="max-width: 33%;"
+            style="max-width: 30%;"
            img-src="http://www.clker.com/cliparts/l/w/w/n/7/c/purple-square-button-md.png"
            img-alt="Image"
            img-top>
