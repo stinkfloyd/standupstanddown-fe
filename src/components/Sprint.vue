@@ -309,5 +309,6 @@ a {
 .yourCard {
   text-align: left;
   margin-left: 15%;
+  margin: auto;
 }
 </style>
